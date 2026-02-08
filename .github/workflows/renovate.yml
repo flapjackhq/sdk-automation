@@ -14,7 +14,7 @@ jobs:
         with:
           github-token: ${{ secrets.FLAPJACK_BOT_TOKEN }}
           repo-owner: flapjackhq
-          repo-name: api-clients-automation
+          repo-name: sdk-automation
           pull-request-title: 'chore(deps): dependencies'
           pull-request-body: |
             Weekly dependencies update.
