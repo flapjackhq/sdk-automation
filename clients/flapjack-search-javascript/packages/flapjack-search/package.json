@@ -11,7 +11,8 @@
   "scripts": {
     "build": "yarn clean && yarn tsup",
     "clean": "rm -rf ./dist || true",
-    "test": "vitest --run",
+    "test": "vitest --run --exclude '**/*.e2e.test.ts'",
+    "test:e2e": "vitest --run __tests__/flapjack-search.e2e.test.ts",
     "test:bundle": "publint . && attw --pack ."
   },
   "name": "flapjack-search",
