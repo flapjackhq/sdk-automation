@@ -272,7 +272,7 @@ export function isVerbose(): boolean {
 }
 
 export async function callGenerator(gen: Generator, withDebugger: boolean): Promise<void> {
-  const cmd = `yarn openapi-generator-cli --custom-generator=generators/build/libs/algolia-java-openapi-generator-1.0.0.jar generate --generator-key ${gen.key}`;
+  const cmd = `yarn openapi-generator-cli --custom-generator=generators/build/libs/flapjack-java-openapi-generator-1.0.0.jar generate --generator-key ${gen.key}`;
   if (!withDebugger) {
     await run(cmd, { language: 'java' });
     return;

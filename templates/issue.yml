@@ -1,3 +1,5 @@
+# Issue sync with Jira — disabled (was Algolia's Jira instance)
+# Re-enable and update URL/project/secrets when Flapjack Jira is set up.
 name: 'Issue sync with Jira'
 on:
   issues:
@@ -9,6 +11,7 @@ permissions:
 
 jobs:
   sync:
+    if: false  # disabled until Flapjack Jira is configured
     runs-on: ubuntu-latest
     steps:
       - name: Create ticket
@@ -22,7 +25,7 @@ jobs:
             const title = context.payload.issue.title;
             const body = context.payload.issue.body;
 
-            const res = await fetch('https://algolia.atlassian.net/rest/api/2/issue', {
+            const res = await fetch('https://flapjack.atlassian.net/rest/api/2/issue', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',

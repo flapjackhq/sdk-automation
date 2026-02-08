@@ -1,8 +1,8 @@
-import { advancedPersonalizationClient } from '@algolia/advanced-personalization';
-import { ApiError } from '@algolia/client-common';
+import { advancedPersonalizationClient } from '@flapjack/advanced-personalization';
+import { ApiError } from '@flapjack/client-common';
 
-const appId = process.env.ALGOLIA_APPLICATION_ID || '**** APP_ID *****';
-const apiKey = process.env.ALGOLIA_RECOMMENDATION_KEY || '**** RECOMMENDATION_API_KEY *****';
+const appId = process.env.FLAPJACK_APPLICATION_ID || '**** APP_ID *****';
+const apiKey = process.env.FLAPJACK_RECOMMENDATION_KEY || '**** RECOMMENDATION_API_KEY *****';
 
 // Init client with appId and apiKey
 const client = advancedPersonalizationClient(appId, apiKey, 'eu');

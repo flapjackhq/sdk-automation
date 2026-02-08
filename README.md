@@ -1,29 +1,27 @@
 <div align="center">
 
-# API Clients Automation
+# Flapjack SDK Automation
 
-The Algolia API clients are generated from [OpenAPI specs](https://swagger.io/specification/), leveraging the open-source [openapi-generator](https://openapi-generator.tech/) tool.
+The Flapjack API clients are generated from [OpenAPI specs](https://swagger.io/specification/), leveraging the open-source [openapi-generator](https://openapi-generator.tech/) tool.
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](./LICENSE.md)
 
 <p align="center">
   <strong>
-  <a href="https://api-clients-automation.netlify.app/">API clients automation documentation</a> •
-  <a href="https://www.algolia.com/doc/">Algolia documentation</a>
+  <a href="https://api-clients-automation.netlify.app/">SDK automation documentation</a> •
+  <a href="https://docs.flapjack.io/">Flapjack documentation</a>
   </strong>
 </p>
 
 </div>
 
-**Migration note from current API clients**
+> **Note:** This repository is forked from [Algolia's api-clients-automation](https://github.com/algolia/api-clients-automation). It generates Flapjack-branded API clients that are wire-compatible with the Algolia REST API.
 
-> In July 2022, we released an alpha version generated API clients for the JavaScript, Java and PHP languages. If you are using the latest stable of those clients and looking to upgrade, read the [migration guide](https://www.algolia.com/doc/libraries/sdk/upgrade). You can still browse the documentation of the stable clients on [the Algolia documentation](https://www.algolia.com/doc/).
+## Getting Started with the clients
 
-## 💡 Getting Started with the clients
+You can read `getting started` guides and how to use the API clients on [our documentation](https://docs.flapjack.io/sdks).
 
-You can read `getting started` guides and how to use the API clients on [our documentation](https://www.algolia.com/doc/libraries/sdk/install).
-
-## ✨ Contributing
+## Contributing
 
 > Looking to add a new client, or fix a bug? Make sure to take a look at [our contribution guides](https://api-clients-automation.netlify.app/docs/introduction).
 
@@ -68,12 +66,10 @@ Test the generated clients by running:
 
 For full documentation, visit the **[online documentation](https://api-clients-automation.netlify.app/docs/introduction)**.
 
-## ❓ Troubleshooting
+## Troubleshooting
 
-Encountering an issue with the API clients? Before reaching out to support, we recommend heading to our [FAQ](https://support.algolia.com/hc/sections/15061037630609-API-Client-FAQs) where you will find answers to the most common issues and gotchas with the client.
+Encountering an issue with the API clients? [Open an issue on GitHub](https://github.com/flapjackhq/sdk-automation/issues/new/choose).
 
-You can also [open an issue on GitHub](https://github.com/algolia/api-clients-automation/issues/new/choose).
+## License
 
-## 📄 License
-
-Algolia API clients automation is an open-sourced software licensed under the [MIT license](LICENSE.md).
+Flapjack SDK automation is an open-sourced software licensed under the [MIT license](LICENSE.md).

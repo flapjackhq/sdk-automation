@@ -16,14 +16,14 @@ templates/
 └── ... (java, javascript, python, go, ruby, php, kotlin, scala, swift, dart, csharp)
 ```
 
-Each language has different templates based on its generator needs. Templates are loaded and configured in `generators/src/main/java/com/algolia/codegen/Algolia{Lang}Generator.java`.
+Each language has different templates based on its generator needs. Templates are loaded and configured in `generators/src/main/java/com/algolia/codegen/Algolia{Lang}Generator.java` (internal Java package name retained from upstream fork).
 
 ## WHERE TO LOOK
 
 | Task                                | Location                                     | Notes                                            |
 | ----------------------------------- | -------------------------------------------- | ------------------------------------------------ |
 | Find language templates             | `{lang}/`                                    | Browse directory - structure varies per language |
-| Understand which templates are used | `generators/.../Algolia{Lang}Generator.java` | Check `supportingFiles()` and template config    |
+| Understand which templates are used | `generators/.../Algolia{Lang}Generator.java` | Check `supportingFiles()` and template config (class name retained from upstream) |
 | Change test output                  | `{lang}/tests/*.mustache`                    | CTS test templates                               |
 | Add code snippets                   | `{lang}/snippets/*.mustache`                 | Documentation examples                           |
 | Reusable fragments                  | `{lang}/**/partial_*.mustache`               | Included via `{{>partial_name}}`                 |
@@ -46,7 +46,7 @@ See [Mustache documentation](https://mustache.github.io/mustache.5.html) for ful
 
 ### Available Variables
 
-From OpenAPI Generator + custom additions in `Algolia{Lang}Generator.java`:
+From OpenAPI Generator + custom additions in the generator Java code:
 
 - `operations`, `operation`, `operationId`
 - `models`, `model`, `classname`

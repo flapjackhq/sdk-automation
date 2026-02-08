@@ -7,21 +7,21 @@
     "start": "tsc && node --env-file=../../.env dist/$0.js"
   },
   "dependencies": {
-    "@algolia/abtesting": "link:../../../clients/algoliasearch-client-javascript/packages/abtesting",
-    "@algolia/advanced-personalization": "link:../../../clients/algoliasearch-client-javascript/packages/advanced-personalization",
-    "@algolia/client-abtesting": "link:../../../clients/algoliasearch-client-javascript/packages/client-abtesting",
-    "@algolia/client-analytics": "link:../../../clients/algoliasearch-client-javascript/packages/client-analytics",
-    "@algolia/client-common": "link:../../../clients/algoliasearch-client-javascript/packages/client-common",
-    "@algolia/client-insights": "link:../../../clients/algoliasearch-client-javascript/packages/client-insights",
-    "@algolia/client-personalization": "link:../../../clients/algoliasearch-client-javascript/packages/client-personalization",
-    "@algolia/client-query-suggestions": "link:../../../clients/algoliasearch-client-javascript/packages/client-query-suggestions",
-    "@algolia/client-search": "link:../../../clients/algoliasearch-client-javascript/packages/client-search",
-    "@algolia/composition": "link:../../../clients/algoliasearch-client-javascript/packages/composition",
-    "@algolia/ingestion": "link:../../../clients/algoliasearch-client-javascript/packages/ingestion",
-    "@algolia/monitoring": "link:../../../clients/algoliasearch-client-javascript/packages/monitoring",
-    "@algolia/recommend": "link:../../../clients/algoliasearch-client-javascript/packages/recommend",
-    "@algolia/requester-node-http": "link:../../../clients/algoliasearch-client-javascript/packages/requester-node-http",
-    "algoliasearch": "link:../../../clients/algoliasearch-client-javascript/packages/algoliasearch"
+    "@flapjack/abtesting": "link:../../../clients/flapjack-search-javascript/packages/abtesting",
+    "@flapjack/advanced-personalization": "link:../../../clients/flapjack-search-javascript/packages/advanced-personalization",
+    "@flapjack/client-abtesting": "link:../../../clients/flapjack-search-javascript/packages/client-abtesting",
+    "@flapjack/client-analytics": "link:../../../clients/flapjack-search-javascript/packages/client-analytics",
+    "@flapjack/client-common": "link:../../../clients/flapjack-search-javascript/packages/client-common",
+    "@flapjack/client-insights": "link:../../../clients/flapjack-search-javascript/packages/client-insights",
+    "@flapjack/client-personalization": "link:../../../clients/flapjack-search-javascript/packages/client-personalization",
+    "@flapjack/client-query-suggestions": "link:../../../clients/flapjack-search-javascript/packages/client-query-suggestions",
+    "@flapjack/client-search": "link:../../../clients/flapjack-search-javascript/packages/client-search",
+    "@flapjack/composition": "link:../../../clients/flapjack-search-javascript/packages/composition",
+    "@flapjack/ingestion": "link:../../../clients/flapjack-search-javascript/packages/ingestion",
+    "@flapjack/monitoring": "link:../../../clients/flapjack-search-javascript/packages/monitoring",
+    "@flapjack/recommend": "link:../../../clients/flapjack-search-javascript/packages/recommend",
+    "@flapjack/requester-node-http": "link:../../../clients/flapjack-search-javascript/packages/requester-node-http",
+    "flapjack-search": "link:../../../clients/flapjack-search-javascript/packages/flapjack-search"
   },
   "devDependencies": {
     "typescript": "5.9.3"

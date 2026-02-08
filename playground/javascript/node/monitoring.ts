@@ -1,8 +1,8 @@
-import { ApiError } from '@algolia/client-common';
-import { monitoringClient } from '@algolia/monitoring';
+import { ApiError } from '@flapjack/client-common';
+import { monitoringClient } from '@flapjack/monitoring';
 
-const appId = process.env.ALGOLIA_APPLICATION_ID || '**** APP_ID *****';
-const apiKey = process.env.ALGOLIA_ADMIN_KEY || '**** MONITORING_KEY *****';
+const appId = process.env.FLAPJACK_APPLICATION_ID || '**** APP_ID *****';
+const apiKey = process.env.FLAPJACK_ADMIN_KEY || '**** MONITORING_KEY *****';
 
 // Init client with appId and apiKey
 const client = monitoringClient(appId, apiKey);

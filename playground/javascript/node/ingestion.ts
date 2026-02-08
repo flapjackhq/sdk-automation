@@ -1,13 +1,13 @@
-import { ApiError } from '@algolia/client-common';
-import { ingestionClient } from '@algolia/ingestion';
+import { ApiError } from '@flapjack/client-common';
+import { ingestionClient } from '@flapjack/ingestion';
 
-const appId = process.env.ALGOLIA_APPLICATION_ID || '**** APP_ID *****';
-const apiKey = process.env.ALGOLIA_ADMIN_KEY || '**** ADMIN_KEY *****';
+const appId = process.env.FLAPJACK_APPLICATION_ID || '**** APP_ID *****';
+const apiKey = process.env.FLAPJACK_ADMIN_KEY || '**** ADMIN_KEY *****';
 
 // Init client with appId and apiKey
 const client = ingestionClient(appId, apiKey, 'us', {
   authMode: 'WithinHeaders',
-  hosts: [{ url: 'staging-data.us.algolia.com', accept: 'readWrite', protocol: 'https' }],
+  hosts: [{ url: 'staging-data.us.flapjack.io', accept: 'readWrite', protocol: 'https' }],
 });
 
 async function testIngestion() {

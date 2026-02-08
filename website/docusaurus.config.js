@@ -1,13 +1,13 @@
 /** @type {import('@docusaurus/types').Config} */
 (
   module.exports = {
-    title: 'Algolia API clients automation',
-    tagline: 'Documentation for the API clients automation repository',
+    title: 'Flapjack SDK Automation',
+    tagline: 'Documentation for the SDK automation repository',
     url: 'https://api-clients-automation.netlify.app/',
     baseUrl: '/',
     favicon: 'img/logo-small.svg',
-    organizationName: 'Algolia',
-    projectName: 'Algolia API clients automation',
+    organizationName: 'Flapjack',
+    projectName: 'Flapjack SDK Automation',
     onBrokenLinks: 'throw',
 
     presets: [
@@ -18,7 +18,7 @@
           docs: {
             path: 'docs',
             sidebarPath: 'sidebars.js',
-            editUrl: 'https://github.com/algolia/api-clients-automation/edit/main/website/',
+            editUrl: 'https://github.com/flapjackhq/sdk-automation/edit/main/website/',
             showLastUpdateAuthor: true,
             showLastUpdateTime: true,
           },
@@ -34,9 +34,9 @@
       /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
       ({
         navbar: {
-          title: 'Algolia API clients Automation',
+          title: 'Flapjack SDK Automation',
           logo: {
-            alt: 'Algolia',
+            alt: 'Flapjack',
             src: 'img/logo-small.svg',
             srcDark: 'img/logo-small.svg',
           },
@@ -47,21 +47,16 @@
               position: 'left',
             },
             {
-              label: 'Algolia API clients documentation',
-              href: 'https://www.algolia.com/doc/',
+              label: 'Flapjack API clients documentation',
+              href: 'https://docs.flapjack.io/',
               position: 'right',
             },
             {
-              href: 'https://github.com/algolia/api-clients-automation',
+              href: 'https://github.com/flapjackhq/sdk-automation',
               position: 'right',
               className: 'header-github-link',
             },
           ],
-        },
-        algolia: {
-          appId: 'QPBQ67WNIG',
-          apiKey: 'b590ae1153bf574215ca1605c19eb1fe',
-          indexName: 'api-clients-automation',
         },
         colorMode: {
           defaultMode: 'light',
@@ -73,26 +68,18 @@
           links: [
             {
               label: 'GitHub',
-              to: 'https://github.com/algolia/api-clients-automation',
+              to: 'https://github.com/flapjackhq/sdk-automation',
             },
             {
-              label: 'Twitter',
-              to: 'https://twitter.com/algolia',
+              label: 'Flapjack Website',
+              to: 'https://flapjack.io/',
             },
             {
-              label: 'Algolia Website',
-              to: 'https://algolia.com/',
-            },
-            {
-              label: 'Algolia Documentation',
-              to: 'https://algolia.com/doc',
-            },
-            {
-              label: 'Algolia Blog',
-              to: 'https://algolia.com/blog',
+              label: 'Flapjack Documentation',
+              to: 'https://docs.flapjack.io/',
             },
           ],
-          copyright: `Copyright © ${new Date().getFullYear()} Algolia | Built with Docusaurus.`,
+          copyright: `Copyright © ${new Date().getFullYear()} Flapjack | Built with Docusaurus.`,
         },
       }),
     markdown: {
