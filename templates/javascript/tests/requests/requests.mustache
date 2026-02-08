@@ -2,9 +2,9 @@
 import { describe, test, expect } from 'vitest';
 
 import { {{{clientName}}} } from '{{{importPackage}}}';
-import { nodeEchoRequester } from '@flapjack/requester-testing';
-import type { EchoResponse } from '@flapjack/requester-testing';
-import type { ClientOptions } from '@flapjack/client-common';
+import { nodeEchoRequester } from '@flapjack-search/requester-testing';
+import type { EchoResponse } from '@flapjack-search/requester-testing';
+import type { ClientOptions } from '@flapjack-search/client-common';
 
 const appId = process.env.FLAPJACK_APPLICATION_ID || 'test_app_id';
 const apiKey = process.env.FLAPJACK_SEARCH_KEY || 'test_api_key';

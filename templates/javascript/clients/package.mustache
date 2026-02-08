@@ -17,7 +17,7 @@
     "test:bundle": "publint . && attw --pack ."
   },
   {{^isFlapjackSearchClient}}
-  "name": "@flapjack/{{packageName}}",
+  "name": "@flapjack-search/{{packageName}}",
   "description": "JavaScript client for {{packageName}}",
   "exports": {
     ".": {
@@ -53,10 +53,10 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "@flapjack/client-common": "{{utilsPackageVersion}}",
-    "@flapjack/requester-browser-xhr": "{{utilsPackageVersion}}",
-    "@flapjack/requester-node-http": "{{utilsPackageVersion}}",
-    "@flapjack/requester-fetch": "{{utilsPackageVersion}}"
+    "@flapjack-search/client-common": "{{utilsPackageVersion}}",
+    "@flapjack-search/requester-browser-xhr": "{{utilsPackageVersion}}",
+    "@flapjack-search/requester-node-http": "{{utilsPackageVersion}}",
+    "@flapjack-search/requester-fetch": "{{utilsPackageVersion}}"
   },
   {{/isFlapjackSearchClient}}
   {{#isFlapjackSearchClient}}
@@ -123,15 +123,15 @@
     {{#dependencies}}
     "{{{dependencyPackage}}}": "{{{dependencyVersion}}}",
     {{/dependencies}}
-    "@flapjack/client-common": "{{utilsPackageVersion}}",
-    "@flapjack/requester-browser-xhr": "{{utilsPackageVersion}}",
-    "@flapjack/requester-node-http": "{{utilsPackageVersion}}",
-    "@flapjack/requester-fetch": "{{utilsPackageVersion}}"
+    "@flapjack-search/client-common": "{{utilsPackageVersion}}",
+    "@flapjack-search/requester-browser-xhr": "{{utilsPackageVersion}}",
+    "@flapjack-search/requester-node-http": "{{utilsPackageVersion}}",
+    "@flapjack-search/requester-fetch": "{{utilsPackageVersion}}"
   },
   {{/isFlapjackSearchClient}}
   "devDependencies": {
     {{#isFlapjackSearchClient}}
-    "@flapjack/requester-testing": "{{utilsPackageVersion}}",
+    "@flapjack-search/requester-testing": "{{utilsPackageVersion}}",
     "@cloudflare/vitest-pool-workers": "0.12.8",
     "@cloudflare/workers-types": "4.20251115.0",
     "jsdom": "27.4.0",

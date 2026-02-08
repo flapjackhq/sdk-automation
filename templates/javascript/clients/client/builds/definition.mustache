@@ -1,7 +1,7 @@
-import { createXhrRequester } from '@flapjack/requester-browser-xhr';
-import { createHttpRequester } from '@flapjack/requester-node-http';
-import { createFetchRequester } from '@flapjack/requester-fetch';
-import { 
+import { createXhrRequester } from '@flapjack-search/requester-browser-xhr';
+import { createHttpRequester } from '@flapjack-search/requester-node-http';
+import { createFetchRequester } from '@flapjack-search/requester-fetch';
+import {
   IndexNotFoundError,
   IndicesInSameAppError,
   IndexAlreadyExistsError,
@@ -11,9 +11,9 @@ import {
   createBrowserLocalStorageCache,
   createNullCache,
   serializeQueryParameters
-} from '@flapjack/client-common';
+} from '@flapjack-search/client-common';
 
-import type { RequestOptions, ClientOptions } from '@flapjack/client-common';
+import type { RequestOptions, ClientOptions } from '@flapjack-search/client-common';
 
 import { create{{#lambda.titlecase}}{{clientName}}{{/lambda.titlecase}}, apiClientVersion } from '../src/{{clientName}}';
 

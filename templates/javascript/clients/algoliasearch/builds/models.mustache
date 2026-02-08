@@ -10,9 +10,9 @@ import type {
 } from '{{{dependencyPackage}}}';
 {{/dependencies}}
 
-import type { Direction } from '@flapjack/client-analytics';
-import type { ClientOptions } from '@flapjack/client-common';
-import type { EventType } from '@flapjack/client-personalization';
+import type { Direction } from '@flapjack-search/client-analytics';
+import type { ClientOptions } from '@flapjack-search/client-common';
+import type { EventType } from '@flapjack-search/client-personalization';
 import type {
   Action,
   AdvancedSyntaxFeatures,
@@ -107,9 +107,9 @@ import type {
   TypoToleranceEnum,
   Value,
   Widgets,
-} from '@flapjack/client-search';
-import { apiClientVersion } from '@flapjack/client-search';
-import type { Event, EventStatus, WatchResponse } from '@flapjack/ingestion';
+} from '@flapjack-search/client-search';
+import { apiClientVersion } from '@flapjack-search/client-search';
+import type { Event, EventStatus, WatchResponse } from '@flapjack-search/ingestion';
 
 import type {
   ABTest,
@@ -135,12 +135,12 @@ import type {
   Status,
   StopABTestProps,
   Variant,
-} from '@flapjack/client-abtesting';
+} from '@flapjack-search/client-abtesting';
 
 {{#dependencies}}
 export * from '{{{dependencyPackage}}}';
 {{/dependencies}}
-export * from '@flapjack/client-search';
+export * from '@flapjack-search/client-search';
 
 export type Region = {{#dependencies}} {{#dependencyHasRegionalHosts}}{{^-first}}|{{/-first}}{{#lambda.titlecase}}{{{dependencyName}}}Region{{/lambda.titlecase}} {{/dependencyHasRegionalHosts}}{{/dependencies}};
 export type RegionOptions = {{#dependencies}} {{#dependencyHasRegionalHosts}}{{^-first}}|{{/-first}}{{#lambda.titlecase}}{{{dependencyName}}}RegionOptions{{/lambda.titlecase}} {{/dependencyHasRegionalHosts}}{{/dependencies}};

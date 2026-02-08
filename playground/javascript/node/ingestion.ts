@@ -1,5 +1,5 @@
-import { ApiError } from '@flapjack/client-common';
-import { ingestionClient } from '@flapjack/ingestion';
+import { ApiError } from '@flapjack-search/client-common';
+import { ingestionClient } from '@flapjack-search/ingestion';
 
 const appId = process.env.FLAPJACK_APPLICATION_ID || '**** APP_ID *****';
 const apiKey = process.env.FLAPJACK_ADMIN_KEY || '**** ADMIN_KEY *****';

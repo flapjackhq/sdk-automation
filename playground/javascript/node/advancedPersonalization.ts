@@ -1,5 +1,5 @@
-import { advancedPersonalizationClient } from '@flapjack/advanced-personalization';
-import { ApiError } from '@flapjack/client-common';
+import { advancedPersonalizationClient } from '@flapjack-search/advanced-personalization';
+import { ApiError } from '@flapjack-search/client-common';
 
 const appId = process.env.FLAPJACK_APPLICATION_ID || '**** APP_ID *****';
 const apiKey = process.env.FLAPJACK_RECOMMENDATION_KEY || '**** RECOMMENDATION_API_KEY *****';

@@ -1,4 +1,4 @@
-import { ApiError } from '@flapjack/client-common';
+import { ApiError } from '@flapjack-search/client-common';
 import { flapjackSearch } from 'flapjack-search';
 import { liteClient } from 'flapjack-search/lite';
 

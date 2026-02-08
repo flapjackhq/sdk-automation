@@ -1,16 +1,16 @@
 // {{{generationBanner}}}
 
-import { createIterablePromise } from '@flapjack/client-common';
-import type { ApiError, ClientOptions, RequestOptions } from '@flapjack/client-common';
+import { createIterablePromise } from '@flapjack-search/client-common';
+import type { ApiError, ClientOptions, RequestOptions } from '@flapjack-search/client-common';
 
 {{#dependencies}}
 import { {{{dependencyName}}}Client } from '{{{dependencyPackage}}}';
 import type { {{#lambda.titlecase}}{{{dependencyName}}}{{/lambda.titlecase}}Client } from '{{{dependencyPackage}}}';
 {{/dependencies}}
 
-import type { ChunkedBatchOptions, ReplaceAllObjectsOptions, ReplaceAllObjectsWithTransformationResponse } from '@flapjack/client-search';
-import type { PartialUpdateObjectsOptions, SaveObjectsOptions } from '@flapjack/client-search';
-import type { WatchResponse } from '@flapjack/ingestion';
+import type { ChunkedBatchOptions, ReplaceAllObjectsOptions, ReplaceAllObjectsWithTransformationResponse } from '@flapjack-search/client-search';
+import type { PartialUpdateObjectsOptions, SaveObjectsOptions } from '@flapjack-search/client-search';
+import type { WatchResponse } from '@flapjack-search/ingestion';
 
 import type {
   InitClientOptions,

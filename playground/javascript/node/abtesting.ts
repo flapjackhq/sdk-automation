@@ -1,5 +1,5 @@
-import { abtestingClient } from '@flapjack/client-abtesting';
-import { ApiError } from '@flapjack/client-common';
+import { abtestingClient } from '@flapjack-search/client-abtesting';
+import { ApiError } from '@flapjack-search/client-common';
 
 const appId = process.env.FLAPJACK_APPLICATION_ID || '**** APP_ID *****';
 const apiKey = process.env.FLAPJACK_ANALYTICS_KEY || '**** ANALYTICS_API_KEY *****';

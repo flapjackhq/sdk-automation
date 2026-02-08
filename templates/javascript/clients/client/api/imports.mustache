@@ -16,7 +16,7 @@ import {
   createIterablePromise,
   ApiError,
   {{/isIngestionClient}}
-} from '@flapjack/client-common';
+} from '@flapjack-search/client-common';
 import type {
   CreateClientOptions,
   Headers,
@@ -27,7 +27,7 @@ import type {
   {{#isSearchClient}}
   IterableOptions,
   {{/isSearchClient}}
-} from '@flapjack/client-common';
+} from '@flapjack-search/client-common';
 
 {{#imports}}
 import type { {{classname}} } from '{{filename}}';

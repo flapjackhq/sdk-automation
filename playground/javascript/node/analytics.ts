@@ -1,5 +1,5 @@
-import { analyticsClient } from '@flapjack/client-analytics';
-import { ApiError } from '@flapjack/client-common';
+import { analyticsClient } from '@flapjack-search/client-analytics';
+import { ApiError } from '@flapjack-search/client-common';
 
 const appId = process.env.FLAPJACK_APPLICATION_ID || '**** APP_ID *****';
 const apiKey = process.env.FLAPJACK_ANALYTICS_KEY || '**** ANALYTICS_API_KEY *****';

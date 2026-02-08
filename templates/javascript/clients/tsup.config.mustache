@@ -100,7 +100,7 @@ const browserConfigs: Options[] = [
     dts: { entry: { 'browser': '{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}builds/browser.ts' } },
     entry: ['{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}builds/browser.ts', '{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}src/*.ts'],
     {{#isFlapjackSearchClient}}
-    external: ['dom', '@flapjack/client-common', '@flapjack/requester-browser-xhr'],
+    external: ['dom', '@flapjack-search/client-common', '@flapjack-search/requester-browser-xhr'],
     {{/isFlapjackSearchClient}}
   },
   {
@@ -111,7 +111,7 @@ const browserConfigs: Options[] = [
     entry: {'builds/browser.min': '{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}builds/browser.ts'},
     external: [],
     {{#isFlapjackSearchClient}}
-    noExternal: ['dom', '@flapjack/client-common', '@flapjack/requester-browser-xhr'],
+    noExternal: ['dom', '@flapjack-search/client-common', '@flapjack-search/requester-browser-xhr'],
     {{/isFlapjackSearchClient}}
     {{^isFlapjackSearchClient}}
     noExternal: getDependencies(pkg, 'xhr'),

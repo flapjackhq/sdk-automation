@@ -1,5 +1,5 @@
-import { ApiError } from '@flapjack/client-common';
-import { compositionClient } from '@flapjack/composition';
+import { ApiError } from '@flapjack-search/client-common';
+import { compositionClient } from '@flapjack-search/composition';
 
 const appId = process.env.METIS_APPLICATION_ID || '**** APP_ID *****';
 const apiKey = process.env.METIS_API_KEY || '**** ADMIN_KEY *****';
