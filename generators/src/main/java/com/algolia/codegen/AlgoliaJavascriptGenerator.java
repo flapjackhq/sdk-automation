@@ -65,7 +65,7 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
 
     supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
 
-    // `client` related files, `algoliasearch` have it's own logic below
+    // `client` related files, `flapjack-search` has its own logic below
     if (!isFlapjackSearchClient) {
       // models
       supportingFiles.add(new SupportingFile("client/model/clientMethodProps.mustache", "model", "clientMethodProps.ts"));
@@ -77,11 +77,11 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
       supportingFiles.add(new SupportingFile("client/builds/fetch.mustache", "builds", "fetch.ts"));
       supportingFiles.add(new SupportingFile("client/builds/worker.mustache", "builds", "worker.ts"));
     }
-    // `algoliasearch` related files
+    // `flapjack-search` related files
     else {
       supportingFiles.add(new SupportingFile("README.mustache", "", "../../README.md"));
 
-      // `algoliasearch` builds
+      // `flapjack-search` builds
       supportingFiles.add(new SupportingFile("flapjack-search/builds/definition.mustache", "builds", "browser.ts"));
       supportingFiles.add(new SupportingFile("flapjack-search/builds/definition.mustache", "builds", "node.ts"));
       supportingFiles.add(new SupportingFile("flapjack-search/builds/definition.mustache", "builds", "fetch.ts"));
