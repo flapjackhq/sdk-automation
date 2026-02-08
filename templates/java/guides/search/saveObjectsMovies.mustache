@@ -1,4 +1,4 @@
-package com.algolia;
+package com.flapjackhq;
 
 import java.io.InputStream;
 import java.net.URI;
@@ -14,16 +14,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class saveObjectsMovies {
   public static void main(String[] args) throws Exception {
     // Fetch sample dataset
-    URL url = new URI("https://dashboard.algolia.com/api/1/sample_datasets?type=movie").toURL();
+    URL url = new URI("https://dashboard.flapjack.foo/api/1/sample_datasets?type=movie").toURL();
     InputStream stream = url.openStream();
     ObjectMapper mapper = new ObjectMapper();
     List<JsonNode> movies = mapper.readValue(stream, new TypeReference<List<JsonNode>>() {});
     stream.close();
 
-    // Connect and authenticate with your Algolia app using your app ID and write API key
+    // Connect and authenticate with your Flapjack app using your app ID and write API key
     {{> snippets/init}}
 
-    // Save records in Algolia index
+    // Save records in Flapjack index
     {{#dynamicSnippet}}saveObjectsMovies{{/dynamicSnippet}};
     client.close();
   }

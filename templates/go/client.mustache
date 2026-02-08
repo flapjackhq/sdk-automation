@@ -17,9 +17,9 @@ import (
   "strings"
   "time"
 
-  "github.com/algolia/algoliasearch-client-go/v4/algolia/call"
-  "github.com/algolia/algoliasearch-client-go/v4/algolia/compression"
-  "github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
+  "github.com/flapjackhq/flapjack-search-go/v4/flapjack/call"
+  "github.com/flapjackhq/flapjack-search-go/v4/flapjack/compression"
+  "github.com/flapjackhq/flapjack-search-go/v4/flapjack/transport"
 )
 
 // APIClient manages communication with the {{appName}} API v{{version}}
@@ -255,8 +255,8 @@ func (c *APIClient) prepareRequest(
   
 	// Add the user agent to the request.
 	req.Header.Add("User-Agent", c.cfg.UserAgent)
-  req.Header.Add("X-Algolia-Application-Id", c.cfg.AppID)
-  req.Header.Add("X-Algolia-API-Key", c.cfg.ApiKey)
+  req.Header.Add("X-Flapjack-Application-Id", c.cfg.AppID)
+  req.Header.Add("X-Flapjack-API-Key", c.cfg.ApiKey)
   req.Header.Add("Content-Type", contentType)
   req.Header.Add("Accept", contentType)
 

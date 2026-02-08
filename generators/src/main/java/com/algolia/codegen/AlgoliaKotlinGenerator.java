@@ -30,7 +30,7 @@ public class AlgoliaKotlinGenerator extends KotlinClientCodegen {
     setApiPackage("api");
     setApiSuffix(Helpers.API_SUFFIX);
     setGroupId("com.algolia");
-    setArtifactId("algoliasearch-client-kotlin");
+    setArtifactId("flapjack-search-kotlin");
     setApiPackage("com.algolia.client.api");
     setPackageName("com.algolia.client");
     String client = (String) additionalProperties.get("client");

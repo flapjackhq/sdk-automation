@@ -20,7 +20,7 @@ type Args = {
 };
 
 export function getClientChoices(language?: LangArg, clientList = PROMPT_CLIENTS): string[] {
-  const withoutAlgoliaSearch = clientList.filter((client) => client !== 'algoliasearch');
+  const withoutAlgoliaSearch = clientList.filter((client) => client !== 'flapjack-search');
 
   return language === ALL || language === 'javascript' || language === 'dart' ? clientList : withoutAlgoliaSearch;
 }

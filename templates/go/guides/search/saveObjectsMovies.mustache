@@ -10,7 +10,7 @@ import (
 
 func saveObjectsMovies() {
   // read json file
-  url := "https://dashboard.algolia.com/api/1/sample_datasets?type=movie"
+  url := "https://dashboard.flapjackhq.com/api/1/sample_datasets?type=movie"
   response, err := http.Get(url)
 
   if err != nil {
@@ -32,7 +32,7 @@ func saveObjectsMovies() {
     // initiate client with your app ID and write API key
     {{> snippets/init}}
 
-	// push data to algolia
+	// push data to flapjack
 	result, err := {{#dynamicSnippet}}saveObjectsMovies{{/dynamicSnippet}}
 	if err != nil {
 		panic(err)

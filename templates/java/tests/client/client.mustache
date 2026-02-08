@@ -1,19 +1,19 @@
-package com.algolia.client;
+package com.flapjackhq.client;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import com.algolia.utils.HttpRequester;
-import com.algolia.EchoInterceptor;
-import com.algolia.EchoResponse;
-import com.algolia.api.{{client}};
-import com.algolia.model.{{import}}.*;
+import com.flapjackhq.utils.HttpRequester;
+import com.flapjackhq.EchoInterceptor;
+import com.flapjackhq.EchoResponse;
+import com.flapjackhq.api.{{client}};
+import com.flapjackhq.model.{{import}}.*;
 {{#isSearchClient}}
-import com.algolia.model.ingestion.WatchResponse;
+import com.flapjackhq.model.ingestion.WatchResponse;
 {{/isSearchClient}}
-import com.algolia.config.*;
+import com.flapjackhq.config.*;
 import java.util.*;
 import java.time.Duration;
 import org.junit.jupiter.api.BeforeAll;

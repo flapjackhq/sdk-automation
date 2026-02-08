@@ -80,9 +80,9 @@ public class AlgoliaScalaGenerator extends ScalaSttpClientCodegen {
   public void processOpts() {
     String client = (String) additionalProperties.get("client");
     String packageName = client.replace("-", ""); // e.g. query-suggestions -> querysuggestions
-    additionalProperties.put(CodegenConstants.MODEL_PACKAGE, "algoliasearch." + packageName);
-    additionalProperties.put(CodegenConstants.API_PACKAGE, "algoliasearch.api");
-    additionalProperties.put(CodegenConstants.INVOKER_PACKAGE, "algoliasearch");
+    additionalProperties.put(CodegenConstants.MODEL_PACKAGE, "flapjacksearch." + packageName);
+    additionalProperties.put(CodegenConstants.API_PACKAGE, "flapjacksearch.api");
+    additionalProperties.put(CodegenConstants.INVOKER_PACKAGE, "flapjacksearch");
 
     super.processOpts();
     setApiNameSuffix(Helpers.API_SUFFIX);

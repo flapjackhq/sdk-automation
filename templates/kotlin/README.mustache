@@ -1,21 +1,21 @@
 <p align="center">
-  <a href="https://www.algolia.com">
-    <img alt="Algolia for Kotlin" src="https://raw.githubusercontent.com/algolia/algoliasearch-client-common/master/banners/kotlin.png" >
+  <a href="https://www.flapjackhq.com">
+    <img alt="Flapjack for Kotlin" src="https://raw.githubusercontent.com/flapjackhq/flapjack-search-client-common/master/banners/kotlin.png" >
   </a>
 
-  <h4 align="center">The perfect starting point to integrate <a href="https://algolia.com" target="_blank">Algolia</a> within your Kotlin project</h4>
+  <h4 align="center">The perfect starting point to integrate <a href="https://flapjackhq.com" target="_blank">Flapjack</a> within your Kotlin project</h4>
 
   <p align="center">
-    <a href="https://central.sonatype.com/artifact/com.algolia/algoliasearch-client-kotlin"><img src="https://img.shields.io/maven-central/v/com.algolia/algoliasearch-client-kotlin?label=Download" alt="Latest version"></img></a>
+    <a href="https://central.sonatype.com/artifact/com.flapjackhq/flapjack-search-client-kotlin"><img src="https://img.shields.io/maven-central/v/com.flapjackhq/flapjack-search-client-kotlin?label=Download" alt="Latest version"></img></a>
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="Licence"></img></a>
   </p>
 </p>
 
 <p align="center">
-  <a href="https://www.algolia.com/doc/libraries/sdk/install#kotlin" target="_blank">Documentation</a>  •
-  <a href="https://discourse.algolia.com" target="_blank">Community Forum</a>  •
-  <a href="http://stackoverflow.com/questions/tagged/algolia" target="_blank">Stack Overflow</a>  •
-  <a href="https://github.com/algolia/algoliasearch-client-kotlin/issues" target="_blank">Report a bug</a>  •
+  <a href="https://www.flapjackhq.com/doc/libraries/sdk/install#kotlin" target="_blank">Documentation</a>  •
+  <a href="https://discourse.flapjackhq.com" target="_blank">Community Forum</a>  •
+  <a href="http://stackoverflow.com/questions/tagged/flapjack" target="_blank">Stack Overflow</a>  •
+  <a href="https://github.com/flapjackhq/flapjack-search-client-kotlin/issues" target="_blank">Report a bug</a>  •
   <a href="https://alg.li/support" target="_blank">Support</a>
 </p>
 
@@ -28,7 +28,7 @@
     - [Kotlinx serialization](https://github.com/Kotlin/kotlinx.serialization) for json parsing.
     - [Kotlinx coroutines](https://github.com/Kotlin/kotlinx.coroutines) for asynchronous operations.
     - [Ktor](https://github.com/ktorio/ktor) HTTP client.
-- The Kotlin client integrates the actual Algolia documentation in each source file: Request parameters, response fields, methods and concepts; all are documented and link to the corresponding url of the Algolia doc website.
+- The Kotlin client integrates the actual Flapjack documentation in each source file: Request parameters, response fields, methods and concepts; all are documented and link to the corresponding url of the Flapjack doc website.
 - The client is thread-safe. You can use `SearchClient`, `AnalyticsClient`, and `InsightsClient` in a multithreaded environment.
 
 ## 💡 Getting Started
@@ -43,7 +43,7 @@ repositories {
 }
 
 dependencies {
-  implementation "com.algolia:algoliasearch-client-kotlin:3.0.0-beta.31"
+  implementation "com.flapjackhq:flapjack-search-client-kotlin:3.0.0-beta.31"
 }
 ```
 
@@ -51,31 +51,31 @@ dependencies {
 
 ### BOM
 
-Alternatively, you can use algoliasearch-client-kotlin-bom by adding the following dependency to your build.gradle file
+Alternatively, you can use flapjack-search-client-kotlin-bom by adding the following dependency to your build.gradle file
 
 ```kotlin
 dependencies {
     // import Kotlin API client BOM
-    implementation platform("com.algolia:algoliasearch-client-kotlin-bom:3.0.0-beta.31}")
+    implementation platform("com.flapjackhq:flapjack-search-client-kotlin-bom:3.0.0-beta.31}")
 
     // define dependencies without versions
-    implementation 'com.algolia:algoliasearch-client-kotlin'
+    implementation 'com.flapjackhq:flapjack-search-client-kotlin'
     runtimeOnly 'io.ktor:ktor-client-okhttp'
 }
 ```
 
 ### Multiplaform
 
-In multiplatform projects, add Algolia API client dependency to commonMain, and choose an [engine](https://ktor.io/docs/http-client-engines.html) for each target.
+In multiplatform projects, add Flapjack API client dependency to commonMain, and choose an [engine](https://ktor.io/docs/http-client-engines.html) for each target.
 
-You can now import the Algolia API client in your project and play with it.
+You can now import the Flapjack API client in your project and play with it.
 
 ```kotlin
-import com.algolia.client.api.SearchClient
+import com.flapjackhq.client.api.SearchClient
 
 val client = SearchClient(appId = "YOUR_APP_ID", apiKey = "YOUR_API_KEY")
 
-// Add a new record to your Algolia index
+// Add a new record to your Flapjack index
 var response = client.saveObject(
   indexName = "<YOUR_INDEX_NAME>",
   body = buildJsonObject {
@@ -113,16 +113,16 @@ var response = client.search(
 println(response)
 ```
 
-For full documentation, visit the **[Algolia Kotlin API Client](https://www.algolia.com/doc/libraries/sdk/install#kotlin)**.
+For full documentation, visit the **[Flapjack Kotlin API Client](https://www.flapjackhq.com/doc/libraries/sdk/install#kotlin)**.
 
 ## ❓ Troubleshooting
 
-Encountering an issue? Before reaching out to support, we recommend heading to our [FAQ](https://support.algolia.com/hc/sections/15061037630609-API-Client-FAQs) where you will find answers for the most common issues and gotchas with the client. You can also open [a GitHub issue](https://github.com/algolia/api-clients-automation/issues/new?assignees=&labels=&projects=&template=Bug_report.md)
+Encountering an issue? Before reaching out to support, we recommend heading to our [FAQ](https://support.flapjackhq.com/hc/sections/15061037630609-API-Client-FAQs) where you will find answers for the most common issues and gotchas with the client. You can also open [a GitHub issue](https://github.com/flapjackhq/api-clients-automation/issues/new?assignees=&labels=&projects=&template=Bug_report.md)
 
 ## Contributing
 
-This repository hosts the code of the generated Algolia API client for Kotlin, if you'd like to contribute, head over to the [main repository](https://github.com/algolia/api-clients-automation). You can also find contributing guides on [our documentation website](https://api-clients-automation.netlify.app/docs/introduction).
+This repository hosts the code of the generated Flapjack API client for Kotlin, if you'd like to contribute, head over to the [main repository](https://github.com/flapjackhq/api-clients-automation). You can also find contributing guides on [our documentation website](https://api-clients-automation.netlify.app/docs/introduction).
 
 ## 📄 License
 
-The Algolia Kotlin API Client is an open-sourced software licensed under the [MIT license](LICENSE).
+The Flapjack Kotlin API Client is an open-sourced software licensed under the [MIT license](LICENSE).

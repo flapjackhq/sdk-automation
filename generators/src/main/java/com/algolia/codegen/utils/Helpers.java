@@ -182,12 +182,12 @@ public class Helpers {
 
   /**
    * Get the current version of the given client from the
-   * `clients/algoliasearch-client-javascript/packages/${client}/package.json` file, defaults to
+   * `clients/flapjack-search-javascript/packages/${client}/package.json` file, defaults to
    * 0.0.1-alpha.0 if not found
    */
   public static String getPackageJsonVersion(String client) throws ConfigException {
     try {
-      JsonNode packageJson = Helpers.readJsonFile("clients/algoliasearch-client-javascript/packages/" + client + "/package.json");
+      JsonNode packageJson = Helpers.readJsonFile("clients/flapjack-search-javascript/packages/" + client + "/package.json");
       String value = packageJson.get("version").asText();
 
       if (value.isEmpty()) {

@@ -4,7 +4,7 @@ import { describe, test, expect } from 'vitest';
 import { union } from '../helpers.js';
 
 import { {{{clientName}}} } from '{{{importPackage}}}';
-import type { RequestOptions } from '@algolia/client-common';
+import type { RequestOptions } from '@flapjack/client-common';
 
 if (!process.env.{{e2eAppID}}) {
   throw new Error("please provide an `{{e2eAppID}}` env var for e2e tests");

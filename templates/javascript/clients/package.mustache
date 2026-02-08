@@ -11,12 +11,12 @@
   "scripts": {
     "build": "yarn clean && yarn tsup && yarn rollup -c rollup.config.js",
     "clean": "rm -rf ./dist || true",
-    {{#isAlgoliasearchClient}}
+    {{#isFlapjackSearchClient}}
     "test": "tsc -p __tests__/tsconfig.json && vitest --run",
-    {{/isAlgoliasearchClient}}
+    {{/isFlapjackSearchClient}}
     "test:bundle": "publint . && attw --pack ."
   },
-  {{^isAlgoliasearchClient}}
+  {{^isFlapjackSearchClient}}
   "name": "@flapjack/{{packageName}}",
   "description": "JavaScript client for {{packageName}}",
   "exports": {
@@ -58,8 +58,8 @@
     "@flapjack/requester-node-http": "{{utilsPackageVersion}}",
     "@flapjack/requester-fetch": "{{utilsPackageVersion}}"
   },
-  {{/isAlgoliasearchClient}}
-  {{#isAlgoliasearchClient}}
+  {{/isFlapjackSearchClient}}
+  {{#isFlapjackSearchClient}}
   "name": "{{packageName}}",
   "description": "A fully-featured and blazing-fast JavaScript API client to interact with Flapjack Search API.",
   "exports": {
@@ -128,15 +128,15 @@
     "@flapjack/requester-node-http": "{{utilsPackageVersion}}",
     "@flapjack/requester-fetch": "{{utilsPackageVersion}}"
   },
-  {{/isAlgoliasearchClient}}
+  {{/isFlapjackSearchClient}}
   "devDependencies": {
-    {{#isAlgoliasearchClient}}
+    {{#isFlapjackSearchClient}}
     "@flapjack/requester-testing": "{{utilsPackageVersion}}",
     "@cloudflare/vitest-pool-workers": "0.12.8",
     "@cloudflare/workers-types": "4.20251115.0",
     "jsdom": "27.4.0",
     "vitest": "4.0.18",
-    {{/isAlgoliasearchClient}}
+    {{/isFlapjackSearchClient}}
     "@arethetypeswrong/cli": "0.18.2",
     "@types/node": "25.1.0",
     "publint": "0.3.17",

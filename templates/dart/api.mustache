@@ -1,6 +1,6 @@
 // {{{generationBanner}}}
 
-import 'package:algolia_client_core/algolia_client_core.dart';
+import 'package:flapjack_client_core/flapjack_client_core.dart';
 import 'package:{{pubName}}/src/deserialize.dart';
 import 'package:{{pubName}}/src/version.dart';
 
@@ -187,7 +187,7 @@ final class {{classname}} implements ApiClient {
     return this.customPost(path: path, parameters: parameters, requestOptions: requestOptions);
   }
 
-  {{^isAlgoliasearchClient}}
+  {{^isFlapjackSearchClient}}
   @Deprecated('This operation has been deprecated, use `customPut` instead')
   Future<Object> put({
     required  String path,
@@ -214,7 +214,7 @@ final class {{classname}} implements ApiClient {
   }) async {
     return this.customDelete(path: path, parameters: parameters, requestOptions: requestOptions);
   }
-  {{/isAlgoliasearchClient}}
+  {{/isFlapjackSearchClient}}
 {{/isCompositionClient}}
 
   @override

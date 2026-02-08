@@ -2,10 +2,10 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Algolia\AlgoliaSearch\Model\Search\Anchoring;
-use Algolia\AlgoliaSearch\Model\Search\Condition;
-use Algolia\AlgoliaSearch\Model\Search\Consequence;
-use Algolia\AlgoliaSearch\Model\Search\Rule;
+use Flapjack\FlapjackSearch\Model\Search\Anchoring;
+use Flapjack\FlapjackSearch\Model\Search\Condition;
+use Flapjack\FlapjackSearch\Model\Search\Consequence;
+use Flapjack\FlapjackSearch\Model\Search\Rule;
 
 $condition = (new Condition())
   ->setAnchoring((new Anchoring())::IS)

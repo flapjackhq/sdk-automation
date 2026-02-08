@@ -4,7 +4,7 @@
 
 namespace {{apiPackage}};
 
-use {{invokerPackage}}\Algolia;
+use {{invokerPackage}}\Flapjack;
 use {{invokerPackage}}\ApiException;
 use {{invokerPackage}}\Configuration\{{configClassname}};
 use {{invokerPackage}}\Exceptions\ExceededRetriesException;
@@ -15,7 +15,7 @@ use {{invokerPackage}}\Iterators\SynonymIterator;
 use {{invokerPackage}}\ObjectSerializer;
 use {{invokerPackage}}\RetryStrategy\ApiWrapper;
 use {{invokerPackage}}\RetryStrategy\ApiWrapperInterface;
-use {{invokerPackage}}\RetryStrategy\AlgoliaResponse;
+use {{invokerPackage}}\RetryStrategy\FlapjackResponse;
 use {{invokerPackage}}\RetryStrategy\ClusterHosts;
 use {{invokerPackage}}\Support\Helpers;
 
@@ -23,7 +23,7 @@ use {{invokerPackage}}\Support\Helpers;
 use {{invokerPackage}}\Configuration\IngestionConfig;
 {{/isSearchClient}}
 
-use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
+use Flapjack\FlapjackSearch\Exceptions\NotFoundException;
 
 /**
  * {{classname}} Class Doc Comment
@@ -64,7 +64,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
      * Instantiate the client with basic credentials and region
      *
      * @param string $appId  Application ID
-     * @param string $apiKey Algolia API Key
+     * @param string $apiKey Flapjack API Key
      * @param string $region Region
      */
     public static function create($appId = null, $apiKey = null, $region = null)
@@ -80,7 +80,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
      * Instantiate the client with basic credentials
      *
      * @param string $appId  Application ID
-     * @param string $apiKey Algolia API Key
+     * @param string $apiKey Flapjack API Key
      */
     public static function create($appId = null, $apiKey = null)
     {
@@ -98,7 +98,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
         $config = clone $config;
 
         $apiWrapper = new ApiWrapper(
-            Algolia::getHttpClient(),
+            Flapjack::getHttpClient(),
             $config,
             self::getClusterHosts($config)
         );
@@ -107,7 +107,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
 
         {{#isSearchClient}}
         if (null !== $config->getTransformationRegion()) {
-            $ingestionConfig = IngestionConfig::create($config->getAppId(), $config->getAlgoliaApiKey(), $config->getTransformationRegion());
+            $ingestionConfig = IngestionConfig::create($config->getAppId(), $config->getFlapjackApiKey(), $config->getTransformationRegion());
 
             if ($hosts = $config->getHosts()) {
                 if ($config->getHasFullHosts()) {
@@ -252,7 +252,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
         {{/allParams}}
         * @param array $requestOptions Request options
         *
-        * @return AlgoliaResponse
+        * @return FlapjackResponse
         */
         public function {{operationId}}WithHttpInfo({{^vendorExtensions.x-group-parameters}}{{#allParams}}${{paramName}}{{^required}} = null{{/required}}, {{/allParams}}{{/vendorExtensions.x-group-parameters}}{{#vendorExtensions.x-group-parameters}}$associative_array{{/vendorExtensions.x-group-parameters}} $requestOptions = [])
         {
@@ -349,7 +349,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
     * Helper: Chunks the given `objects` list in subset of 1000 elements max in order to make it fit in `batch` requests.
     *
     * @param string $indexName          the `indexName` to replace `objects` in
-    * @param array  $objects            the array of `objects` to store in the given Algolia `indexName`
+    * @param array  $objects            the array of `objects` to store in the given Flapjack `indexName`
     * @param array  $action             the `batch` `action` to perform on the given array of `objects`, defaults to `addObject`
     * @param bool   $waitForTasks       whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable
     * @param array  $batchSize          The size of the chunk of `objects`. The number of `push` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
@@ -385,7 +385,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
             }
 
             if ($waitForTasks && !empty($responses) && (0 === sizeof($responses) % $waitBatchSize || $count === sizeof($objects))) {
-                $timeoutCalculation = 'Algolia\AlgoliaSearch\Support\Helpers::linearTimeout';
+                $timeoutCalculation = 'Flapjack\FlapjackSearch\Support\Helpers::linearTimeout';
 
                 foreach (array_slice($responses, $offset, $waitBatchSize) as $response) {
                     $retry = 0;
@@ -430,7 +430,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
      * @param int|null $maxRetries Maximum number of retries
      * @param int|null $timeout Timeout
      *
-     * @return \Algolia\AlgoliaSearch\Model\Search\GetTaskResponse
+     * @return \Flapjack\FlapjackSearch\Model\Search\GetTaskResponse
      *
      * @throws ExceededRetriesException
      *
@@ -464,7 +464,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
      * @param int|null $maxRetries Maximum number of retries
      * @param int|null $timeout Timeout
      *
-     * @return \Algolia\AlgoliaSearch\Model\Search\GetTaskResponse
+     * @return \Flapjack\FlapjackSearch\Model\Search\GetTaskResponse
      *
      * @throws ExceededRetriesException
      *
@@ -527,7 +527,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
             $apiKey,
             $maxRetries,
             $timeout,
-            'Algolia\AlgoliaSearch\Support\Helpers::linearTimeout',
+            'Flapjack\FlapjackSearch\Support\Helpers::linearTimeout',
             $requestOptions
         );
     }
@@ -572,10 +572,10 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
     }
 
     /**
-    * Helper: Similar to the `replaceAllObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. The `region` must have been passed to the client instantiation method.
+    * Helper: Similar to the `replaceAllObjects` method but requires a Push connector (https://www.flapjack.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Flapjack. The `region` must have been passed to the client instantiation method.
     *
     * @param string $indexName      The `indexName` to replace `objects` in.
-    * @param array  $objects        The array of `objects` to store in the given Algolia `indexName`.
+    * @param array  $objects        The array of `objects` to store in the given Flapjack `indexName`.
     * @param array  $batchSize      The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
     * @param array  $requestOptions Request options
     */
@@ -642,7 +642,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
     * See https://api-clients-automation.netlify.app/docs/custom-helpers/#replaceallobjects for implementation details.
     *
     * @param string $indexName      The `indexName` to replace `objects` in.
-    * @param array  $objects        The array of `objects` to store in the given Algolia `indexName`.
+    * @param array  $objects        The array of `objects` to store in the given Flapjack `indexName`.
     * @param array  $batchSize      The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
     * @param array  $requestOptions Request options
     */
@@ -704,7 +704,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
     * Helper: Saves the given array of objects in the given index. The `chunkedBatch` helper is used under the hood, which creates a `batch` requests with at most 1000 objects in it.
     *
     * @param string $indexName      The `indexName` to replace `objects` in.
-    * @param array  $objects        The array of `objects` to store in the given Algolia `indexName`.
+    * @param array  $objects        The array of `objects` to store in the given Flapjack `indexName`.
     * @param bool   $waitForTasks   Whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable
     * @param int    $batchSize      The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
     * @param array  $requestOptions Request options
@@ -716,12 +716,12 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
 
     /**
      * Helper: Similar to the `saveObjects` method but requires a Push connector
-     * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
-     * to be created first, in order to transform records before indexing them to Algolia. The
+     * (https://www.flapjack.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+     * to be created first, in order to transform records before indexing them to Flapjack. The
      * `region` must have been passed to the client instantiation method.
      *
      * @param string $indexName      the `indexName` to replace `objects` in
-     * @param array  $objects        the array of `objects` to store in the given Algolia `indexName`
+     * @param array  $objects        the array of `objects` to store in the given Flapjack `indexName`
      * @param bool   $waitForTasks   Whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable
      * @param int    $batchSize      The size of the chunk of `objects`. The number of `push` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
      * @param array  $requestOptions Request options
@@ -759,7 +759,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
     * Helper: Replaces object content of all the given objects according to their respective `objectID` field. The `chunkedBatch` helper is used under the hood, which creates a `batch` requests with at most 1000 objects in it.
     *
     * @param string $indexName         The `indexName` to replace `objects` in.
-    * @param array  $objects           The array of `objects` to store in the given Algolia `indexName`.
+    * @param array  $objects           The array of `objects` to store in the given Flapjack `indexName`.
     * @param bool   $createIfNotExists To be provided if non-existing objects are passed, otherwise, the call will fail.
     * @param bool   $waitForTasks      Whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable
     * @param int    $batchSize      The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
@@ -771,12 +771,12 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
 
     /**
      * Helper: Similar to the `partialUpdateObjects` method but requires a Push connector
-     * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
-     * to be created first, in order to transform records before indexing them to Algolia. The
+     * (https://www.flapjack.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+     * to be created first, in order to transform records before indexing them to Flapjack. The
      * `region` must have been passed to the client instantiation method.
      *
      * @param string $indexName         the `indexName` to replace `objects` in
-     * @param array  $objects           the array of `objects` to store in the given Algolia `indexName`
+     * @param array  $objects           the array of `objects` to store in the given Flapjack `indexName`
      * @param bool   $createIfNotExists To be provided if non-existing objects are passed, otherwise, the call will fail.
      * @param bool   $waitForTasks      Whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable
      * @param int    $batchSize         The size of the chunk of `objects`. The number of `push` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
@@ -795,7 +795,7 @@ use Algolia\AlgoliaSearch\Exceptions\NotFoundException;
     * Helper: Chunks the given `objects` list in subset of 1000 elements max in order to make it fit in `batch` requests.
     *
     * @param string $indexName      the `indexName` to replace `objects` in
-    * @param array  $objects        the array of `objects` to store in the given Algolia `indexName`
+    * @param array  $objects        the array of `objects` to store in the given Flapjack `indexName`
     * @param array  $action         the `batch` `action` to perform on the given array of `objects`, defaults to `addObject`
     * @param bool   $waitForTasks   whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable
     * @param int    $batchSize      The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.

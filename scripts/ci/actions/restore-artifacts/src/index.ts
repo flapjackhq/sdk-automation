@@ -38,7 +38,7 @@ async function extractLanguageArtifact(
   languageName: string,
 ): Promise<void> {
   await download(artifactClient, languageArtifact.id);
-  await io.rmRF(`clients/algoliasearch-client-${languageName}`);
+  await io.rmRF(`clients/flapjack-search-${languageName}`);
   await io.rmRF(`docs/guides/${languageName}`);
   await io.rmRF(`docs/snippets/${languageName}`);
   await exec(`unzip -q -o clients-${languageName}.zip`);

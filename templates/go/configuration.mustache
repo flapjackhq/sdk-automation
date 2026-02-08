@@ -2,7 +2,7 @@
 package {{packageName}}
 
 import (
-  "github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
+  "github.com/flapjackhq/flapjack-search-go/v4/flapjack/transport"
 )
 
 {{#hasRegionalHost}}
@@ -32,7 +32,7 @@ type TransformationConfiguration struct {
   Region ingestion.Region
 }
 
-// SetTransformationRegion sets the region of the current algolia application to the configuration, this is required to be called if you wish to leverage the transformation pipeline (via the *WithTransformation methods).
+// SetTransformationRegion sets the region of the current flapjack application to the configuration, this is required to be called if you wish to leverage the transformation pipeline (via the *WithTransformation methods).
 func (s *SearchConfiguration) SetTransformationRegion(region ingestion.Region) {
   s.Transformation = &TransformationConfiguration{
     Region: region,

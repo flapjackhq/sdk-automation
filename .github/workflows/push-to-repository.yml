@@ -8,10 +8,10 @@ on:
         required: true
         type: choice
         options:
-          - AlgoliaWeb
+          - docs
           - mcp-node
           - docs-new
-          - n8n-nodes-algolia
+          - docs
 
 jobs:
   push:
@@ -31,6 +31,6 @@ jobs:
 
       - run: yarn workspace scripts pushToRepository ${{ inputs.name }} 
         env:
-          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
-          GH_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.FLAPJACK_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.FLAPJACK_BOT_TOKEN }}
           FORCE: true

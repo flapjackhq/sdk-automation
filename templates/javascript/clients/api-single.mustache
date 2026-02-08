@@ -15,16 +15,16 @@ export function create{{#lambda.titlecase}}{{clientName}}{{/lambda.titlecase}}({
     appId: appIdOption,
     apiKey: apiKeyOption,
     authMode,
-    algoliaAgents,{{#hasRegionalHost}} region: regionOption,{{/hasRegionalHost}}
+    flapjackAgents,{{#hasRegionalHost}} region: regionOption,{{/hasRegionalHost}}
     ...options
   }: CreateClientOptions{{#hasRegionalHost}} & RegionOptions{{/hasRegionalHost}}) {
   const auth = createAuth(appIdOption, apiKeyOption, authMode);
   const transporter = createTransporter({
     hosts: getDefaultHosts({{#hostWithAppID}}appIdOption{{/hostWithAppID}}{{#hasRegionalHost}}regionOption{{/hasRegionalHost}}),
     ...options,
-    algoliaAgent: getAlgoliaAgent({
-      algoliaAgents,
-      client: '{{{algoliaAgent}}}',
+    flapjackAgent: getFlapjackAgent({
+      flapjackAgents,
+      client: '{{{flapjackAgent}}}',
       version: apiClientVersion,
     }),
     baseHeaders: {
@@ -62,20 +62,20 @@ export function create{{#lambda.titlecase}}{{clientName}}{{/lambda.titlecase}}({
     },
 
     /**
-     * Get the value of the `algoliaAgent`, used by our libraries internally and telemetry system.
+     * Get the value of the `flapjackAgent`, used by our libraries internally and telemetry system.
      */
     get _ua(): string {
-      return transporter.algoliaAgent.value;
+      return transporter.flapjackAgent.value;
     },
 
     /**
-     * Adds a `segment` to the `x-algolia-agent` sent with every requests.
+     * Adds a `segment` to the `x-flapjack-agent` sent with every requests.
      *
-     * @param segment - The algolia agent (user-agent) segment to add.
+     * @param segment - The flapjack agent (user-agent) segment to add.
      * @param version - The version of the agent.
      */
-    addAlgoliaAgent(segment: string, version?: string | undefined): void {
-      transporter.algoliaAgent.add({ segment, version });
+    addFlapjackAgent(segment: string, version?: string | undefined): void {
+      transporter.flapjackAgent.add({ segment, version });
     },
 
     /**
@@ -86,9 +86,9 @@ export function create{{#lambda.titlecase}}{{clientName}}{{/lambda.titlecase}}({
      */
     setClientApiKey({ apiKey }: { apiKey: string }): void {
       if (!authMode || authMode === 'WithinHeaders') {
-        transporter.baseHeaders['x-algolia-api-key'] = apiKey;
+        transporter.baseHeaders['x-flapjack-api-key'] = apiKey;
       } else {
-        transporter.baseQueryParameters['x-algolia-api-key'] = apiKey;
+        transporter.baseQueryParameters['x-flapjack-api-key'] = apiKey;
       }
     },
 

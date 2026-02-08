@@ -8,7 +8,7 @@ void main() async {
 
   // read json file from url
   final datasetRequest = await http.get(
-      Uri.parse('https://dashboard.algolia.com/api/1/sample_datasets?type=movie'));
+      Uri.parse('https://dashboard.flapjackhq.com/api/1/sample_datasets?type=movie'));
 
   if (datasetRequest.statusCode == 200) {
     final moviesData = jsonDecode(datasetRequest.body);
@@ -22,7 +22,7 @@ void main() async {
     }
 
     try {
-      // push data to algolia
+      // push data to flapjack
       await client.batch(
         indexName: 'movies_index',
         batchWriteParams: BatchWriteParams(requests: batchRequests),

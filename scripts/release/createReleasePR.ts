@@ -107,7 +107,7 @@ export async function parseCommit(commit: string): Promise<Commit> {
   const languageScopes = new Set();
   for (const change of diff.split('\n').map((line) => line.trim())) {
     if (change.startsWith('clients/')) {
-      const lang = change.split('/')[1].replace('algoliasearch-client-', '') as Language;
+      const lang = change.split('/')[1].replace('flapjack-search-', '') as Language;
       languageScopes.add(lang);
     }
   }

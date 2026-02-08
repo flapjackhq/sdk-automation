@@ -53,38 +53,11 @@ export type RepositoryConfiguration = {
   tasks: Array<RepositoryTask>;
 };
 
+// Flapjack: External repository push configs (placeholder — add as needed)
 export const pushToRepositoryConfiguration: {
-  [k in 'AlgoliaWeb' | 'mcp-node' | 'docs-new' | 'n8n-nodes-algolia']: RepositoryConfiguration;
+  [k in 'docs']: RepositoryConfiguration;
 } = {
-  AlgoliaWeb: {
-    baseBranch: 'develop',
-    tasks: [
-      {
-        prBranch: 'feat/update-generated-onboarding-guides',
-        commitMessage: 'feat: update generated onboarding guides',
-        files: {
-          type: 'guides',
-          names: ['saveObjectsMovies'],
-          output: '_client/src/routes/launchpad/onboarding-snippets.json',
-          placeholderVariables: {
-            ALGOLIA_APPLICATION_ID: 'YourApplicationID',
-            ALGOLIA_API_KEY: 'YourWriteAPIKey',
-            '<YOUR_INDEX_NAME>': 'movies_index',
-          },
-        },
-      },
-      {
-        prBranch: 'feat/update-generated-ingestion-guides',
-        commitMessage: 'feat: update generated ingestion guides',
-        files: {
-          type: 'guides',
-          names: ['pushSetup'],
-          output: '_client/src/routes/connectors/generated/ingestion-snippets.json',
-        },
-      },
-    ],
-  },
-  'docs-new': {
+  docs: {
     baseBranch: 'main',
     tasks: [
       {
@@ -97,45 +70,6 @@ export const pushToRepositoryConfiguration: {
           includeSnippets: true,
           includeSLA: true,
           placeholderVariables: { 'openapi: 3.0.2': 'openapi: 3.1.0' },
-        },
-      },
-      {
-        prBranch: 'feat/automated-update-for-guides',
-        commitMessage: 'feat: update generated guides',
-        files: {
-          type: 'guides',
-          output: 'specs/guides.json',
-        },
-      },
-    ],
-  },
-  'mcp-node': {
-    baseBranch: 'main',
-    tasks: [
-      {
-        prBranch: 'feat/automated-update-for-specs',
-        commitMessage: 'feat: update specs',
-        files: {
-          type: 'specs',
-          ext: 'json',
-          output: 'src/data',
-          placeholderVariables: { appId: 'applicationId' },
-        },
-      },
-    ],
-  },
-  'n8n-nodes-algolia': {
-    baseBranch: 'main',
-    tasks: [
-      {
-        prBranch: 'feat/auto-openapi-sync',
-        commitMessage: 'feat: update OpenAPI specs',
-        files: {
-          type: 'specs',
-          ext: 'json',
-          output: 'nodes/Algolia/specs',
-          clients: ['search'],
-          placeholderVariables: { appId: 'applicationId' },
         },
       },
     ],

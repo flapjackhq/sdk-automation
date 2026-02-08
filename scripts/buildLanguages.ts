@@ -84,7 +84,7 @@ async function buildLanguage(
     case 'php':
       // await runComposerInstall();
       // await run(
-      //   `clients/algoliasearch-client-php/vendor/bin/phpstan analyse --memory-limit 512M -c clients/algoliasearch-client-php/phpstan.neon ${cwd}`,
+      //   `clients/flapjack-search-php/vendor/bin/phpstan analyse --memory-limit 512M -c clients/flapjack-search-php/phpstan.neon ${cwd}`,
       //   { language },
       // );
       break;

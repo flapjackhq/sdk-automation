@@ -13,7 +13,7 @@ export type {{#lambda.titlecase}}{{clientName}}{{/lambda.titlecase}} = ReturnTyp
     },
     logger: createNullLogger(),
     requester: createHttpRequester(),
-    algoliaAgents: [{ segment: 'Node.js', version: process.versions.node }],
+    flapjackAgents: [{ segment: 'Node.js', version: process.versions.node }],
     responsesCache: createNullCache(),
     requestsCache: createNullCache(),
     hostsCache: createMemoryCache(),

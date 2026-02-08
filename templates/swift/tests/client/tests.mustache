@@ -30,7 +30,7 @@
         {{#dynamicTemplate}}{{/dynamicTemplate}}
         {{#testUserAgent}}
           let pattern = "{{#lambda.escapeJSON}}{{{match.value}}}{{/lambda.escapeJSON}}"
-          XCTAssertNoThrow(try regexMatch(echoResponse.algoliaAgent, against: pattern), "Expected " + echoResponse.algoliaAgent + " to match the following regex: " + pattern);
+          XCTAssertNoThrow(try regexMatch(echoResponse.flapjackAgent, against: pattern), "Expected " + echoResponse.flapjackAgent + " to match the following regex: " + pattern);
         {{/testUserAgent}}
         {{#testTimeouts}}
           XCTAssertEqual(TimeInterval({{{matchResponseTimeout}}}) / 1000, echoResponse.timeout);

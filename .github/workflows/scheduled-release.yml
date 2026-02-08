@@ -24,4 +24,4 @@ jobs:
 
       - run: yarn cli release
         env:
-          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.FLAPJACK_BOT_TOKEN }}

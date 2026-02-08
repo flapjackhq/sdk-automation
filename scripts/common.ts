@@ -187,7 +187,7 @@ export async function emptyDirExceptForDotGit(dir: string): Promise<void> {
 export async function runComposerInstall(): Promise<void> {
   if (!CI) {
     await run('composer install && composer dump-autoload', {
-      cwd: 'clients/algoliasearch-client-php',
+      cwd: 'clients/flapjack-search-php',
       language: 'php',
     });
   }

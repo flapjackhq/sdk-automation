@@ -79,7 +79,7 @@ import Foundation
     {{#returnType}}
 
         guard let body = response.body else {
-            throw AlgoliaError.missingData
+            throw FlapjackError.missingData
         }
 
       return body{{/returnType}}
@@ -104,17 +104,17 @@ import Foundation
     {{^returnType}}@discardableResult{{/returnType}}
     {{#vendorExtensions}}{{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}open{{/nonPublicApi}} func {{operationId}}WithHTTPInfo{{#vendorExtensions.x-is-generic}}<T: Codable>{{/vendorExtensions.x-is-generic}}({{#allParams}}{{paramName}}: {{#isEnum}}{{#isContainer}}[{{enumName}}_{{operationId}}]{{/isContainer}}{{^isContainer}}{{enumName}}_{{operationId}}{{/isContainer}}{{/isEnum}}{{^isEnum}}{{#lambda.to-codable}}{{{dataType}}}{{/lambda.to-codable}}{{/isEnum}}{{^required}}? = nil{{/required}}, {{/allParams}}requestOptions userRequestOptions: RequestOptions? = nil) async throws -> Response<{{{returnType}}}{{#vendorExtensions.x-is-generic}}<T>{{/vendorExtensions.x-is-generic}}{{#returnType}}{{#isResponseOptional}}?{{/isResponseOptional}}{{/returnType}}{{^returnType}}AnyCodable{{/returnType}}> {
         {{#pathParams}}{{#isString}}{{#required}}guard !{{{paramName}}}.isEmpty else {
-          throw AlgoliaError.invalidArgument("{{{paramName}}}", "{{{operationId}}}")
+          throw FlapjackError.invalidArgument("{{{paramName}}}", "{{{operationId}}}")
         }
 
         {{/required}}{{/isString}}{{/pathParams}}{{#queryParams}}{{#isString}}{{#required}}guard !{{{paramName}}}.isEmpty else {
-          throw AlgoliaError.invalidArgument("{{{paramName}}}", "{{{operationId}}}")
+          throw FlapjackError.invalidArgument("{{{paramName}}}", "{{{operationId}}}")
         }
 
         {{/required}}{{/isString}}{{/queryParams}}
         {{^pathParams}}let{{/pathParams}}{{#pathParams}}{{#-first}}var{{/-first}}{{/pathParams}} resourcePath = "{{{path}}}"{{#pathParams}}
         let {{paramName}}PreEscape = "\({{#isEnum}}{{paramName}}{{#isContainer}}{{{dataType}}}{{/isContainer}}{{^isContainer}}.rawValue{{/isContainer}}{{/isEnum}}{{^isEnum}}APIHelper.mapValueToPathItem({{paramName}}){{/isEnum}})"{{^x-is-custom-request}}
-        let {{paramName}}PostEscape = {{paramName}}PreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAlgoliaAllowed) ?? ""{{/x-is-custom-request}}
+        let {{paramName}}PostEscape = {{paramName}}PreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathFlapjackAllowed) ?? ""{{/x-is-custom-request}}
         resourcePath = resourcePath.replacingOccurrences(of: "{{=<% %>=}}{<%baseName%>}<%={{ }}=%>", with: {{^x-is-custom-request}}{{paramName}}PostEscape{{/x-is-custom-request}}{{#x-is-custom-request}}{{paramName}}PreEscape{{/x-is-custom-request}}, options: .literal, range: nil){{/pathParams}}
         {{#bodyParam}}
         let body = {{paramName}}

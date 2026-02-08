@@ -2,11 +2,11 @@
   # {{{testName}}}
   def test_{{#lambda.snakecase}}{{testType}}{{/lambda.snakecase}}{{testIndex}}
     {{#autoCreateClient}}
-    client = Algolia::{{#lambda.pascalcase}}{{{client}}}{{/lambda.pascalcase}}.create(
+    client = Flapjack::{{#lambda.pascalcase}}{{{client}}}{{/lambda.pascalcase}}.create(
       'APP_ID',
       'API_KEY',
       {{#hasRegionalHost}}'{{{defaultRegion}}}',{{/hasRegionalHost}}
-      { requester: Algolia::Transport::EchoRequester.new }
+      { requester: Flapjack::Transport::EchoRequester.new }
     )
     {{/autoCreateClient}}
     {{#steps}}

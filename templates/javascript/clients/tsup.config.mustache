@@ -7,11 +7,11 @@ import pkg from "./package.json" with {type:'json'}
 
 const nodeOptions: Options = {
   ...getBaseNodeOptions(pkg, __dirname),
-  dts: { entry: { 'node': '{{#isAlgoliasearchClient}}lite/{{/isAlgoliasearchClient}}builds/node.ts' } },
-  entry: ['{{#isAlgoliasearchClient}}lite/{{/isAlgoliasearchClient}}builds/node.ts', '{{#isAlgoliasearchClient}}lite/{{/isAlgoliasearchClient}}src/*.ts'],
-  {{#isAlgoliasearchClient}}
+  dts: { entry: { 'node': '{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}builds/node.ts' } },
+  entry: ['{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}builds/node.ts', '{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}src/*.ts'],
+  {{#isFlapjackSearchClient}}
   outDir: 'dist/lite',
-  {{/isAlgoliasearchClient}}
+  {{/isFlapjackSearchClient}}
 };
 
 const nodeConfigs: Options[] = [
@@ -25,7 +25,7 @@ const nodeConfigs: Options[] = [
     format: 'esm',
     name: `node ${pkg.name} esm`
   },
-  {{^isAlgoliasearchClient}}
+  {{^isFlapjackSearchClient}}
   {
     ...nodeOptions,
     format: 'esm',
@@ -42,12 +42,12 @@ const nodeConfigs: Options[] = [
     external: getDependencies(pkg, 'worker'),
     entry: ['builds/worker.ts', 'src/*.ts'],
   },
-  {{/isAlgoliasearchClient}}
-  {{#isAlgoliasearchClient}}
+  {{/isFlapjackSearchClient}}
+  {{#isFlapjackSearchClient}}
   {
     ...nodeOptions,
     format: 'cjs',
-    name: 'node algoliasearch cjs',
+    name: 'node flapjack-search cjs',
     dts: { entry: { 'node': 'builds/node.ts' } },
     entry: ['builds/node.ts'],
     outDir: 'dist',
@@ -55,7 +55,7 @@ const nodeConfigs: Options[] = [
   {
     ...nodeOptions,
     format: 'esm',
-    name: 'node algoliasearch esm',
+    name: 'node flapjack-search esm',
     dts: { entry: { 'node': 'builds/node.ts' } },
     entry: ['builds/node.ts'],
     outDir: 'dist',
@@ -63,7 +63,7 @@ const nodeConfigs: Options[] = [
   {
     ...nodeOptions,
     format: 'esm',
-    name: 'fetch algoliasearch esm',
+    name: 'fetch flapjack-search esm',
     dts: { entry: { 'fetch': 'builds/fetch.ts' } },
     entry: ['builds/fetch.ts'],
     outDir: 'dist',
@@ -72,24 +72,24 @@ const nodeConfigs: Options[] = [
   {
     ...nodeOptions,
     format: 'esm',
-    name: 'worker algoliasearch esm',
+    name: 'worker flapjack-search esm',
     dts: { entry: { 'worker': 'builds/worker.ts' } },
     entry: ['builds/worker.ts'],
     outDir: 'dist',
     external: getDependencies(pkg, 'worker'),
   },
-  {{/isAlgoliasearchClient}}
+  {{/isFlapjackSearchClient}}
 ];
 
 const browserOptions: Options = {
   ...getBaseBrowserOptions(pkg, __dirname),
-  {{^isAlgoliasearchClient}}
+  {{^isFlapjackSearchClient}}
   globalName: '{{clientName}}',
-  {{/isAlgoliasearchClient}}
-  {{#isAlgoliasearchClient}}
+  {{/isFlapjackSearchClient}}
+  {{#isFlapjackSearchClient}}
   globalName: 'lite',
   outDir: 'dist/lite',
-  {{/isAlgoliasearchClient}}
+  {{/isFlapjackSearchClient}}
 };
 
 const browserConfigs: Options[] = [
@@ -97,31 +97,31 @@ const browserConfigs: Options[] = [
     ...browserOptions,
     minify: false,
     name: `browser ${pkg.name} esm`,
-    dts: { entry: { 'browser': '{{#isAlgoliasearchClient}}lite/{{/isAlgoliasearchClient}}builds/browser.ts' } },
-    entry: ['{{#isAlgoliasearchClient}}lite/{{/isAlgoliasearchClient}}builds/browser.ts', '{{#isAlgoliasearchClient}}lite/{{/isAlgoliasearchClient}}src/*.ts'],
-    {{#isAlgoliasearchClient}}
-    external: ['dom', '@algolia/client-common', '@algolia/requester-browser-xhr'],
-    {{/isAlgoliasearchClient}}
+    dts: { entry: { 'browser': '{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}builds/browser.ts' } },
+    entry: ['{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}builds/browser.ts', '{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}src/*.ts'],
+    {{#isFlapjackSearchClient}}
+    external: ['dom', '@flapjack/client-common', '@flapjack/requester-browser-xhr'],
+    {{/isFlapjackSearchClient}}
   },
   {
     ...browserOptions,
     dts: false,
     minify: true,
     name: `browser ${pkg.name} min esm`,
-    entry: {'builds/browser.min': '{{#isAlgoliasearchClient}}lite/{{/isAlgoliasearchClient}}builds/browser.ts'},
+    entry: {'builds/browser.min': '{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}builds/browser.ts'},
     external: [],
-    {{#isAlgoliasearchClient}}
-    noExternal: ['dom', '@algolia/client-common', '@algolia/requester-browser-xhr'],
-    {{/isAlgoliasearchClient}}
-    {{^isAlgoliasearchClient}}
+    {{#isFlapjackSearchClient}}
+    noExternal: ['dom', '@flapjack/client-common', '@flapjack/requester-browser-xhr'],
+    {{/isFlapjackSearchClient}}
+    {{^isFlapjackSearchClient}}
     noExternal: getDependencies(pkg, 'xhr'),
-    {{/isAlgoliasearchClient}}
+    {{/isFlapjackSearchClient}}
   },
-  {{#isAlgoliasearchClient}}
+  {{#isFlapjackSearchClient}}
   {
     ...browserOptions,
-    name: 'algoliasearch esm',
-    globalName: 'algoliasearch',
+    name: 'flapjack-search esm',
+    globalName: 'flapjackSearch',
     dts: { entry: { 'browser': 'builds/browser.ts' } },
     entry: ['builds/browser.ts'],
     outDir: 'dist',
@@ -129,8 +129,8 @@ const browserConfigs: Options[] = [
   },
   {
     ...browserOptions,
-    name: 'algoliasearch min esm',
-    globalName: 'algoliasearch',
+    name: 'flapjack-search min esm',
+    globalName: 'flapjackSearch',
     dts: false,
     minify: true,
     entry: {'browser.min': 'builds/browser.ts'},
@@ -138,7 +138,7 @@ const browserConfigs: Options[] = [
     external: [],
     noExternal: getDependencies(pkg, 'xhr'),
   }
-  {{/isAlgoliasearchClient}}
+  {{/isFlapjackSearchClient}}
 ];
 
 export default defineConfig([...nodeConfigs, ...browserConfigs]);

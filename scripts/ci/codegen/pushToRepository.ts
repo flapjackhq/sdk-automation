@@ -193,7 +193,7 @@ async function pushToRepository(repository: string, config: RepositoryConfigurat
       repo: repository,
       title: task.commitMessage,
       body: [
-        'This PR is automatically created by https://github.com/algolia/api-clients-automation',
+        'This PR is automatically created by https://github.com/flapjackhq/sdk-automation',
         'It contains the latest generated guides.',
       ].join('\n\n'),
       base: config.baseBranch,

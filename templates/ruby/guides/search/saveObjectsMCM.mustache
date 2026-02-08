@@ -13,7 +13,7 @@ configurations = get_all_app_id_configurations
 # Send the records to each cluster
 configurations.each do |appID, apiKey|
   begin
-    client = Algolia::SearchClient.create(appID, apiKey)
+    client = Flapjack::SearchClient.create(appID, apiKey)
     {{#dynamicSnippet}}saveObjectsPlaylists{{/dynamicSnippet}}
   rescue Exception => e
     puts("An error occurred: #{e}")

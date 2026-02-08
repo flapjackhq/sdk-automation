@@ -29,7 +29,7 @@ module {{moduleName}}
         config.write_timeout = {{x-timeouts.server.write}}
       end
 
-      @api_client = Algolia::ApiClient.new(config)
+      @api_client = Flapjack::ApiClient.new(config)
     end
 
     def self.create(app_id, api_key{{#hasRegionalHost}}, region = nil{{/hasRegionalHost}}, opts = {})
@@ -65,7 +65,7 @@ module {{moduleName}}
       {{/hostsWithoutVariables}}
       {{/hostsWithoutVariables.size}}
 
-      config = Algolia::Configuration.new(app_id, api_key, hosts, '{{{baseName}}}', opts)
+      config = Flapjack::Configuration.new(app_id, api_key, hosts, '{{{baseName}}}', opts)
       new(config)
     end
 

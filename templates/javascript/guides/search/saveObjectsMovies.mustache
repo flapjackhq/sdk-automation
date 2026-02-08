@@ -2,9 +2,9 @@
 
 {{> snippets/init}}
 
-// Fetch and index objects in Algolia
+// Fetch and index objects in Flapjack
 const processRecords = async () => {
-  const datasetRequest = await fetch('https://dashboard.algolia.com/api/1/sample_datasets?type=movie');
+  const datasetRequest = await fetch('https://dashboard.flapjack.com/api/1/sample_datasets?type=movie');
   const movies = await datasetRequest.json();
   return {{#dynamicSnippet}}saveObjectsMovies{{/dynamicSnippet}}
 };

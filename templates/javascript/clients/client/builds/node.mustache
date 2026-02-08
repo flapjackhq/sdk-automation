@@ -18,7 +18,7 @@ import { createHmac } from 'node:crypto';
       },
       logger: createNullLogger(),
       requester: createHttpRequester(),
-      algoliaAgents: [{ segment: 'Node.js', version: process.versions.node }],
+      flapjackAgents: [{ segment: 'Node.js', version: process.versions.node }],
       responsesCache: createNullCache(),
       requestsCache: createNullCache(),
       hostsCache: createMemoryCache(),

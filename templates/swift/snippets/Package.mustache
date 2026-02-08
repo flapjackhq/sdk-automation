@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "AlgoliaSearchClientSnippets",
+  name: "FlapjackSearchClientSnippets",
   platforms: [
     .iOS(.v13),
     .macOS(.v11),
@@ -13,19 +13,19 @@ let package = Package(
   ],
   products: [
       .library(
-          name: "AlgoliaSearchClientSnippets",
-          targets: ["AlgoliaSearchClientSnippets"]),
+          name: "FlapjackSearchClientSnippets",
+          targets: ["FlapjackSearchClientSnippets"]),
   ],
   dependencies: [
-      .package(path: "../../../clients/algoliasearch-client-swift")
+      .package(path: "../../../clients/flapjack-search-client-swift")
   ],
   targets: [
     .target(
-      name: "AlgoliaSearchClientSnippets",
+      name: "FlapjackSearchClientSnippets",
       dependencies: [{{#packageList}}
         .product(
           name: "{{{.}}}",
-          package: "algoliasearch-client-swift"
+          package: "flapjack-search-client-swift"
         ),{{/packageList}}
       ]
     )

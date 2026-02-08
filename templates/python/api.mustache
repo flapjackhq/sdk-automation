@@ -2,7 +2,7 @@
 {{> imports}}
 
 {{#isSearchClient}}
-from algoliasearch.search.models import (
+from flapjacksearch.search.models import (
   Action,
   BatchRequest,
   BrowseParamsObject,
@@ -14,36 +14,36 @@ from algoliasearch.search.models import (
   WatchResponse,
 )
 
-from algoliasearch.ingestion.models import WatchResponse as IngestionWatchResponse
-from algoliasearch.ingestion.config import IngestionConfig
-from algoliasearch.ingestion.client import (IngestionClient, IngestionClientSync)
-from algoliasearch.ingestion.models import Action as IngestionAction
+from flapjacksearch.ingestion.models import WatchResponse as IngestionWatchResponse
+from flapjacksearch.ingestion.config import IngestionConfig
+from flapjacksearch.ingestion.client import (IngestionClient, IngestionClientSync)
+from flapjacksearch.ingestion.models import Action as IngestionAction
 {{/isSearchClient}}
 {{#isIngestionClient}}
-from algoliasearch.ingestion.models import (Action, WatchResponse, Event, PushTaskRecords)
+from flapjacksearch.ingestion.models import (Action, WatchResponse, Event, PushTaskRecords)
 {{/isIngestionClient}}
 
 {{#operations}}{{#operation}}{{#imports}}
-from algoliasearch.{{packageName}}.models import {{{.}}}
+from flapjacksearch.{{packageName}}.models import {{{.}}}
 {{/imports}}{{/operation}}{{/operations}}
 
 
 {{#modes}}
 {{#operations}}
 class {{classname}}{{#isSyncClient}}Sync{{/isSyncClient}}:
-    """The Algolia '{{classname}}{{#isSyncClient}}Sync{{/isSyncClient}}' class.
+    """The Flapjack '{{classname}}{{#isSyncClient}}Sync{{/isSyncClient}}' class.
 
     Args:
-    app_id (str): The Algolia application ID to retrieve information from.
-    api_key (str): The Algolia api key bound to the given `app_id`.
-    {{#hasRegionalHost}}region ({{#allowedRegions}}"{{.}}"{{^-last}} | {{/-last}}{{/allowedRegions}}): The region of your Algolia application.{{/hasRegionalHost}}
+    app_id (str): The Flapjack application ID to retrieve information from.
+    api_key (str): The Flapjack api key bound to the given `app_id`.
+    {{#hasRegionalHost}}region ({{#allowedRegions}}"{{.}}"{{^-last}} | {{/-last}}{{/allowedRegions}}): The region of your Flapjack application.{{/hasRegionalHost}}
 
     Returns:
     The initialized API client.
 
     Example:
-    _client = {{classname}}{{#isSyncClient}}Sync{{/isSyncClient}}("YOUR_ALGOLIA_APP_ID", "YOUR_ALGOLIA_API_KEY"{{#hasRegionalHost}}, region="{{#allowedRegions}}'{{.}}'{{^-last}} or {{/-last}}{{/allowedRegions}}"{{/hasRegionalHost}})
-    _client_with_named_args = {{classname}}{{#isSyncClient}}Sync{{/isSyncClient}}(app_id="YOUR_ALGOLIA_APP_ID", api_key="YOUR_ALGOLIA_API_KEY"{{#hasRegionalHost}}, region="{{#allowedRegions}}'{{.}}'{{^-last}} or {{/-last}}{{/allowedRegions}}"{{/hasRegionalHost}})
+    _client = {{classname}}{{#isSyncClient}}Sync{{/isSyncClient}}("YOUR_FLAPJACK_APP_ID", "YOUR_FLAPJACK_API_KEY"{{#hasRegionalHost}}, region="{{#allowedRegions}}'{{.}}'{{^-last}} or {{/-last}}{{/allowedRegions}}"{{/hasRegionalHost}})
+    _client_with_named_args = {{classname}}{{#isSyncClient}}Sync{{/isSyncClient}}(app_id="YOUR_FLAPJACK_APP_ID", api_key="YOUR_FLAPJACK_API_KEY"{{#hasRegionalHost}}, region="{{#allowedRegions}}'{{.}}'{{^-last}} or {{/-last}}{{/allowedRegions}}"{{/hasRegionalHost}})
 
     See `{{classname}}{{#isSyncClient}}Sync{{/isSyncClient}}.create_with_config` for advanced configuration.
     """
@@ -168,7 +168,7 @@ class {{classname}}{{#isSyncClient}}Sync{{/isSyncClient}}:
         :type {{paramName}}: {{dataType}}{{#optional}}, optional{{/optional}}
         {{/allParams}}
         :param request_options: The request options to send along with the query, they will be merged with the transporter base parameters (headers, query params, timeouts, etc.). (optional)
-        :return: Returns the raw algoliasearch 'APIResponse' object.
+        :return: Returns the raw flapjacksearch 'APIResponse' object.
         """
 
         {{#isDeprecated}}warn("{{{httpMethod}}} {{{path}}} is deprecated.", DeprecationWarning){{/isDeprecated}}

@@ -36,7 +36,7 @@ public class AlgoliaPythonGenerator extends PythonClientCodegen {
     setPackageName(packageName);
     setApiPackage("");
     setModelPackage("models");
-    setOutputDir(getOutputDir() + "/algoliasearch/");
+    setOutputDir(getOutputDir() + "/flapjacksearch/");
 
     super.processOpts();
 
@@ -104,12 +104,12 @@ public class AlgoliaPythonGenerator extends PythonClientCodegen {
 
   @Override
   public String toApiImport(String name) {
-    return super.toApiImport(name).replace("from ", "from algoliasearch.");
+    return super.toApiImport(name).replace("from ", "from flapjacksearch.");
   }
 
   @Override
   public String toModelImport(String name) {
-    return super.toModelImport(name).replace("from ", "from algoliasearch.");
+    return super.toModelImport(name).replace("from ", "from flapjacksearch.");
   }
 
   @Override
@@ -128,7 +128,7 @@ public class AlgoliaPythonGenerator extends PythonClientCodegen {
     List<Map<String, String>> imports = operations.getImports();
 
     for (Map<String, String> imp : imports) {
-      imp.put("import", imp.get("import").replace("from " + CLIENT + ".", "from algoliasearch." + CLIENT + "."));
+      imp.put("import", imp.get("import").replace("from " + CLIENT + ".", "from flapjacksearch." + CLIENT + "."));
     }
 
     operations.setImports(imports);

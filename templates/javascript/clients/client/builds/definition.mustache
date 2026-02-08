@@ -1,6 +1,6 @@
-import { createXhrRequester } from '@algolia/requester-browser-xhr';
-import { createHttpRequester } from '@algolia/requester-node-http';
-import { createFetchRequester } from '@algolia/requester-fetch';
+import { createXhrRequester } from '@flapjack/requester-browser-xhr';
+import { createHttpRequester } from '@flapjack/requester-node-http';
+import { createFetchRequester } from '@flapjack/requester-fetch';
 import { 
   IndexNotFoundError,
   IndicesInSameAppError,
@@ -11,9 +11,9 @@ import {
   createBrowserLocalStorageCache,
   createNullCache,
   serializeQueryParameters
-} from '@algolia/client-common';
+} from '@flapjack/client-common';
 
-import type { RequestOptions, ClientOptions } from '@algolia/client-common';
+import type { RequestOptions, ClientOptions } from '@flapjack/client-common';
 
 import { create{{#lambda.titlecase}}{{clientName}}{{/lambda.titlecase}}, apiClientVersion } from '../src/{{clientName}}';
 
@@ -37,7 +37,7 @@ export {
 export * from '../model';
 
 {{#isSearchClient}}
-{{^isAlgoliasearchClient}}
+{{^isFlapjackSearchClient}}
 import type { 
   AccountCopyIndexOptions,
   BrowseResponse,
@@ -48,7 +48,7 @@ import type {
   SearchSynonymsResponse,
   UpdatedAtResponse,
 } from '../model';
-{{/isAlgoliasearchClient}}
+{{/isFlapjackSearchClient}}
 {{/isSearchClient}}
 
 export function {{clientName}}(

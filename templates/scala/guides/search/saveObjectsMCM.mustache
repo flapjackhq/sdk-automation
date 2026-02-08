@@ -2,7 +2,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 {{> snippets/import}}
-import algoliasearch.config.RequestOptions
+import flapjacksearch.config.RequestOptions
 
 val getAllAppIDConfigurations: () => Map[String, String] = () => {
   Map(/* A map of your MCM AppID/ApiKey pairs */)

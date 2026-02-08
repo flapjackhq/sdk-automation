@@ -1,9 +1,9 @@
-import com.algolia.client.api.{{client}}
-import com.algolia.client.configuration.*
-import com.algolia.client.transport.*
+import com.flapjackhq.client.api.{{client}}
+import com.flapjackhq.client.configuration.*
+import com.flapjackhq.client.transport.*
 {{#isSearchClient}}
-import com.algolia.client.extensions.*
+import com.flapjackhq.client.extensions.*
 {{/isSearchClient}}
 {{#isCompositionClient}}
-import com.algolia.client.model.{{import}}.RequestBody
+import com.flapjackhq.client.model.{{import}}.RequestBody
 {{/isCompositionClient}}

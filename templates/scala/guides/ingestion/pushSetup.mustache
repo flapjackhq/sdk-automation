@@ -3,8 +3,8 @@ import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContextExecutor}
 
 {{> snippets/import}}
-import algoliasearch.config.*
-import algoliasearch.ingestion.*
+import flapjacksearch.config.*
+import flapjacksearch.ingestion.*
 
 import org.json4s.native.JsonMethods
 import org.json4s.jvalue2extractable
@@ -15,7 +15,7 @@ object PushSetup {
     implicit val formats: org.json4s.Formats = JsonSupport.format
 
     val result = Source.fromFile("records.json").getLines().mkString
-    val records = JsonMethods.parse(result).extract[Seq[algoliasearch.ingestion.PushTaskRecords]]
+    val records = JsonMethods.parse(result).extract[Seq[flapjacksearch.ingestion.PushTaskRecords]]
 
     // use the region matching your applicationID
     {{> snippets/init}}

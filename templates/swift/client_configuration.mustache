@@ -33,11 +33,11 @@ public struct {{#lambda.client-to-name}}{{{client}}}{{/lambda.client-to-name}}Cl
       compression: CompressionAlgorithm = .none
   ) throws {
     guard !appID.isEmpty else {
-      throw AlgoliaError.invalidCredentials("appId")
+      throw FlapjackError.invalidCredentials("appId")
     }
 
     guard !apiKey.isEmpty else {
-      throw AlgoliaError.invalidCredentials("apiKey")
+      throw FlapjackError.invalidCredentials("apiKey")
     }
 
     self.appID = appID
@@ -46,8 +46,8 @@ public struct {{#lambda.client-to-name}}{{{client}}}{{/lambda.client-to-name}}Cl
     self.readTimeout = readTimeout
     self.logLevel = logLevel
     self.defaultHeaders = [
-      "X-Algolia-Application-Id": appID,
-      "X-Algolia-API-Key": apiKey,
+      "X-Flapjack-Application-Id": appID,
+      "X-Flapjack-API-Key": apiKey,
       "Content-Type": "application/json"
     ].merging(defaultHeaders ?? [:]) { (_, new) in new }
     self.compression = compression
@@ -60,7 +60,7 @@ public struct {{#lambda.client-to-name}}{{{client}}}{{/lambda.client-to-name}}Cl
         -> RetryableHost
       {
         guard let url = URL(string: "https://\(appID)\(components.suffix)") else {
-          throw AlgoliaError.runtimeError("Malformed URL")
+          throw FlapjackError.runtimeError("Malformed URL")
         }
 
         return RetryableHost(url: url, callType: components.callType)
@@ -91,7 +91,7 @@ public struct {{#lambda.client-to-name}}{{{client}}}{{/lambda.client-to-name}}Cl
   {{/uniqueHost}}
   {{#hasRegionalHost}}
       guard {{#fallbackToAliasHost}}region == nil || {{/fallbackToAliasHost}}authorizedRegions.contains(region{{#fallbackToAliasHost}}!{{/fallbackToAliasHost}}) else {
-          throw AlgoliaError.runtimeError(
+          throw FlapjackError.runtimeError(
             "`region` {{^fallbackToAliasHost}}is required and {{/fallbackToAliasHost}}must be one of the following: \(authorizedRegions.map { $0.rawValue }.joined(separator: ", "))"
           )
         }
@@ -100,7 +100,7 @@ public struct {{#lambda.client-to-name}}{{{client}}}{{/lambda.client-to-name}}Cl
         if let region = region {
       {{/fallbackToAliasHost}}
           guard let url = URL(string: "https://{{{regionalHost}}}".replacingOccurrences(of: "{region}", with: region.rawValue)) else {
-            throw AlgoliaError.runtimeError("Malformed URL")
+            throw FlapjackError.runtimeError("Malformed URL")
           }
 
               self.hosts = [
@@ -109,7 +109,7 @@ public struct {{#lambda.client-to-name}}{{{client}}}{{/lambda.client-to-name}}Cl
       {{#fallbackToAliasHost}}
         } else {
           guard let url = URL(string: "https://{{{hostWithFallback}}}") else {
-            throw AlgoliaError.runtimeError("Malformed URL")
+            throw FlapjackError.runtimeError("Malformed URL")
           }
 
           self.hosts = [

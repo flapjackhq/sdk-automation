@@ -17,7 +17,7 @@ import org.openapitools.codegen.model.OperationsMap;
 public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
 
   private String CLIENT;
-  private boolean isAlgoliasearchClient;
+  private boolean isFlapjackSearchClient;
 
   @Override
   public String getName() {
@@ -29,7 +29,7 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
     super.processOpts();
 
     CLIENT = Helpers.camelize(Helpers.getClientConfigClientName((String) additionalProperties.get("client")));
-    isAlgoliasearchClient = CLIENT.equals("algoliasearch");
+    isFlapjackSearchClient = CLIENT.equals("flapjackSearch");
 
     // generator specific options
     setSupportsES6(true);
@@ -66,7 +66,7 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
     supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
 
     // `client` related files, `algoliasearch` have it's own logic below
-    if (!isAlgoliasearchClient) {
+    if (!isFlapjackSearchClient) {
       // models
       supportingFiles.add(new SupportingFile("client/model/clientMethodProps.mustache", "model", "clientMethodProps.ts"));
       supportingFiles.add(new SupportingFile("client/model/modelBarrel.mustache", "model", "index.ts"));
@@ -82,11 +82,11 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
       supportingFiles.add(new SupportingFile("README.mustache", "", "../../README.md"));
 
       // `algoliasearch` builds
-      supportingFiles.add(new SupportingFile("algoliasearch/builds/definition.mustache", "builds", "browser.ts"));
-      supportingFiles.add(new SupportingFile("algoliasearch/builds/definition.mustache", "builds", "node.ts"));
-      supportingFiles.add(new SupportingFile("algoliasearch/builds/definition.mustache", "builds", "fetch.ts"));
-      supportingFiles.add(new SupportingFile("algoliasearch/builds/definition.mustache", "builds", "worker.ts"));
-      supportingFiles.add(new SupportingFile("algoliasearch/builds/models.mustache", "builds", "models.ts"));
+      supportingFiles.add(new SupportingFile("flapjack-search/builds/definition.mustache", "builds", "browser.ts"));
+      supportingFiles.add(new SupportingFile("flapjack-search/builds/definition.mustache", "builds", "node.ts"));
+      supportingFiles.add(new SupportingFile("flapjack-search/builds/definition.mustache", "builds", "fetch.ts"));
+      supportingFiles.add(new SupportingFile("flapjack-search/builds/definition.mustache", "builds", "worker.ts"));
+      supportingFiles.add(new SupportingFile("flapjack-search/builds/models.mustache", "builds", "models.ts"));
 
       // `lite` builds
       supportingFiles.add(new SupportingFile("client/builds/browser.mustache", "lite/builds", "browser.ts"));
@@ -98,9 +98,9 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
       supportingFiles.add(new SupportingFile("client/model/modelBarrel.mustache", "lite/model", "index.ts"));
 
       // `lite root export files
-      supportingFiles.add(new SupportingFile("algoliasearch/lite.mustache", "", "lite.js"));
-      supportingFiles.add(new SupportingFile("algoliasearch/lite.d.mustache", "", "lite.d.ts"));
-      supportingFiles.add(new SupportingFile("algoliasearch/lite.tsconfig.mustache", "", "lite/tsconfig.json"));
+      supportingFiles.add(new SupportingFile("flapjack-search/lite.mustache", "", "lite.js"));
+      supportingFiles.add(new SupportingFile("flapjack-search/lite.d.mustache", "", "lite.d.ts"));
+      supportingFiles.add(new SupportingFile("flapjack-search/lite.tsconfig.mustache", "", "lite/tsconfig.json"));
     }
   }
 
@@ -108,7 +108,7 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
   public String apiFileFolder() {
     String fileFolder = super.apiFileFolder();
 
-    if (!isAlgoliasearchClient) {
+    if (!isFlapjackSearchClient) {
       return fileFolder;
     }
 
@@ -119,7 +119,7 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
   public String modelFileFolder() {
     String fileFolder = super.modelFileFolder();
 
-    if (!isAlgoliasearchClient) {
+    if (!isFlapjackSearchClient) {
       return fileFolder;
     }
 
@@ -155,19 +155,19 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
     additionalProperties.put("clientName", clientName);
     additionalProperties.put("algoliaAgent", Helpers.capitalize(CLIENT));
     additionalProperties.put("is" + Helpers.capitalize(Helpers.camelize((String) additionalProperties.get("client"))) + "Client", true);
-    additionalProperties.put("isSearchClient", CLIENT.equals("search") || isAlgoliasearchClient);
-    additionalProperties.put("isAlgoliasearchClient", isAlgoliasearchClient);
+    additionalProperties.put("isSearchClient", CLIENT.equals("search") || isFlapjackSearchClient);
+    additionalProperties.put("isFlapjackSearchClient", isFlapjackSearchClient);
     additionalProperties.put("packageVersion", Helpers.getPackageJsonVersion(packageName));
     additionalProperties.put("packageName", packageName);
-    additionalProperties.put("npmPackageName", isAlgoliasearchClient ? packageName : "@algolia/" + packageName);
+    additionalProperties.put("npmPackageName", isFlapjackSearchClient ? packageName : "@algolia/" + packageName);
     additionalProperties.put("searchHelpers", CLIENT.equals("search"));
 
-    if (isAlgoliasearchClient) {
+    if (isFlapjackSearchClient) {
       var dependencies = new ArrayList<Map<String, Object>>();
       List<Map<String, Object>> packages = Helpers.getClientConfigList("javascript", "clients");
       for (Map<String, Object> pkg : packages) {
-        String name = ((String) pkg.get("output")).replace("clients/algoliasearch-client-javascript/packages/", "");
-        if (name.contains("algoliasearch")) {
+        String name = ((String) pkg.get("output")).replace("clients/flapjack-search-javascript/packages/", "");
+        if (name.contains("flapjacksearch")) {
           continue;
         }
 
@@ -277,7 +277,7 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
       return "Default" + Helpers.API_SUFFIX;
     }
 
-    String endClient = isAlgoliasearchClient ? "lite" : CLIENT;
+    String endClient = isFlapjackSearchClient ? "lite" : CLIENT;
 
     return Helpers.capitalize(endClient + Helpers.API_SUFFIX);
   }
@@ -289,7 +289,7 @@ public class AlgoliaJavascriptGenerator extends TypeScriptNodeClientCodegen {
       return "default" + Helpers.API_SUFFIX;
     }
 
-    String endClient = isAlgoliasearchClient ? "lite" : CLIENT;
+    String endClient = isFlapjackSearchClient ? "lite" : CLIENT;
 
     return endClient + Helpers.API_SUFFIX;
   }

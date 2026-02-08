@@ -38,7 +38,7 @@ export async function updateDartPackages(changelog: string, nextVersion: string)
   await writeJsonFile(toAbsolutePath('config/clients.config.json'), clientsConfig);
 
   // Core client package path
-  const corePackagePath = 'clients/algoliasearch-client-dart/packages/client_core';
+  const corePackagePath = 'clients/flapjack-search-dart/packages/client_core';
 
   // fetch the version from the pubspec file of the core package
   let currentCoreVersion = await getPubspecField(corePackagePath, 'version');

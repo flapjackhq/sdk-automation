@@ -1,5 +1,5 @@
 {{> snippets/import}}
-import type { IndexSettings } from 'algoliasearch';
+import type { IndexSettings } from 'flapjack-search';
 
 const playlists: Record<string, any>[] = [ /* Your records */ ];
 
@@ -17,7 +17,7 @@ playlists.forEach(async (playlist) => {
   const apiKey = getIndexingApiKeyFor(playlist["user"]);
 
   try {
-    const client = algoliasearch(appID, apiKey);
+    const client = flapjackSearch(appID, apiKey);
     const settings: IndexSettings = {
       attributesForFaceting: ["filterOnly(user)"]
     };

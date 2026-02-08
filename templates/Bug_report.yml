@@ -10,13 +10,13 @@ body:
 
         > [!IMPORTANT]  
         > This repository is fully generated and all pull request will be rejected.
-        > If you wish to contribute, please refer to the [contribution guidelines](https://github.com/algolia/api-clients-automation/blob/main/CONTRIBUTING.md) on the `api-clients-automation` repository.
+        > If you wish to contribute, please refer to the [contribution guidelines](https://github.com/flapjackhq/sdk-automation/blob/main/CONTRIBUTING.md) on the `sdk-automation` repository.
 
         Before filing your issue, ask yourself:
         - Is there an issue already opened for this bug?
         - Can I reproduce it?
 
-        If you are not sure about the origin of the issue, or if it impacts your customer experience, please contact [our support team](https://alg.li/support).
+        If you are not sure about the origin of the issue, or if it impacts your customer experience, please contact support at support@flapjack.foo.
   - type: textarea
     attributes:
       label: Description

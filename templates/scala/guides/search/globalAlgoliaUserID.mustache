@@ -1,11 +1,11 @@
 {{> snippets/import}}
 
-def globalAlgoliaUserID(): Unit = {
+def globalFlapjackUserID(): Unit = {
   val client = SearchClient(
-    appId = "ALGOLIA_APPLICATION_ID",
-    apiKey = "ALGOLIA_API_KEY",
+    appId = "FLAPJACK_APPLICATION_ID",
+    apiKey = "FLAPJACK_API_KEY",
     clientOptions = ClientOptions(
-      defaultHeaders = Map("X-Algolia-UserToken" -> "test-user-123")
+      defaultHeaders = Map("X-Flapjack-UserToken" -> "test-user-123")
     )
   )
   println(client)

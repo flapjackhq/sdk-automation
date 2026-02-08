@@ -1,5 +1,5 @@
 # {{generationBanner}}
-require 'algolia'
+require 'flapjack'
 require 'test/unit'
 require 'dotenv'
 require_relative '../helpers'
@@ -8,7 +8,7 @@ Dotenv.load('../../.env')
 
 class Test{{#lambda.pascalcase}}{{{client}}}{{/lambda.pascalcase}}E2E < Test::Unit::TestCase
   def setup
-    @client = Algolia::{{#lambda.pascalcase}}{{{client}}}{{/lambda.pascalcase}}.create(
+    @client = Flapjack::{{#lambda.pascalcase}}{{{client}}}{{/lambda.pascalcase}}.create(
       ENV.fetch('{{e2eAppID}}', nil),
       ENV.fetch('{{e2eApiKey}}', nil){{#hasRegionalHost}},
       '{{{defaultRegion}}}'{{/hasRegionalHost}}

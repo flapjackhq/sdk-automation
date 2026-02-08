@@ -2,18 +2,18 @@ Pod::Spec.new do |s|
   s.name = '{{projectName}}'
   s.module_name  = '{{projectName}}'
   s.version = '{{{packageVersion}}}'
-  s.source = { :git => 'https://github.com/algolia/algoliasearch-client-swift.git', :tag => '{{{packageVersion}}}' }
-  s.authors = { 'Algolia' => 'contact@algolia.com' }
+  s.source = { :git => 'https://github.com/flapjackhq/flapjack-search-client-swift.git', :tag => '{{{packageVersion}}}' }
+  s.authors = { 'Flapjack' => 'contact@flapjackhq.com' }
   s.license = { :type => 'MIT', :file => 'LICENSE' }
-  s.homepage = 'https://github.com/algolia/algoliasearch-client-swift/tree/main'
-  s.summary = 'Algolia Search API Client written in Swift.'
-  s.documentation_url = 'https://www.algolia.com/doc/libraries/sdk/install#swift'
+  s.homepage = 'https://github.com/flapjackhq/flapjack-search-client-swift/tree/main'
+  s.summary = 'Flapjack Search API Client written in Swift.'
+  s.documentation_url = 'https://www.flapjackhq.com/doc/libraries/sdk/install#swift'
   s.ios.deployment_target = '14.0'
   s.osx.deployment_target = '11.0'
   s.watchos.deployment_target = '7.0'
   s.tvos.deployment_target = '14.0'
   s.swift_version = '{{{swiftVersion}}}'
-  s.resource_bundles = { 'AlgoliaSearchClient' => ['PrivacyInfo.xcprivacy']}
+  s.resource_bundles = { 'FlapjackSearchClient' => ['PrivacyInfo.xcprivacy']}
 
   s.subspec 'Core' do |subs|
     subs.source_files = 'Sources/Core/**/*.swift'

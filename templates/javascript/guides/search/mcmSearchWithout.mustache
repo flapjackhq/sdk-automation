@@ -1,5 +1,5 @@
 {{> snippets/import}}
-import type { SearchParams } from 'algoliasearch';
+import type { SearchParams } from 'flapjack-search';
 
 const getAppIDFor = (_: string) => {
   return ""; // Implement your own logic here
@@ -13,7 +13,7 @@ const getIndexingApiKeyFor = (_: string) => {
 const appID = getAppIDFor("user42");
 const apiKey = getIndexingApiKeyFor("user42");
 
-const client = algoliasearch(appID, apiKey);
+const client = flapjackSearch(appID, apiKey);
 const searchParams: SearchParams = {
   query: "<YOUR_SEARCH_QUERY>",
   facetFilters: ["user:user42", "user:public"]

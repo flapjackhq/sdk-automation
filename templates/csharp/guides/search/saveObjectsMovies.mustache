@@ -1,4 +1,4 @@
-namespace Algolia;
+namespace Flapjack;
 
 using System;
 using System.Text.Json;
@@ -12,7 +12,7 @@ class SaveObjectsMovies
     async Task Main(string[] args)
     {
         // read json file from url
-        var url = "https://dashboard.algolia.com/api/1/sample_datasets?type=movie";
+        var url = "https://dashboard.flapjack.com/api/1/sample_datasets?type=movie";
         var httpClient = new HttpClient();
         var response = await httpClient.GetAsync(url);
         var content = await response.Content.ReadAsStringAsync();
@@ -23,7 +23,7 @@ class SaveObjectsMovies
         // initiate client and index with your app ID and write API key
         {{> snippets/init}}
 
-        // push data to algolia
+        // push data to flapjack
         try
         {
             var result = {{#dynamicSnippet}}saveObjectsMovies{{/dynamicSnippet}};

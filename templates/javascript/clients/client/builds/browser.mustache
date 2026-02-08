@@ -11,7 +11,7 @@
     },
     logger: createNullLogger(),
     requester: createXhrRequester(),
-    algoliaAgents: [{ segment: 'Browser' }],
+    flapjackAgents: [{ segment: 'Browser' }],
     authMode: 'Within{{#isCompositionClient}}Headers{{/isCompositionClient}}{{#isAdvancedPersonalizationClient}}Headers{{/isAdvancedPersonalizationClient}}{{^isAdvancedPersonalizationClient}}{{^isCompositionClient}}QueryParameters{{/isCompositionClient}}{{/isAdvancedPersonalizationClient}}',
     responsesCache: createMemoryCache(),
     requestsCache: createMemoryCache({ serializable: false }),

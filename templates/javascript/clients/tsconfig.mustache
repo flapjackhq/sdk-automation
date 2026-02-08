@@ -1,9 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    {{#isAlgoliasearchClient}}
+    {{#isFlapjackSearchClient}}
     "types": ["node", "@cloudflare/workers-types", "@cloudflare/vitest-pool-workers", "vitest/globals"],
-    {{/isAlgoliasearchClient}}
+    {{/isFlapjackSearchClient}}
     "outDir": "dist"
   },
   "include": ["{{apiPackage}}", "model", "builds"],

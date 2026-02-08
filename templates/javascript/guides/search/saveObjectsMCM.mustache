@@ -13,7 +13,7 @@ const configurations = getAllAppIDConfigurations();
 // Send the records to each cluster
 Object.keys(configurations).forEach(async (appID) => {
   try {
-    const client = algoliasearch(appID, configurations[appID]);
+    const client = flapjackSearch(appID, configurations[appID]);
 
     {{#dynamicSnippet}}saveObjectsPlaylists{{/dynamicSnippet}}
   } catch (e: any) {

@@ -1,7 +1,7 @@
 import scala.concurrent.ExecutionContext.Implicits.global
 
 {{> snippets/import}}
-import algoliasearch.search.{Anchoring, Condition, Consequence, Rule}
+import flapjacksearch.search.{Anchoring, Condition, Consequence, Rule}
 
 def enableFilterPromote(): Unit = {
   val condition = Condition(

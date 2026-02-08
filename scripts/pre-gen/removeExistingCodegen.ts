@@ -37,7 +37,7 @@ export async function removeExistingCodegen({ language, client, output }: Genera
       folder = output;
 
       // We want to also delete the nested `lite` client or folders that only exists in JS
-      if (clientName === 'algoliasearch') {
+      if (clientName === 'flapjack-search') {
         await fsp.rm(toAbsolutePath(path.resolve('..', output, 'lite')), {
           force: true,
           recursive: true,
@@ -62,8 +62,8 @@ export async function removeExistingCodegen({ language, client, output }: Genera
     case 'python':
       clientModel = `${toSnakeCase(clientName)}/models`;
       clientApi = toSnakeCase(clientName);
-      baseModelFolder = 'algoliasearch';
-      baseApiFolder = 'algoliasearch';
+      baseModelFolder = 'flapjacksearch';
+      baseApiFolder = 'flapjacksearch';
       break;
     case 'ruby':
       clientModel = client;

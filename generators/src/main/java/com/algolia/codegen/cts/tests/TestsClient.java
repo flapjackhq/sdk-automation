@@ -29,7 +29,7 @@ public class TestsClient extends TestsGenerator {
   @Override
   public boolean available() {
     // no `lite` client test for now
-    if ((language.equals("javascript") || language.equals("dart")) && client.equals("algoliasearch")) {
+    if ((language.equals("javascript") || language.equals("dart")) && client.equals("flapjack-search")) {
       return false;
     }
 

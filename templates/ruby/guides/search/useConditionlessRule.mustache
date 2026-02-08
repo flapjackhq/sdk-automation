@@ -4,16 +4,16 @@
 
 object_id = "a-rule-id"
 
-rule = Algolia::Search::Rule.new(
+rule = Flapjack::Search::Rule.new(
   object_id: object_id,
-  consequence: Algolia::Search::Consequence.new(
+  consequence: Flapjack::Search::Consequence.new(
     # Set relevant consequence
   ),
 )
 
 # Set validity (optional)
 rule.validity = [
-  Algolia::Search::TimeRange.new(
+  Flapjack::Search::TimeRange.new(
     from: 1688774400,
     until: 1738972800,
   ),

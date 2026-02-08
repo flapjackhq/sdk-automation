@@ -21,7 +21,7 @@ public class AlgoliaDartGenerator extends DartDioClientCodegen {
   private final SchemaSupport support = new SchemaSupport();
 
   String libName;
-  boolean isAlgoliasearchClient;
+  boolean isFlapjackSearchClient;
 
   @Override
   public String getName() {
@@ -31,9 +31,9 @@ public class AlgoliaDartGenerator extends DartDioClientCodegen {
   @Override
   public void processOpts() {
     String client = (String) additionalProperties.get("client");
-    isAlgoliasearchClient = client.equals("algoliasearch");
+    isFlapjackSearchClient = client.equals("flapjack-search");
     String version = Helpers.getClientConfigField("dart", "packageVersion");
-    additionalProperties.put("isAlgoliasearchClient", isAlgoliasearchClient);
+    additionalProperties.put("isFlapjackSearchClient", isFlapjackSearchClient);
     additionalProperties.put("is" + Helpers.capitalize(Helpers.camelize((String) additionalProperties.get("client"))) + "Client", true);
 
     // pubspec.yaml
@@ -42,7 +42,7 @@ public class AlgoliaDartGenerator extends DartDioClientCodegen {
     setPubHomepage("https://flapjack.io/docs/");
     setPubVersion(version);
     String packageFolder;
-    if (isAlgoliasearchClient) {
+    if (isFlapjackSearchClient) {
       libName = "flapjack_search";
       packageFolder = libName;
       setPubDescription(
@@ -76,9 +76,9 @@ public class AlgoliaDartGenerator extends DartDioClientCodegen {
     super.processOpts();
 
     Arrays.asList("source", "get", "hide", "operator").forEach(reservedWords::remove); // reserved words from dart-keywords.txt
-    if (isAlgoliasearchClient) {
+    if (isFlapjackSearchClient) {
       supportingFiles.removeIf(file -> file.getTemplateFile().contains("lib"));
-      supportingFiles.add(new SupportingFile("lib.mustache", libPath, "algoliasearch_lite.dart"));
+      supportingFiles.add(new SupportingFile("lib.mustache", libPath, "flapjack_search_lite.dart"));
       additionalProperties.put("searchVersion", version);
       additionalProperties.put("insightsVersion", version);
     }
@@ -118,7 +118,7 @@ public class AlgoliaDartGenerator extends DartDioClientCodegen {
 
   @Override
   public String toApiName(String name) {
-    return isAlgoliasearchClient ? "SearchClient" : super.toApiName(name);
+    return isFlapjackSearchClient ? "SearchClient" : super.toApiName(name);
   }
 
   @Override

@@ -2,16 +2,16 @@
 
 using System;
 using System.Collections.Generic;
-using Algolia.Search.Models.Common;
-using Algolia.Search.Transport;
-using Algolia.Search.Utils;
+using Flapjack.Search.Models.Common;
+using Flapjack.Search.Transport;
+using Flapjack.Search.Utils;
 
-namespace Algolia.Search.Clients;
+namespace Flapjack.Search.Clients;
 
 /// <summary>
 /// {{apiPackageName}} client configuration
 /// </summary>
-public sealed class {{apiPackageName}}Config : AlgoliaConfig
+public sealed class {{apiPackageName}}Config : FlapjackConfig
 {
   {{#hasRegionalHost}}
   /// <summary>

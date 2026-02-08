@@ -9,7 +9,7 @@ end
 
 # get the buyer account information
 platform_tag = get_platform_tag
-search_params = Algolia::Search::SearchParamsObject.new(
+search_params = Flapjack::Search::SearchParamsObject.new(
   query: "<YOUR_SEARCH_QUERY>",
   rule_contexts: [platform_tag],
 )

@@ -53,7 +53,7 @@ public class SnippetsGenerator extends TestsGenerator {
     }
 
     String clientName = client;
-    if (client.equals("algoliasearch")) {
+    if (client.equals("flapjack-search")) {
       clientName = "search";
     }
 

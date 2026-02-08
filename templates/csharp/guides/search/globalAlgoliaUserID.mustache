@@ -1,4 +1,4 @@
-namespace Algolia;
+namespace Flapjack;
 
 using System;
 using System.Text.Json;
@@ -7,14 +7,14 @@ using System.Collections.Generic;
 
 {{> snippets/import}}
 
-class GlobalAlgoliaUserID
+class GlobalFlapjackUserID
 {
   async Task Main(string[] args)
   {
     var client = new SearchClient(
-      new SearchConfig("ALGOLIA_APPLICATION_ID", "ALGOLIA_API_KEY")
+      new SearchConfig("FLAPJACK_APPLICATION_ID", "FLAPJACK_API_KEY")
       {
-        DefaultHeaders = new Dictionary<string, string> { { "X-Algolia-UserToken", "test-user-123" } }
+        DefaultHeaders = new Dictionary<string, string> { { "X-Flapjack-UserToken", "test-user-123" } }
       }
     );
     Console.WriteLine(client);

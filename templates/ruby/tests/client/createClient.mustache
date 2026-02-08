@@ -1,14 +1,14 @@
 {{#hasCustomHosts}}
-client = Algolia::{{#lambda.pascalcase}}{{{client}}}{{/lambda.pascalcase}}.create_with_config(Algolia::Configuration.new(
+client = Flapjack::{{#lambda.pascalcase}}{{{client}}}{{/lambda.pascalcase}}.create_with_config(Flapjack::Configuration.new(
   '{{parametersWithDataTypeMap.appId.value}}',
   '{{parametersWithDataTypeMap.apiKey.value}}',
-  [{{#customHosts}}Algolia::Transport::StatefulHost.new(ENV.fetch('CI', nil) == 'true' ? 'localhost' : 'host.docker.internal', protocol: 'http://', port: {{port}}, accept: CallType::READ | CallType::WRITE),{{/customHosts}}],
+  [{{#customHosts}}Flapjack::Transport::StatefulHost.new(ENV.fetch('CI', nil) == 'true' ? 'localhost' : 'host.docker.internal', protocol: 'http://', port: {{port}}, accept: CallType::READ | CallType::WRITE),{{/customHosts}}],
   '{{client}}'{{#gzipEncoding}},
   compression_type: 'gzip'{{/gzipEncoding}}
 )){{/hasCustomHosts}}{{^hasCustomHosts}}
-{{^isError}}client = {{/isError}}Algolia::{{#lambda.pascalcase}}{{{client}}}{{/lambda.pascalcase}}.create(
+{{^isError}}client = {{/isError}}Flapjack::{{#lambda.pascalcase}}{{{client}}}{{/lambda.pascalcase}}.create(
   '{{parametersWithDataTypeMap.appId.value}}',
   '{{parametersWithDataTypeMap.apiKey.value}}',
   {{#hasRegionalHost}}{{#parametersWithDataTypeMap.region}}'{{parametersWithDataTypeMap.region.value}}',{{/parametersWithDataTypeMap.region}}{{/hasRegionalHost}}
-  { requester: Algolia::Transport::EchoRequester.new }
+  { requester: Flapjack::Transport::EchoRequester.new }
 ){{/hasCustomHosts}}

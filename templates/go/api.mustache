@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strings"
   {{#isSearchClient}}
-  "github.com/algolia/algoliasearch-client-go/v4/algolia/errs"
+  "github.com/flapjackhq/flapjack-search-go/v4/flapjack/errs"
   "cmp"
   "crypto/hmac"
 	"crypto/sha256"
@@ -22,8 +22,8 @@ import (
   {{/isSearchClient}}
   "time"
 
-  "github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
-  "github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
+  "github.com/flapjackhq/flapjack-search-go/v4/flapjack/utils"
+  "github.com/flapjackhq/flapjack-search-go/v4/flapjack/transport"
 )
 
 type config struct {

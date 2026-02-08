@@ -86,7 +86,7 @@ export async function bundleSpecsForDoc(bundledPath: string, clientName: string)
           // all the variables are also replaced by the example in the spec, so we need to check with a regex.
           const urlRegex = new RegExp(
             `${pathKey
-              .replace('{indexName}', 'ALGOLIA_INDEX_NAME')
+              .replace('{indexName}', 'FLAPJACK_INDEX_NAME')
               .replace('*', '\\*')
               .replace(/\{.*?\}/g, '.*?')}($|\\?)`,
           );
@@ -104,11 +104,11 @@ export async function bundleSpecsForDoc(bundledPath: string, clientName: string)
 
         for (const harRequestHeader of harRequest.headers) {
           if (harRequestHeader.name === bundledSpec.components.securitySchemes.appId?.name) {
-            harRequestHeader.value = 'ALGOLIA_APPLICATION_ID';
+            harRequestHeader.value = 'FLAPJACK_APPLICATION_ID';
           }
 
           if (harRequestHeader.name === bundledSpec.components.securitySchemes.apiKey?.name) {
-            harRequestHeader.value = 'ALGOLIA_API_KEY';
+            harRequestHeader.value = 'FLAPJACK_API_KEY';
           }
         }
 

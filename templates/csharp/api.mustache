@@ -6,18 +6,18 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-{{#hasImport}}using Algolia.Search.Models.{{apiPackageName}};
+{{#hasImport}}using Flapjack.Search.Models.{{apiPackageName}};
 {{/hasImport}}
-using Algolia.Search.Transport;
-using Algolia.Search.Http;
-using Algolia.Search.Utils;
+using Flapjack.Search.Transport;
+using Flapjack.Search.Http;
+using Flapjack.Search.Utils;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 {{#isSearchClient}}
-using Algolia.Search.Clients;
+using Flapjack.Search.Clients;
 {{/isSearchClient}}
 
-namespace Algolia.Search.Clients;
+namespace Flapjack.Search.Clients;
 
   {{#operations}}
 
@@ -40,11 +40,11 @@ namespace Algolia.Search.Clients;
       {{#allParams}}
       /// <param name="{{paramName}}">{{{description}}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}</param>
       {{/allParams}}
-      /// <param name="options">Add extra http header or query parameters to Algolia.</param>
+      /// <param name="options">Add extra http header or query parameters to Flapjack.</param>
       /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
       /// <exception cref="ArgumentException">Thrown when arguments are not correct</exception>
-      /// <exception cref="Algolia.Search.Exceptions.AlgoliaApiException">Thrown when the API call was rejected by Algolia</exception>
-      /// <exception cref="Algolia.Search.Exceptions.AlgoliaUnreachableHostException">Thrown when the client failed to call the endpoint</exception>
+      /// <exception cref="Flapjack.Search.Exceptions.FlapjackApiException">Thrown when the API call was rejected by Flapjack</exception>
+      /// <exception cref="Flapjack.Search.Exceptions.FlapjackUnreachableHostException">Thrown when the client failed to call the endpoint</exception>
       /// <returns>Task of {{> return_type_doc}}</returns>
       {{#isDeprecated}}
       [Obsolete]
@@ -63,11 +63,11 @@ namespace Algolia.Search.Clients;
       {{#allParams}}
       /// <param name="{{paramName}}">{{{description}}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}</param>
       {{/allParams}}
-      /// <param name="options">Add extra http header or query parameters to Algolia.</param>
+      /// <param name="options">Add extra http header or query parameters to Flapjack.</param>
       /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
       /// <exception cref="ArgumentException">Thrown when arguments are not correct</exception>
-      /// <exception cref="Algolia.Search.Exceptions.AlgoliaApiException">Thrown when the API call was rejected by Algolia</exception>
-      /// <exception cref="Algolia.Search.Exceptions.AlgoliaUnreachableHostException">Thrown when the client failed to call the endpoint</exception>
+      /// <exception cref="Flapjack.Search.Exceptions.FlapjackApiException">Thrown when the API call was rejected by Flapjack</exception>
+      /// <exception cref="Flapjack.Search.Exceptions.FlapjackUnreachableHostException">Thrown when the client failed to call the endpoint</exception>
       /// <returns>{{> return_type_doc}}</returns>
       {{#isDeprecated}}
       [Obsolete]
@@ -86,16 +86,16 @@ namespace Algolia.Search.Clients;
       {{#allParams}}
       /// <param name="{{paramName}}">{{{description}}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}</param>
       {{/allParams}}
-      /// <param name="options">Add extra http header or query parameters to Algolia.</param>
+      /// <param name="options">Add extra http header or query parameters to Flapjack.</param>
       /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
       /// <exception cref="ArgumentException">Thrown when arguments are not correct</exception>
-      /// <exception cref="Algolia.Search.Exceptions.AlgoliaApiException">Thrown when the API call was rejected by Algolia</exception>
-      /// <exception cref="Algolia.Search.Exceptions.AlgoliaUnreachableHostException">Thrown when the client failed to call the endpoint</exception>
+      /// <exception cref="Flapjack.Search.Exceptions.FlapjackApiException">Thrown when the API call was rejected by Flapjack</exception>
+      /// <exception cref="Flapjack.Search.Exceptions.FlapjackUnreachableHostException">Thrown when the client failed to call the endpoint</exception>
       /// <returns>Task of {{> return_type_doc}}</returns>
       {{#isDeprecated}}
       [Obsolete]
       {{/isDeprecated}}
-      Task<AlgoliaHttpResponse> {{operationId}}WithHTTPInfoAsync({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}}RequestOptions options = null, CancellationToken cancellationToken = default);
+      Task<FlapjackHttpResponse> {{operationId}}WithHTTPInfoAsync({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}}RequestOptions options = null, CancellationToken cancellationToken = default);
 
       /// <summary>
       /// {{{notes}}} (Synchronous version)
@@ -109,16 +109,16 @@ namespace Algolia.Search.Clients;
       {{#allParams}}
       /// <param name="{{paramName}}">{{{description}}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}</param>
       {{/allParams}}
-      /// <param name="options">Add extra http header or query parameters to Algolia.</param>
+      /// <param name="options">Add extra http header or query parameters to Flapjack.</param>
       /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
       /// <exception cref="ArgumentException">Thrown when arguments are not correct</exception>
-      /// <exception cref="Algolia.Search.Exceptions.AlgoliaApiException">Thrown when the API call was rejected by Algolia</exception>
-      /// <exception cref="Algolia.Search.Exceptions.AlgoliaUnreachableHostException">Thrown when the client failed to call the endpoint</exception>
+      /// <exception cref="Flapjack.Search.Exceptions.FlapjackApiException">Thrown when the API call was rejected by Flapjack</exception>
+      /// <exception cref="Flapjack.Search.Exceptions.FlapjackUnreachableHostException">Thrown when the client failed to call the endpoint</exception>
       /// <returns>{{> return_type_doc}}</returns>
       {{#isDeprecated}}
       [Obsolete]
       {{/isDeprecated}}
-      AlgoliaHttpResponse {{operationId}}WithHTTPInfo({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}}RequestOptions options = null, CancellationToken cancellationToken = default);
+      FlapjackHttpResponse {{operationId}}WithHTTPInfo({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}}RequestOptions options = null, CancellationToken cancellationToken = default);
       {{/operation}}
   }
 
@@ -143,23 +143,23 @@ namespace Algolia.Search.Clients;
       /// <param name="apiKey">Your API key</param>
       /// <param name="loggerFactory">Logger factory</param>
       {{#hasRegionalHost}}/// <param name="region">The targeted region</param>{{/hasRegionalHost}}
-      public {{classname}}(string applicationId, string apiKey{{#hasRegionalHost}}, string region{{/hasRegionalHost}}{{#fallbackToAliasHost}} = null{{/fallbackToAliasHost}}, ILoggerFactory loggerFactory = null) : this(new {{apiPackageName}}Config(applicationId, apiKey{{#hasRegionalHost}}, region{{/hasRegionalHost}}), new AlgoliaHttpRequester(loggerFactory), loggerFactory)
+      public {{classname}}(string applicationId, string apiKey{{#hasRegionalHost}}, string region{{/hasRegionalHost}}{{#fallbackToAliasHost}} = null{{/fallbackToAliasHost}}, ILoggerFactory loggerFactory = null) : this(new {{apiPackageName}}Config(applicationId, apiKey{{#hasRegionalHost}}, region{{/hasRegionalHost}}), new FlapjackHttpRequester(loggerFactory), loggerFactory)
       {
       }
 
       /// <summary>
       /// Initialize a client with custom config
       /// </summary>
-      /// <param name="config">Algolia configuration</param>
+      /// <param name="config">Flapjack configuration</param>
       /// <param name="loggerFactory">Logger factory</param>
-      public {{classname}}({{apiPackageName}}Config config, ILoggerFactory loggerFactory = null) : this(config, new AlgoliaHttpRequester(loggerFactory), loggerFactory)
+      public {{classname}}({{apiPackageName}}Config config, ILoggerFactory loggerFactory = null) : this(config, new FlapjackHttpRequester(loggerFactory), loggerFactory)
       {
       }
 
       /// <summary>
       /// Initialize the client with custom config and custom Requester
       /// </summary>
-      /// <param name="config">Algolia Config</param>
+      /// <param name="config">Flapjack Config</param>
       /// <param name="httpRequester">Your Http requester implementation of <see cref="IHttpRequester"/></param>
       /// <param name="loggerFactory">Logger factory</param>
       public {{classname}}({{apiPackageName}}Config config, IHttpRequester httpRequester, ILoggerFactory loggerFactory = null)
@@ -187,7 +187,7 @@ namespace Algolia.Search.Clients;
 
         if (_logger.IsEnabled(Microsoft.Extensions.Logging.LogLevel.Information))
         {
-          _logger.LogInformation("Algolia {{apiPackageName}} client is initialized.");
+          _logger.LogInformation("Flapjack {{apiPackageName}} client is initialized.");
         }
       }
 
@@ -198,7 +198,7 @@ namespace Algolia.Search.Clients;
       /// <returns></returns>
       public void SetClientApiKey(string apiKey)
       {
-        _transport._algoliaConfig.SetClientApiKey(apiKey);
+        _transport._flapjackConfig.SetClientApiKey(apiKey);
       }
 
       {{#isSearchClient}}
@@ -215,25 +215,25 @@ namespace Algolia.Search.Clients;
           throw new ArgumentException("`region` must be provided when leveraging the transformation pipeline");
         }
         
-        if (string.IsNullOrWhiteSpace(_transport._algoliaConfig.AppId) || 
-            string.IsNullOrWhiteSpace(_transport._algoliaConfig.ApiKey))
+        if (string.IsNullOrWhiteSpace(_transport._flapjackConfig.AppId) || 
+            string.IsNullOrWhiteSpace(_transport._flapjackConfig.ApiKey))
         {
           throw new ArgumentException("AppId and ApiKey are required for transformation pipeline");
         }
 
         _ingestionTransporter = new IngestionClient(
           new IngestionConfig(
-            _transport._algoliaConfig.AppId,
-            _transport._algoliaConfig.ApiKey,
+            _transport._flapjackConfig.AppId,
+            _transport._flapjackConfig.ApiKey,
             region
           )
           {
-            DefaultHeaders = _transport._algoliaConfig.DefaultHeaders,
-            ConnectTimeout = _transport._algoliaConfig.ConnectTimeout,
-            ReadTimeout = _transport._algoliaConfig.ReadTimeout,
-            WriteTimeout = _transport._algoliaConfig.WriteTimeout,
-            Compression = _transport._algoliaConfig.Compression,
-            CustomHosts = _transport._algoliaConfig.CustomHosts
+            DefaultHeaders = _transport._flapjackConfig.DefaultHeaders,
+            ConnectTimeout = _transport._flapjackConfig.ConnectTimeout,
+            ReadTimeout = _transport._flapjackConfig.ReadTimeout,
+            WriteTimeout = _transport._flapjackConfig.WriteTimeout,
+            Compression = _transport._flapjackConfig.Compression,
+            CustomHosts = _transport._flapjackConfig.CustomHosts
           },
           factory
         );
@@ -337,7 +337,7 @@ namespace Algolia.Search.Clients;
       {{#isDeprecated}}
       [Obsolete]
       {{/isDeprecated}}
-      public async Task<AlgoliaHttpResponse>{{operationId}}WithHTTPInfoAsync({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}}RequestOptions options = null, CancellationToken cancellationToken = default)
+      public async Task<FlapjackHttpResponse>{{operationId}}WithHTTPInfoAsync({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}}RequestOptions options = null, CancellationToken cancellationToken = default)
       {
           {{#allParams}}
           {{#required}}
@@ -411,14 +411,14 @@ namespace Algolia.Search.Clients;
           requestOptions.ConnectTimeout ??= TimeSpan.FromMilliseconds({{connect}});
           {{/vendorExtensions.x-timeouts}}
           {{/vendorExtensions}}
-          return await _transport.ExecuteRequestAsync<AlgoliaHttpResponse>(new HttpMethod("{{httpMethod}}"),"{{{path}}}", requestOptions, cancellationToken).ConfigureAwait(false);
+          return await _transport.ExecuteRequestAsync<FlapjackHttpResponse>(new HttpMethod("{{httpMethod}}"),"{{{path}}}", requestOptions, cancellationToken).ConfigureAwait(false);
       }
 
       /// <inheritdoc />
       {{#isDeprecated}}
       [Obsolete]
       {{/isDeprecated}}
-      public AlgoliaHttpResponse {{operationId}}WithHTTPInfo({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}}RequestOptions options = null, CancellationToken cancellationToken = default) =>
+      public FlapjackHttpResponse {{operationId}}WithHTTPInfo({{#allParams}}{{{dataType}}} {{paramName}}{{^required}}{{#optionalMethodArgument}} = default{{/optionalMethodArgument}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}}RequestOptions options = null, CancellationToken cancellationToken = default) =>
         AsyncHelper.RunSync(() => {{operationId}}WithHTTPInfoAsync{{#vendorExtensions.x-is-generic}}{{/vendorExtensions.x-is-generic}}({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}{{#allParams.0}}, {{/allParams.0}} options, cancellationToken));
 
       {{/supportsAsync}}

@@ -1,25 +1,25 @@
 // {{generationBanner}}
-using Algolia.Search.Http;
-using Algolia.Search.Clients;
-using Algolia.Search.Models.{{clientPrefix}};
-using Algolia.Search.Serializer;
-using Algolia.Search.Tests.Utils;
+using Flapjack.Search.Http;
+using Flapjack.Search.Clients;
+using Flapjack.Search.Models.{{clientPrefix}};
+using Flapjack.Search.Serializer;
+using Flapjack.Search.Tests.Utils;
 using Xunit;
 using System.Text.Json;
 using Quibble.Xunit;
 using dotenv.net;
 {{#isSearchClient}}
-using Action = Algolia.Search.Models.Search.Action;
-using Range = Algolia.Search.Models.Search.Range;
+using Action = Flapjack.Search.Models.Search.Action;
+using Range = Flapjack.Search.Models.Search.Range;
 {{/isSearchClient}}
 {{#isIngestionClient}}
-using Action = Algolia.Search.Models.Ingestion.Action;
+using Action = Flapjack.Search.Models.Ingestion.Action;
 {{/isIngestionClient}}
 {{#isCompositionClient}}
-using Action = Algolia.Search.Models.Composition.Action;
+using Action = Flapjack.Search.Models.Composition.Action;
 {{/isCompositionClient}}
 
-namespace Algolia.Search.e2e;
+namespace Flapjack.Search.e2e;
 
 public class {{client}}RequestTestsE2E
 {

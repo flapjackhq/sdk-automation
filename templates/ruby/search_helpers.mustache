@@ -75,7 +75,7 @@ def wait_for_api_key(key, operation, api_key = Search::ApiKey.new, max_retries =
     begin
       res = get_api_key(key, request_options)
       return res if operation == "add"
-    rescue AlgoliaHttpError => e
+    rescue FlapjackHttpError => e
       if e.code == 404
         return nil if operation == "delete"
       else
@@ -193,7 +193,7 @@ def self.generate_secured_api_key(parent_api_key, restrictions = {})
     restrictions.delete(:searchParams)
   end
 
-  url_encoded_restrictions = Algolia::Transport.stringify_query_params(restrictions).sort.to_h.map do |key, value|
+  url_encoded_restrictions = Flapjack::Transport.stringify_query_params(restrictions).sort.to_h.map do |key, value|
     "#{key}=#{value}"
   end.join('&')
 
@@ -226,7 +226,7 @@ def self.get_secured_api_key_remaining_validity(secured_api_key)
   matches     = decoded_key.match(regex)
 
   if matches.nil?
-    raise AlgoliaError, 'The SecuredApiKey doesn\'t have a validUntil parameter.'
+    raise FlapjackError, 'The SecuredApiKey doesn\'t have a validUntil parameter.'
   end
 
   valid_until = matches[1].to_i
@@ -247,7 +247,7 @@ end
 # Helper: Saves the given array of objects in the given index. The `chunked_batch` helper is used under the hood, which creates a `batch` requests with at most 1000 objects in it.
 #
 # @param index_name [String]: The `index_name` to save `objects` in.
-# @param objects [Array]: The array of `objects` to store in the given Algolia `indexName`.
+# @param objects [Array]: The array of `objects` to store in the given Flapjack `indexName`.
 # @param wait_for_tasks [Boolean]: Whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable.
 # @param batch_size [int] The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
 # @param request_options: The request options to send along with the query, they will be merged with the transporter base parameters (headers, query params, timeouts, etc.). (optional)
@@ -311,7 +311,7 @@ end
 # Helper: Chunks the given `objects` list in subset of 1000 elements max in order to make it fit in `batch` requests.
 #
 # @param index_name [String] the `index_name` where the operation will be performed.
-# @param objects [Array] The array of `objects` to store in the given Algolia `index_name`.
+# @param objects [Array] The array of `objects` to store in the given Flapjack `index_name`.
 # @param action [Action] The `batch` `action` to perform on the given array of `objects`, defaults to `addObject`.
 # @param wait_for_tasks [Boolean] Whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable.
 # @param batch_size [int] The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
@@ -341,7 +341,7 @@ end
 # Helper: Replaces all objects (records) in the given `index_name` with the given `objects`. A temporary index is created during this process in order to backup your data.
 #
 # @param index_name [String] The `index_name` to replace `objects` in.
-# @param objects [Array] The array of `objects` to store in the given Algolia `index_name`.
+# @param objects [Array] The array of `objects` to store in the given Flapjack `index_name`.
 # @param batch_size [int] The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
 # @param scopes [Array] The `scopes` to keep from the index. Defaults to `['settings', 'rules', 'synonyms']`.
 # @param request_options: The request options to send along with the query, they will be merged with the transporter base parameters (headers, query params, timeouts, etc.). (optional)
@@ -411,7 +411,7 @@ def index_exists?(index_name)
   begin
     get_settings(index_name)
   rescue Exception => e
-    if e.is_a?(AlgoliaHttpError)
+    if e.is_a?(FlapjackHttpError)
       return false if e.code == 404
 
       raise e

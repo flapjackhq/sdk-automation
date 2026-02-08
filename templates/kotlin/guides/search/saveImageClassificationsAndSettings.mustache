@@ -3,8 +3,8 @@ import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.json.jsonObject
 
 {{> snippets/import}}
-import com.algolia.client.model.search.BrowseParamsObject
-import com.algolia.client.model.search.IndexSettings
+import com.flapjackhq.client.model.search.BrowseParamsObject
+import com.flapjackhq.client.model.search.IndexSettings
 
 suspend fun saveImageClassificationsAndSettings() {
   data class Image(

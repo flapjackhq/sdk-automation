@@ -1,16 +1,16 @@
 // {{{generationBanner}}}
 
-import { createIterablePromise } from '@algolia/client-common';
-import type { ApiError, ClientOptions, RequestOptions } from '@algolia/client-common';
+import { createIterablePromise } from '@flapjack/client-common';
+import type { ApiError, ClientOptions, RequestOptions } from '@flapjack/client-common';
 
 {{#dependencies}}
 import { {{{dependencyName}}}Client } from '{{{dependencyPackage}}}';
 import type { {{#lambda.titlecase}}{{{dependencyName}}}{{/lambda.titlecase}}Client } from '{{{dependencyPackage}}}';
 {{/dependencies}}
 
-import type { ChunkedBatchOptions, ReplaceAllObjectsOptions, ReplaceAllObjectsWithTransformationResponse } from '@algolia/client-search';
-import type { PartialUpdateObjectsOptions, SaveObjectsOptions } from '@algolia/client-search';
-import type { WatchResponse } from '@algolia/ingestion';
+import type { ChunkedBatchOptions, ReplaceAllObjectsOptions, ReplaceAllObjectsWithTransformationResponse } from '@flapjack/client-search';
+import type { PartialUpdateObjectsOptions, SaveObjectsOptions } from '@flapjack/client-search';
+import type { WatchResponse } from '@flapjack/ingestion';
 
 import type {
   InitClientOptions,
@@ -24,7 +24,7 @@ import type {
 
 export * from './models';
 
-export type Algoliasearch = SearchClient & {
+export type FlapjackSearch = SearchClient & {
   {{#dependencies}}
   {{#withInitMethod}}
   init{{#lambda.titlecase}}{{{dependencyName}}}{{/lambda.titlecase}}: (initOptions{{^dependencyHasRegionalHosts}}?{{/dependencyHasRegionalHosts}}: InitClientOptions {{#dependencyHasRegionalHosts}}& {{#lambda.titlecase}}{{{dependencyName}}}RegionOptions{{/lambda.titlecase}}{{/dependencyHasRegionalHosts}}) => {{#lambda.titlecase}}{{{dependencyName}}}{{/lambda.titlecase}}Client;
@@ -34,12 +34,12 @@ export type Algoliasearch = SearchClient & {
   // Bridge helpers to expose along with the search endpoints at the root of the API client
 
   /**
-   * Helper: Similar to the `saveObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. The `region` must have been passed to the client instantiation method.
+   * Helper: Similar to the `saveObjects` method but requires a Push connector (https://www.flapjack.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Flapjack. The `region` must have been passed to the client instantiation method.
    *
-   * @summary Save objects to an Algolia index by leveraging the Transformation pipeline setup using the Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/).
+   * @summary Save objects to a Flapjack index by leveraging the Transformation pipeline setup using the Push connector (https://www.flapjack.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/).
    * @param saveObjects - The `saveObjects` object.
    * @param saveObjects.indexName - The `indexName` to save `objects` in.
-   * @param saveObjects.objects - The array of `objects` to store in the given Algolia `indexName`.
+   * @param saveObjects.objects - The array of `objects` to store in the given Flapjack `indexName`.
    * @param saveObjects.batchSize - The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
    * @param saveObjects.waitForTasks - Whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable.
    * @param requestOptions - The requestOptions to send along with the query, they will be forwarded to the `push` method and merged with the transporter requestOptions.
@@ -47,12 +47,12 @@ export type Algoliasearch = SearchClient & {
   saveObjectsWithTransformation: (options: SaveObjectsOptions, requestOptions?: RequestOptions | undefined) => Promise<Array<WatchResponse>>;
 
   /**
-   * Helper: Similar to the `partialUpdateObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. The `region` must have been passed to the client instantiation method.
+   * Helper: Similar to the `partialUpdateObjects` method but requires a Push connector (https://www.flapjack.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Flapjack. The `region` must have been passed to the client instantiation method.
    *
-   * @summary Save objects to an Algolia index by leveraging the Transformation pipeline setup in the Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/).
+   * @summary Save objects to a Flapjack index by leveraging the Transformation pipeline setup in the Push connector (https://www.flapjack.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/).
    * @param partialUpdateObjects - The `partialUpdateObjects` object.
    * @param partialUpdateObjects.indexName - The `indexName` to update `objects` in.
-   * @param partialUpdateObjects.objects - The array of `objects` to update in the given Algolia `indexName`.
+   * @param partialUpdateObjects.objects - The array of `objects` to update in the given Flapjack `indexName`.
    * @param partialUpdateObjects.createIfNotExists - To be provided if non-existing objects are passed, otherwise, the call will fail.
    * @param partialUpdateObjects.batchSize - The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
    * @param partialUpdateObjects.waitForTasks - Whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable.
@@ -61,12 +61,12 @@ export type Algoliasearch = SearchClient & {
   partialUpdateObjectsWithTransformation: (options: PartialUpdateObjectsOptions, requestOptions?: RequestOptions | undefined) => Promise<Array<WatchResponse>>;
 
   /**
-   * Helper: Similar to the `replaceAllObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. The `region` must have been passed to the client instantiation method.
+   * Helper: Similar to the `replaceAllObjects` method but requires a Push connector (https://www.flapjack.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Flapjack. The `region` must have been passed to the client instantiation method.
    *
-   * @summary Helper: Replaces all objects (records) in the given `index_name` by leveraging the Transformation pipeline setup in the Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) with the given `objects`. A temporary index is created during this process in order to backup your data.
+   * @summary Helper: Replaces all objects (records) in the given `index_name` by leveraging the Transformation pipeline setup in the Push connector (https://www.flapjack.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) with the given `objects`. A temporary index is created during this process in order to backup your data.
    * @param replaceAllObjects - The `replaceAllObjects` object.
    * @param replaceAllObjects.indexName - The `indexName` to replace `objects` in.
-   * @param replaceAllObjects.objects - The array of `objects` to store in the given Algolia `indexName`.
+   * @param replaceAllObjects.objects - The array of `objects` to store in the given Flapjack `indexName`.
    * @param replaceAllObjects.batchSize - The size of the chunk of `objects`. The number of `batch` calls will be equal to `objects.length / batchSize`. Defaults to 1000.
    * @param replaceAllObjects.scopes - The `scopes` to keep from the index. Defaults to ['settings', 'rules', 'synonyms'].
    * @param requestOptions - The requestOptions to send along with the query, they will be forwarded to the `push`, `operationIndex` and `getEvent` method and merged with the transporter requestOptions.
@@ -78,18 +78,18 @@ export type Algoliasearch = SearchClient & {
 };
 
 export type TransformationOptions = {
-  // When provided, a second transporter will be created in order to leverage the `*WithTransformation` methods exposed by the Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/).
+  // When provided, a second transporter will be created in order to leverage the `*WithTransformation` methods exposed by the Push connector (https://www.flapjack.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/).
   transformation?: {
-    // The region of your Algolia application ID, used to target the correct hosts of the transformation service.
+    // The region of your Flapjack application ID, used to target the correct hosts of the transformation service.
     region: IngestionRegion;
   } | undefined;
 };
 
-export function algoliasearch(
+export function flapjackSearch(
   appId: string,
   apiKey: string,
   options?: ClientOptions & TransformationOptions | undefined,
-): Algoliasearch {
+): FlapjackSearch {
   if (!appId || typeof appId !== 'string') {
     throw new Error('`appId` is missing.');
   }
@@ -219,10 +219,10 @@ export function algoliasearch(
     },
 
     /**
-     * Get the value of the `algoliaAgent`, used by our libraries internally and telemetry system.
+     * Get the value of the `flapjackAgent`, used by our libraries internally and telemetry system.
      */
     get _ua(): string {
-      return client.transporter.algoliaAgent.value;
+      return client.transporter.flapjackAgent.value;
     },
 
     {{#dependencies}}

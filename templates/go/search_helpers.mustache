@@ -1,5 +1,5 @@
 /*
-SearchForHits calls the `search` method but with certainty that we will only request Algolia records (hits) and not facets.
+SearchForHits calls the `search` method but with certainty that we will only request Flapjack records (hits) and not facets.
 Disclaimer: We don't assert that the parameters you pass to this method only contains `hits` requests to prevent impacting search performances, this helper is purely for typing purposes.
 
   @param r ApiSearchRequest - Body of the `search` operation.
@@ -25,7 +25,7 @@ func (c *APIClient) SearchForHits(r ApiSearchRequest, opts ...RequestOption) ([]
 }
 
 /*
-SearchForFacets calls the `search` method but with certainty that we will only request Algolia facets and not records (hits).
+SearchForFacets calls the `search` method but with certainty that we will only request Flapjack facets and not records (hits).
 Disclaimer: We don't assert that the parameters you pass to this method only contains `facets` requests to prevent impacting search performances, this helper is purely for typing purposes.
 
   @param r ApiSearchRequest - Body of the `search` operation.
@@ -600,7 +600,7 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 }
 
 /*
-ReplaceAllObjectsWithTransformation is similar to the `replaceAllObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. The `region` must have been passed to the client instantiation method.
+ReplaceAllObjectsWithTransformation is similar to the `replaceAllObjects` method but requires a Push connector (https://www.flapjackhq.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Flapjack. The `region` must have been passed to the client instantiation method.
 See https://api-clients-automation.netlify.app/docs/custom-helpers/#replaceallobjects for implementation details.
 
 	@param indexName string - the index name to replace objects into.
@@ -789,7 +789,7 @@ func (c *APIClient) IndexExists(indexName string) (bool, error) {
 }
 
 /*
-Helper: Similar to the `SaveObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. The `region` must've been passed to the client's config at instantiation.
+Helper: Similar to the `SaveObjects` method but requires a Push connector (https://www.flapjackhq.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Flapjack. The `region` must've been passed to the client's config at instantiation.
 
 	@param indexName string - the index name to save objects into.
 	@param objects []map[string]any - List of objects to save.
@@ -806,7 +806,7 @@ func (c *APIClient) SaveObjectsWithTransformation(indexName string, objects []ma
 }
 
 /*
-Helper: Similar to the `PartialUpdateObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. The `region` must've been passed to the client instantiation method.
+Helper: Similar to the `PartialUpdateObjects` method but requires a Push connector (https://www.flapjackhq.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Flapjack. The `region` must've been passed to the client instantiation method.
 
 	@param indexName string - the index name to save objects into.
 	@param objects []map[string]any - List of objects to save.

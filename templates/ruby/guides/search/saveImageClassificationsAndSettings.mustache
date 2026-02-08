@@ -39,7 +39,7 @@ end
 
 current_settings = {{#dynamicSnippet}}getSettings{{/dynamicSnippet}}
 
-settings = Algolia::Search::IndexSettings.new(
+settings = Flapjack::Search::IndexSettings.new(
   searchable_attributes: (current_settings.searchable_attributes || []) + attributes,
   attributes_for_faceting: (current_settings.attributes_for_faceting || []) + facets
 )

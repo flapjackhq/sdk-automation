@@ -8,7 +8,7 @@ end
 {{> snippets/init}}
 
 user_token = get_google_analytics_user_id_from_browser_cookie('_ga')
-search_params = Algolia::Search::SearchParamsObject.new(
+search_params = Flapjack::Search::SearchParamsObject.new(
   query: '<YOUR_SEARCH_QUERY>',
   userToken: user_token,
 )

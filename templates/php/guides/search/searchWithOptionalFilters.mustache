@@ -2,8 +2,8 @@
 
 require __DIR__.'/../vendor/autoload.php';
 {{> snippets/import}}
-use Algolia\AlgoliaSearch\Model\Search\OptionalFilters;
-use Algolia\AlgoliaSearch\Model\Search\SearchParamsObject;
+use Flapjack\FlapjackSearch\Model\Search\OptionalFilters;
+use Flapjack\FlapjackSearch\Model\Search\SearchParamsObject;
 
 $labels = []; // A list of labels
 $reduceLabelsToFilters = function (array $labels): OptionalFilters {

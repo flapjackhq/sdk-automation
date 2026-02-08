@@ -34,7 +34,7 @@
                 "name": {
                   "type": "string",
                   "enum": [
-                    "algoliasearch",
+                    "flapjack-search",
                     "abtesting",
                     "abtesting-v3",
                     "analytics",
@@ -50,7 +50,7 @@
                   ]
                 },
                 "output": { "type": "string" },
-                "isStandaloneClient": { "type": "boolean", "description": "this property only matters for the javascript client, when `true`, your package will be built as a standalone client and not be part of `algoliasearch` directly. This is recommended for non stable APIs." },
+                "isStandaloneClient": { "type": "boolean", "description": "this property only matters for the javascript client, when `true`, your package will be built as a standalone client and not be part of `flapjack-search` directly. This is recommended for non stable APIs." },
                 "clientName": { "type": "string", "description": "when defined, the name of the generated instance of the client will be hardcoded, otherwise it defaults to the `spec` name, e.g. search -> searchClient" }
               },
               "required": ["name", "output"],
@@ -59,10 +59,10 @@
           }
         ]
       },
-      "folder": { "type": "string", "description": "the output folder of your client, usually matching the github repository name, e.g. clients/algoliasearch-client-dart" },
-      "gitRepoId": { "type": "string", "description": "the github repository name, without the organization or username that owns it, e.g. algoliasearch-client-php"},
+      "folder": { "type": "string", "description": "the output folder of your client, usually matching the github repository name, e.g. clients/flapjack-search-dart" },
+      "gitRepoId": { "type": "string", "description": "the github repository name, without the organization or username that owns it, e.g. flapjack-search-php"},
       "packageVersion": { "type": "string", "description": "the version to publish the packages with, it must be semver compatible, e.g. 1.2.3" },
-      "modelFolder": { "type": "string", "description": "the models folder, e.g. algoliasearch/models"},
+      "modelFolder": { "type": "string", "description": "the models folder, e.g. flapjacksearch/models"},
       "apiFolder": { "type": "string", "description": "the api folder, e.g. lib/src"},
       "dockerImage": { 
         "type": "string",

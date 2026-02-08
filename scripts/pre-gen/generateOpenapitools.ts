@@ -23,7 +23,7 @@ export async function generateOpenapitools(
     generators[key] = {
       config: '#{cwd}/openapitools.json',
       gitHost: 'github.com',
-      gitUserId: 'algolia',
+      gitUserId: 'flapjackhq',
       gitRepoId: getClientsConfigField(language, 'gitRepoId'),
       glob: `specs/bundled/${client}.yml`,
       templateDir,

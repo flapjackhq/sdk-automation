@@ -10,7 +10,7 @@ labels = [] # A list of labels
 {{> snippets/init}}
 
 optional_filters = reduce_labels_to_filters(labels)
-search_params = Algolia::Search::SearchParamsObject.new(
+search_params = Flapjack::Search::SearchParamsObject.new(
   query: '<YOUR_SEARCH_QUERY>',
   optionalFilters: optional_filters
 )

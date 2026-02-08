@@ -29,7 +29,7 @@ jobs:
 
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.FLAPJACK_BOT_TOKEN }}
           message: |
             ### 🪓 The generated code will be pushed at the end of the CI.
 
@@ -183,8 +183,8 @@ jobs:
       !contains(needs.*.result, 'cancelled') &&
       !contains(needs.*.result, 'failure')
     env:
-      ALGOLIA_APPLICATION_ID: ${{ secrets.ALGOLIA_APPLICATION_ID }}
-      ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+      FLAPJACK_APPLICATION_ID: ${{ secrets.FLAPJACK_APPLICATION_ID }}
+      FLAPJACK_ADMIN_KEY: ${{ secrets.FLAPJACK_ADMIN_KEY }}
       MONITORING_API_KEY: ${{ secrets.MONITORING_API_KEY }}
       METIS_APPLICATION_ID: ${{ secrets.METIS_APPLICATION_ID }}
       METIS_API_KEY: ${{ secrets.METIS_API_KEY }}
@@ -200,7 +200,7 @@ jobs:
       - name: Remove generated clients
         if: ${{ startsWith(github.head_ref, 'chore/prepare-release-') }}
         run: |
-          cd clients/algoliasearch-client-javascript/packages
+          cd clients/flapjack-search-javascript/packages
           find . -mindepth 1 -maxdepth 1 ! -name 'requester-*' ! -name 'logger-*' ! -name 'client-common' -type d -exec rm -rf {}/src {}/model {}/dist {}/builds \;
 
       - name: Setup
@@ -213,10 +213,10 @@ jobs:
         run: yarn cli generate javascript
 
       - name: Update `yarn.lock` for JavaScript
-        run: cd clients/algoliasearch-client-javascript && YARN_ENABLE_HARDENED_MODE=0 YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
+        run: cd clients/flapjack-search-javascript && YARN_ENABLE_HARDENED_MODE=0 YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
 
       - name: Build clients
-        run: cd clients/algoliasearch-client-javascript && yarn build
+        run: cd clients/flapjack-search-javascript && yarn build
 
       - name: Build the playground
         run: yarn cli build playground javascript
@@ -225,15 +225,15 @@ jobs:
         run: yarn workspace javascript-playground-browser build
 
       - name: Run common and requester tests
-        run: cd clients/algoliasearch-client-javascript && yarn test
+        run: cd clients/flapjack-search-javascript && yarn test
 
       - name: Test JavaScript bundle size
         if: ${{ startsWith(github.head_ref, 'chore/prepare-release-') }}
-        run: cd clients/algoliasearch-client-javascript && yarn test:size
+        run: cd clients/flapjack-search-javascript && yarn test:size
 
       - name: Test JavaScript bundle and types
         if: ${{ startsWith(github.head_ref, 'chore/prepare-release-') }}
-        run: cd clients/algoliasearch-client-javascript && yarn test:bundle
+        run: cd clients/flapjack-search-javascript && yarn test:bundle
 
       - name: Remove previous CTS output
         run: rm -rf ${{ fromJSON(needs.setup.outputs.JAVASCRIPT_DATA).testsToDelete }}
@@ -288,7 +288,7 @@ jobs:
         run: yarn cli build guides javascript
 
       - name: Zip artifact before storing
-        run: zip -r -y clients-javascript.zip clients/algoliasearch-client-javascript ${{ fromJSON(needs.setup.outputs.JAVASCRIPT_DATA).testsToStore }} ${{ fromJSON(needs.setup.outputs.JAVASCRIPT_DATA).guidesToStore }} -x "**/node_modules**" "**/.yarn/cache/**" "**/.yarn/install-state.gz" "**/build/**" "**/dist/**" "**/.gradle/**" "**/bin/**" "**/.nx/**"
+        run: zip -r -y clients-javascript.zip clients/flapjack-search-javascript ${{ fromJSON(needs.setup.outputs.JAVASCRIPT_DATA).testsToStore }} ${{ fromJSON(needs.setup.outputs.JAVASCRIPT_DATA).guidesToStore }} -x "**/node_modules**" "**/.yarn/cache/**" "**/.yarn/install-state.gz" "**/build/**" "**/dist/**" "**/.gradle/**" "**/bin/**" "**/.nx/**"
 
       - name: Store javascript clients
         uses: actions/upload-artifact@v6
@@ -313,8 +313,8 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJSON(needs.setup.outputs.GEN_MATRIX) }}
     env:
-      ALGOLIA_APPLICATION_ID: ${{ secrets.ALGOLIA_APPLICATION_ID }}
-      ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+      FLAPJACK_APPLICATION_ID: ${{ secrets.FLAPJACK_APPLICATION_ID }}
+      FLAPJACK_ADMIN_KEY: ${{ secrets.FLAPJACK_ADMIN_KEY }}
       MONITORING_API_KEY: ${{ secrets.MONITORING_API_KEY }}
       METIS_APPLICATION_ID: ${{ secrets.METIS_APPLICATION_ID }}
       METIS_API_KEY: ${{ secrets.METIS_API_KEY }}
@@ -348,14 +348,14 @@ jobs:
         if: ${{ matrix.client.language == 'swift' && matrix.client.isMainVersion }}
         run: |
           set -eo pipefail
-          cd clients/algoliasearch-client-swift
+          cd clients/flapjack-search-swift
           find Sources  -type f | rev | cut -d '/' -f1 | rev | sort | uniq -d
           [ $(find Sources  -type f | rev | cut -d '/' -f1 | rev | sort | uniq -d | wc -l) -gt 0 ] && echo "Duplicates found" && exit 1 || echo "No duplicate found"
 
       - name: Build the playground
         run: yarn cli build playground ${{ matrix.client.language }} --language-version ${{ matrix.client.version }}
 
-      - name: Run Java 'algoliasearch' public API validation
+      - name: Run Java 'flapjack-search' public API validation
         id: breakingChanges
         if: ${{ github.base_ref == 'main' && matrix.client.language == 'java' && matrix.client.isMainVersion }}
         run: |
@@ -480,15 +480,15 @@ jobs:
       !contains(needs.*.result, 'cancelled') &&
       !contains(needs.*.result, 'failure')
     env:
-      ALGOLIA_APPLICATION_ID: ${{ secrets.ALGOLIA_APPLICATION_ID }}
-      ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+      FLAPJACK_APPLICATION_ID: ${{ secrets.FLAPJACK_APPLICATION_ID }}
+      FLAPJACK_ADMIN_KEY: ${{ secrets.FLAPJACK_ADMIN_KEY }}
       MONITORING_API_KEY: ${{ secrets.MONITORING_API_KEY }}
     outputs:
       success: ${{ steps.setoutput.outputs.success }}
     name: client swift${{ format('@{0}', fromJSON(needs.setup.outputs.SWIFT_DATA).version) }} linux
     steps:
       - uses: actions/checkout@v6
-        if: ${{ env.ALGOLIA_APPLICATION_ID != '' }}
+        if: ${{ env.FLAPJACK_APPLICATION_ID != '' }}
 
       - name: Download specs artifacts
         uses: ./scripts/ci/actions/restore-artifacts
@@ -497,7 +497,7 @@ jobs:
 
       - name: Setup
         uses: ./.github/actions/setup
-        if: ${{ env.ALGOLIA_APPLICATION_ID != '' }}
+        if: ${{ env.FLAPJACK_APPLICATION_ID != '' }}
         with:
           language: swift
           version: ${{ fromJSON(needs.setup.outputs.SWIFT_DATA).version }}
@@ -533,7 +533,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.ref }}
-          token: ${{ secrets.ALGOLIA_BOT_TOKEN != '' && secrets.ALGOLIA_BOT_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.FLAPJACK_BOT_TOKEN != '' && secrets.FLAPJACK_BOT_TOKEN || secrets.GITHUB_TOKEN }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Download all artifacts
@@ -577,7 +577,7 @@ jobs:
         id: pushGeneratedCode
         run: yarn workspace scripts pushGeneratedCode
         env:
-          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN != '' && secrets.ALGOLIA_BOT_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.FLAPJACK_BOT_TOKEN != '' && secrets.FLAPJACK_BOT_TOKEN || secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
 
       - name: Check for breaking changes
@@ -596,12 +596,12 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         if: ${{ steps.pushGeneratedCode.outputs.GENERATED_COMMIT == '' }}
         with:
-          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN != '' && secrets.ALGOLIA_BOT_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.FLAPJACK_BOT_TOKEN != '' && secrets.FLAPJACK_BOT_TOKEN || secrets.GITHUB_TOKEN }}
           message: |
             ${{ steps.breakingChanges.outputs.BREAKING_CHANGES_SECTION }}
             ### No code generated
 
-            _If you believe code should've been generated, please, [report the issue](https://github.com/algolia/api-clients-automation/issues/new?assignees=&labels=bug%2Ctriage&projects=&template=Bug_report.yml&title=%5Bbug%5D%3A+)._
+            _If you believe code should've been generated, please, [report the issue](https://github.com/flapjackhq/sdk-automation/issues/new?assignees=&labels=bug%2Ctriage&projects=&template=Bug_report.yml&title=%5Bbug%5D%3A+)._
 
             ${{ steps.benchmark.outputs.BENCHMARK_SECTION }}
 
@@ -609,7 +609,7 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         if: ${{ steps.pushGeneratedCode.outputs.GENERATED_COMMIT != '' }}
         with:
-          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN != '' && secrets.ALGOLIA_BOT_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.FLAPJACK_BOT_TOKEN != '' && secrets.FLAPJACK_BOT_TOKEN || secrets.GITHUB_TOKEN }}
           message: |
             ${{ steps.breakingChanges.outputs.BREAKING_CHANGES_SECTION }}
             ### ✔️ Code generated!
@@ -680,7 +680,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ needs.codegen.outputs.generatedCommit }}
-          token: ${{ secrets.ALGOLIA_BOT_TOKEN }}
+          token: ${{ secrets.FLAPJACK_BOT_TOKEN }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Setup
@@ -692,25 +692,25 @@ jobs:
         id: spreadGeneration
         run: yarn workspace scripts spreadGeneration
         env:
-          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.FLAPJACK_BOT_TOKEN }}
 
       - name: Wait for all release CI
         id: waitForAllReleases
         run: yarn workspace scripts waitForAllReleases ${{ steps.spreadGeneration.outputs.PUSHED_LANGUAGES }}
         env:
-          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.FLAPJACK_BOT_TOKEN }}
 
       - name: Create GitHub release
         run: yarn workspace scripts createGitHubReleases ${{ steps.waitForAllReleases.outputs.RELEASED_LANGUAGES }}
         env:
-          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.FLAPJACK_BOT_TOKEN }}
 
       - name: Push generated files to doc/dashboard repositories
         run: yarn workspace scripts pushToRepository
         if: ${{ steps.waitForAllReleases.outputs.CAN_PUSH_TO_REPO == 'true' }}
         env:
-          GH_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.ALGOLIA_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.FLAPJACK_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.FLAPJACK_BOT_TOKEN }}
         
       - name: notify failures
         uses: slackapi/slack-github-action@v2.1.1

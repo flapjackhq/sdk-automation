@@ -3,8 +3,8 @@
 import { describe, test, expect } from 'vitest';
 
 import { {{{clientName}}} } from '{{{importPackage}}}';
-import { nodeEchoRequester } from '@algolia/requester-testing';
-import type { EchoResponse } from '@algolia/requester-testing';
+import { nodeEchoRequester } from '@flapjack/requester-testing';
+import type { EchoResponse } from '@flapjack/requester-testing';
 
 const appId = 'test-app-id';
 const apiKey = 'test-api-key';
@@ -27,8 +27,8 @@ describe('init', () => {
       path: '1/foo',
     })) as unknown as EchoResponse;
     expect(qpResult.searchParams).toEqual({
-      'x-algolia-api-key': 'bar',
-      'x-algolia-application-id': 'foo',
+      'x-flapjack-api-key': 'bar',
+      'x-flapjack-application-id': 'foo',
     });
 
     const headerResult = (await headerClient.customGet({
@@ -37,8 +37,8 @@ describe('init', () => {
     expect(headerResult.headers).toEqual({
       accept: 'application/json',
       'content-type': 'text/plain',
-      'x-algolia-api-key': 'bar',
-      'x-algolia-application-id': 'foo',
+      'x-flapjack-api-key': 'bar',
+      'x-flapjack-application-id': 'foo',
     });
   });
 });

@@ -28,7 +28,7 @@ async function fetchAllRuns(runs: Run[]): Promise<void> {
       .map(async (ciRun) => {
         // wait for the CI to start
         const workflowRun = await octokit.actions.listWorkflowRuns({
-          owner: 'algolia',
+          owner: 'flapjackhq',
           repo: getClientsConfigField(ciRun.language, 'gitRepoId'),
           workflow_id: 'release.yml',
           per_page: 1,
@@ -101,7 +101,7 @@ async function waitForAllReleases(languagesReleased: Language[]): Promise<void> 
           // retry once
           console.log(`❌ ${ciRun.language} CI failed, retrying once`);
           await getOctokit().actions.reRunWorkflowFailedJobs({
-            owner: 'algolia',
+            owner: 'flapjackhq',
             repo: getClientsConfigField(ciRun.language, 'gitRepoId'),
             run_id: ciRun.run.id,
           });

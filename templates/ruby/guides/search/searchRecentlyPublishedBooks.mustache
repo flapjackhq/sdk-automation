@@ -5,7 +5,7 @@ import time
 {{> snippets/init}}
 
 date_timestamp = Time.now.to_i - 60 * 60 * 24 * 365
-search_params = Algolia::Search::SearchParamsObject.new(
+search_params = Flapjack::Search::SearchParamsObject.new(
   query: "<YOUR_SEARCH_QUERY>",
   filters: "date_timestamp > #{date_timestamp}"
 )

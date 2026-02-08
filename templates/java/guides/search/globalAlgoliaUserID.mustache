@@ -1,14 +1,14 @@
-package com.algolia;
+package com.flapjackhq;
 
 {{> snippets/import}}
 
-public class globalAlgoliaUserID {
+public class globalFlapjackUserID {
 
   public static void main(String[] args) throws Exception {
     SearchClient client = new SearchClient(
-      "ALGOLIA_APPLICATION_ID",
-      "ALGOLIA_API_KEY",
-      ClientOptions.builder().addDefaultHeader("X-Algolia-UserToken", "test-user-123").build()
+      "FLAPJACK_APPLICATION_ID",
+      "FLAPJACK_API_KEY",
+      ClientOptions.builder().addDefaultHeader("X-Flapjack-UserToken", "test-user-123").build()
     );
     client.close();
   }

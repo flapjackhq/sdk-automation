@@ -6,7 +6,7 @@ private <T> List<PushTaskRecords> objectsToPushTaskRecords(Iterable<T> objects) 
 
         return mapper.readValue(json, new TypeReference<List<PushTaskRecords>>() {});
     } catch (Exception e) {
-      throw new AlgoliaRuntimeException(
+      throw new FlapjackRuntimeException(
         "each object must have an `objectID` key in order to be indexed"
       );
     }
@@ -15,12 +15,12 @@ private <T> List<PushTaskRecords> objectsToPushTaskRecords(Iterable<T> objects) 
 /**
  * Helper: Chunks the given `objects` list in subset of 1000 elements max in order to make it fit
  * in `push` requests by leveraging the Transformation pipeline setup in the Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/).
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/).
  *
  * @summary Helper: Chunks the given `objects` list in subset of 1000 elements max in order to
  *     make it fit in `batch` requests.
  * @param indexName - The `indexName` to replace `objects` in.
- * @param objects - The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects - The array of `objects` to store in the given Flapjack `indexName`.
  * @param action - The `batch` `action` to perform on the given array of `objects`.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
  *     processed, this operation may slow the total execution time of this method but is more
@@ -76,7 +76,7 @@ public <T> List<WatchResponse> chunkedPush(
             () -> {
               try {
                 return this.getEvent(response.getRunID(), response.getEventID());
-              } catch (AlgoliaApiException e) {
+              } catch (FlapjackApiException e) {
                 if (e.getStatusCode() == 404) {
                   return null;
                 }
@@ -241,7 +241,7 @@ public GetApiKeyResponse waitForApiKey(
 ) {
   if (operation == ApiKeyOperation.UPDATE) {
     if (apiKey == null) {
-      throw new AlgoliaRuntimeException("`apiKey` is required when waiting for an `update` operation.");
+      throw new FlapjackRuntimeException("`apiKey` is required when waiting for an `update` operation.");
     }
 
     // when updating an api key, we poll the api until we receive a different key
@@ -270,7 +270,7 @@ public GetApiKeyResponse waitForApiKey(
     () -> {
       try {
         return this.getApiKey(key, requestOptions);
-      } catch (AlgoliaApiException e) {
+      } catch (FlapjackApiException e) {
         if (e.getStatusCode() == 404) {
           return null;
         }
@@ -409,7 +409,7 @@ public <T> Iterable<T> browseObjects(String indexName, BrowseParamsObject params
     params.setHitsPerPage(1000);
   }
 
-  return AlgoliaIterableHelper.createIterable(
+  return FlapjackIterableHelper.createIterable(
     () -> {
       BrowseResponse<T> response = this.browse(indexName, params, innerType, requestOptions);
       params.setCursor(response.getCursor());
@@ -455,7 +455,7 @@ public Iterable<SynonymHit> browseSynonyms(String indexName, SearchSynonymsParam
   params.setPage(0);
   params.setHitsPerPage(1000);
 
-  return AlgoliaIterableHelper.createIterable(
+  return FlapjackIterableHelper.createIterable(
     () -> {
       SearchSynonymsResponse response = this.searchSynonyms(indexName, params, requestOptions);
       currentPage.value = response.getHits().size() < params.getHitsPerPage() ? null : currentPage.value + 1;
@@ -497,7 +497,7 @@ public Iterable<Rule> browseRules(String indexName, SearchRulesParams params, Re
   final int hitsPerPage = 1000;
   params.setHitsPerPage(hitsPerPage);
 
-  return AlgoliaIterableHelper.createIterable(
+  return FlapjackIterableHelper.createIterable(
     () -> {
       SearchRulesResponse response = this.searchRules(indexName, params.setPage(currentPage.value), requestOptions);
       currentPage.value = response.getHits().size() < hitsPerPage ? null : currentPage.value + 1;
@@ -528,7 +528,7 @@ public Iterable<Rule> browseRules(String indexName) {
 
 /**
  * Executes a synchronous search for the provided search requests, with certainty that we will
- * only request Algolia records (hits). Results will be received in the same order as the queries.
+ * only request Flapjack records (hits). Results will be received in the same order as the queries.
  *
  * @param requests A list of search requests to be executed.
  */
@@ -538,7 +538,7 @@ public <T> List<SearchResponse<T>> searchForHits(@Nonnull List<SearchForHits> re
 
 /**
  * Executes a synchronous search for the provided search requests, with certainty that we will
- * only request Algolia records (hits). Results will be received in the same order as the queries.
+ * only request Flapjack records (hits). Results will be received in the same order as the queries.
  *
  * @param requests A list of search requests to be executed.
  * @param strategy The search strategy to be employed during the search.
@@ -549,7 +549,7 @@ public <T> List<SearchResponse<T>> searchForHits(@Nonnull List<SearchForHits> re
 
 /**
  * Executes a synchronous search for the provided search requests, with certainty that we will
- * only request Algolia records (hits). Results will be received in the same order as the queries.
+ * only request Flapjack records (hits). Results will be received in the same order as the queries.
  *
  * @param requests A list of search requests to be executed.
  * @param strategy The search strategy to be employed during the search.
@@ -566,7 +566,7 @@ public <T> List<SearchResponse<T>> searchForHits(
 
 /**
  * Executes an asynchronous search for the provided search requests, with certainty that we will
- * only request Algolia records (hits). Results will be received in the same order as the queries.
+ * only request Flapjack records (hits). Results will be received in the same order as the queries.
  *
  * @param requests A list of search requests to be executed.
  */
@@ -576,7 +576,7 @@ public <T> CompletableFuture<List<SearchResponse<T>>> searchForHitsAsync(@Nonnul
 
 /**
  * Executes an asynchronous search for the provided search requests, with certainty that we will
- * only request Algolia records (hits). Results will be received in the same order as the queries.
+ * only request Flapjack records (hits). Results will be received in the same order as the queries.
  *
  * @param requests A list of search requests to be executed.
  * @param strategy The search strategy to be employed during the search.
@@ -591,7 +591,7 @@ public <T> CompletableFuture<List<SearchResponse<T>>> searchForHitsAsync(
 
 /**
  * Executes an asynchronous search for the provided search requests, with certainty that we will
- * only request Algolia records (hits). Results will be received in the same order as the queries.
+ * only request Flapjack records (hits). Results will be received in the same order as the queries.
  *
  * @param requests A list of search requests to be executed.
  * @param innerType The class held by the index, could be your custom class or {@link Object}.
@@ -613,7 +613,7 @@ public <T> CompletableFuture<List<SearchResponse<T>>> searchForHitsAsync(
 
 /**
  * Executes a synchronous search for the provided search requests, with certainty that we will
- * only request Algolia facets. Results will be received in the same order as the queries.
+ * only request Flapjack facets. Results will be received in the same order as the queries.
  *
  * @param requests A list of search requests to be executed.
  */
@@ -623,7 +623,7 @@ public List<SearchForFacetValuesResponse> searchForFacets(@Nonnull List<SearchFo
 
 /**
  * Executes a synchronous search for the provided search requests, with certainty that we will
- * only request Algolia facets. Results will be received in the same order as the queries.
+ * only request Flapjack facets. Results will be received in the same order as the queries.
  *
  * @param requests A list of search requests to be executed.
  * @param strategy The search strategy to be employed during the search.
@@ -634,7 +634,7 @@ public List<SearchForFacetValuesResponse> searchForFacets(@Nonnull List<SearchFo
 
 /**
  * Executes a synchronous search for the provided search requests, with certainty that we will
- * only request Algolia facets. Results will be received in the same order as the queries.
+ * only request Flapjack facets. Results will be received in the same order as the queries.
  *
  * @param requests A list of search requests to be executed.
  * @param strategy The search strategy to be employed during the search.
@@ -650,7 +650,7 @@ public List<SearchForFacetValuesResponse> searchForFacets(
 
 /**
  * Executes an asynchronous search for the provided search requests, with certainty that we will
- * only request Algolia facets. Results will be received in the same order as the queries.
+ * only request Flapjack facets. Results will be received in the same order as the queries.
  *
  * @param requests A list of search requests to be executed.
  */
@@ -660,7 +660,7 @@ public CompletableFuture<List<SearchForFacetValuesResponse>> searchForFacetsAsyn
 
 /**
  * Executes an asynchronous search for the provided search requests, with certainty that we will
- * only request Algolia facets. Results will be received in the same order as the queries.
+ * only request Flapjack facets. Results will be received in the same order as the queries.
  *
  * @param requests A list of search requests to be executed.
  * @param strategy The search strategy to be employed during the search.
@@ -674,7 +674,7 @@ public CompletableFuture<List<SearchForFacetValuesResponse>> searchForFacetsAsyn
 
 /**
  * Executes an asynchronous search for the provided search requests, with certainty that we will
- * only request Algolia facets. Results will be received in the same order as the queries.
+ * only request Flapjack facets. Results will be received in the same order as the queries.
  *
  * @param requests A list of search requests to be executed.
  * @param strategy The search strategy to be employed during the search.
@@ -699,7 +699,7 @@ public CompletableFuture<List<SearchForFacetValuesResponse>> searchForFacetsAsyn
  * @summary Helper: Chunks the given `objects` list in subset of 1000 elements max in order to
  *     make it fit in `batch` requests.
  * @param indexName - The `indexName` to replace `objects` in.
- * @param objects - The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects - The array of `objects` to store in the given Flapjack `indexName`.
  * @param action - The `batch` `action` to perform on the given array of `objects`.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
  *     processed, this operation may slow the total execution time of this method but is more
@@ -762,15 +762,15 @@ public <T> List<BatchResponse> chunkedBatch(
 
 /**
  * Helper: Similar to the `saveObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
- * @throws AlgoliaRetryException When the retry has failed on all hosts
- * @throws AlgoliaApiException When the API sends an http error code
- * @throws AlgoliaRuntimeException When an error occurred during the serialization
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
+ * @throws FlapjackRetryException When the retry has failed on all hosts
+ * @throws FlapjackApiException When the API sends an http error code
+ * @throws FlapjackRuntimeException When an error occurred during the serialization
  */
 public <T> List<WatchResponse> saveObjectsWithTransformation(String indexName, Iterable<T> objects) {
   return saveObjectsWithTransformation(indexName, objects, null);
@@ -778,18 +778,18 @@ public <T> List<WatchResponse> saveObjectsWithTransformation(String indexName, I
 
 /**
  * Helper: Similar to the `saveObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
  *     processed, this operation may slow the total execution time of this method but is more
  *     reliable.
- * @throws AlgoliaRetryException When the retry has failed on all hosts
- * @throws AlgoliaApiException When the API sends an http error code
- * @throws AlgoliaRuntimeException When an error occurred during the serialization
+ * @throws FlapjackRetryException When the retry has failed on all hosts
+ * @throws FlapjackApiException When the API sends an http error code
+ * @throws FlapjackRuntimeException When an error occurred during the serialization
  */
 public <T> List<WatchResponse> saveObjectsWithTransformation(String indexName, Iterable<T> objects, boolean waitForTasks) {
   return saveObjectsWithTransformation(indexName, objects, waitForTasks, null);
@@ -797,12 +797,12 @@ public <T> List<WatchResponse> saveObjectsWithTransformation(String indexName, I
 
 /**
  * Helper: Similar to the `saveObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param requestOptions The requestOptions to send along with the query, they will be merged with
  *     the transporter requestOptions. (optional)
  */
@@ -812,12 +812,12 @@ public <T> List<WatchResponse> saveObjectsWithTransformation(String indexName, I
 
 /**
  * Helper: Similar to the `saveObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
  *     processed, this operation may slow the total execution time of this method but is more
  *     reliable.
@@ -835,12 +835,12 @@ public <T> List<WatchResponse> saveObjectsWithTransformation(
 
 /**
  * Helper: Similar to the `saveObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
  *     processed, this operation may slow the total execution time of this method but is more
  *     reliable.
@@ -857,10 +857,10 @@ public <T> List<WatchResponse> saveObjectsWithTransformation(
   RequestOptions requestOptions
 ) {
   if (this.ingestionTransporter == null) {
-    throw new AlgoliaRuntimeException("`setTransformationRegion` must have been called before calling this method.");
+    throw new FlapjackRuntimeException("`setTransformationRegion` must have been called before calling this method.");
   }
 
-  return this.ingestionTransporter.chunkedPush(indexName, objects, com.algolia.model.ingestion.Action.ADD_OBJECT, waitForTasks, batchSize, null, requestOptions);
+  return this.ingestionTransporter.chunkedPush(indexName, objects, com.flapjackhq.model.ingestion.Action.ADD_OBJECT, waitForTasks, batchSize, null, requestOptions);
 }
 
 /**
@@ -868,7 +868,7 @@ public <T> List<WatchResponse> saveObjectsWithTransformation(
  * under the hood, which creates a `batch` requests with at most 1000 objects in it.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  */
 public <T> List<BatchResponse> saveObjects(String indexName, Iterable<T> objects) {
   return saveObjects(indexName, objects, null);
@@ -879,7 +879,7 @@ public <T> List<BatchResponse> saveObjects(String indexName, Iterable<T> objects
  * under the hood, which creates a `batch` requests with at most 1000 objects in it.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param requestOptions The requestOptions to send along with the query, they will be merged with
  *     the transporter requestOptions. (optional)
  */
@@ -892,7 +892,7 @@ public <T> List<BatchResponse> saveObjects(String indexName, Iterable<T> objects
  * under the hood, which creates a `batch` requests with at most 1000 objects in it.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
  *     processed, this operation may slow the total execution time of this method but is more
  *     reliable.
@@ -908,7 +908,7 @@ public <T> List<BatchResponse> saveObjects(String indexName, Iterable<T> objects
  * under the hood, which creates a `batch` requests with at most 1000 objects in it.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
  *     processed, this operation may slow the total execution time of this method but is more
  *     reliable.
@@ -989,12 +989,12 @@ public List<BatchResponse> deleteObjects(String indexName, List<String> objectID
 
 /**
  * Helper: Similar to the `partialUpdateObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to update `objects` in.
- * @param objects The array of `objects` to update in the given Algolia `indexName`.
+ * @param objects The array of `objects` to update in the given Flapjack `indexName`.
  * @param createIfNotExists To be provided if non-existing objects are passed, otherwise, the call
  *     will fail.
  */
@@ -1004,12 +1004,12 @@ public <T> List<WatchResponse> partialUpdateObjectsWithTransformation(String ind
 
 /**
  * Helper: Similar to the `partialUpdateObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to update `objects` in.
- * @param objects The array of `objects` to update in the given Algolia `indexName`.
+ * @param objects The array of `objects` to update in the given Flapjack `indexName`.
  * @param createIfNotExists To be provided if non-existing objects are passed, otherwise, the call
  *     will fail.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
@@ -1027,12 +1027,12 @@ public <T> List<WatchResponse> partialUpdateObjectsWithTransformation(
 
 /**
  * Helper: Similar to the `partialUpdateObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to update `objects` in.
- * @param objects The array of `objects` to update in the given Algolia `indexName`.
+ * @param objects The array of `objects` to update in the given Flapjack `indexName`.
  * @param createIfNotExists To be provided if non-existing objects are passed, otherwise, the call
  *     will fail.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
@@ -1053,12 +1053,12 @@ public <T> List<WatchResponse> partialUpdateObjectsWithTransformation(
 
 /**
  * Helper: Similar to the `partialUpdateObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to update `objects` in.
- * @param objects The array of `objects` to update in the given Algolia `indexName`.
+ * @param objects The array of `objects` to update in the given Flapjack `indexName`.
  * @param createIfNotExists To be provided if non-existing objects are passed, otherwise, the call
  *     will fail.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
@@ -1078,13 +1078,13 @@ public <T> List<WatchResponse> partialUpdateObjectsWithTransformation(
   RequestOptions requestOptions
 ) {
   if (this.ingestionTransporter == null) {
-    throw new AlgoliaRuntimeException("`setTransformationRegion` must have been called before calling this method.");
+    throw new FlapjackRuntimeException("`setTransformationRegion` must have been called before calling this method.");
   }
 
   return this.ingestionTransporter.chunkedPush(
     indexName,
     objects,
-    createIfNotExists ? com.algolia.model.ingestion.Action.PARTIAL_UPDATE_OBJECT : com.algolia.model.ingestion.Action.PARTIAL_UPDATE_OBJECT_NO_CREATE,
+    createIfNotExists ? com.flapjackhq.model.ingestion.Action.PARTIAL_UPDATE_OBJECT : com.flapjackhq.model.ingestion.Action.PARTIAL_UPDATE_OBJECT_NO_CREATE,
     waitForTasks,
     batchSize,
     null,
@@ -1098,7 +1098,7 @@ public <T> List<WatchResponse> partialUpdateObjectsWithTransformation(
  * requests with at most 1000 objects in it.
  *
  * @param indexName The `indexName` to update `objects` in.
- * @param objects The array of `objects` to update in the given Algolia `indexName`.
+ * @param objects The array of `objects` to update in the given Flapjack `indexName`.
  * @param createIfNotExists To be provided if non-existing objects are passed, otherwise, the call
  *     will fail.
  */
@@ -1112,7 +1112,7 @@ public <T> List<BatchResponse> partialUpdateObjects(String indexName, Iterable<T
  * requests with at most 1000 objects in it.
  *
  * @param indexName The `indexName` to update `objects` in.
- * @param objects The array of `objects` to update in the given Algolia `indexName`.
+ * @param objects The array of `objects` to update in the given Flapjack `indexName`.
  * @param createIfNotExists To be provided if non-existing objects are passed, otherwise, the call
  *     will fail.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
@@ -1134,7 +1134,7 @@ public <T> List<BatchResponse> partialUpdateObjects(
  * requests with at most 1000 objects in it.
  *
  * @param indexName The `indexName` to update `objects` in.
- * @param objects The array of `objects` to update in the given Algolia `indexName`.
+ * @param objects The array of `objects` to update in the given Flapjack `indexName`.
  * @param createIfNotExists To be provided if non-existing objects are passed, otherwise, the call
  *     will fail.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
@@ -1159,7 +1159,7 @@ public <T> List<BatchResponse> partialUpdateObjects(
  * requests with at most 1000 objects in it.
  *
  * @param indexName The `indexName` to update `objects` in.
- * @param objects The array of `objects` to update in the given Algolia `indexName`.
+ * @param objects The array of `objects` to update in the given Flapjack `indexName`.
  * @param createIfNotExists To be provided if non-existing objects are passed, otherwise, the call
  *     will fail.
  * @param waitForTasks - Whether or not we should wait until every `batch` tasks has been
@@ -1195,10 +1195,10 @@ public <T> List<BatchResponse> partialUpdateObjects(
  * details.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
- * @throws AlgoliaRetryException When the retry has failed on all hosts
- * @throws AlgoliaApiException When the API sends an http error code
- * @throws AlgoliaRuntimeException When an error occurred during the serialization
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
+ * @throws FlapjackRetryException When the retry has failed on all hosts
+ * @throws FlapjackApiException When the API sends an http error code
+ * @throws FlapjackRuntimeException When an error occurred during the serialization
  */
 public <T> ReplaceAllObjectsResponse replaceAllObjects(String indexName, Iterable<T> objects) {
   return replaceAllObjects(indexName, objects, -1);
@@ -1211,12 +1211,12 @@ public <T> ReplaceAllObjectsResponse replaceAllObjects(String indexName, Iterabl
  * details.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param batchSize The size of the chunk of `objects`. The number of `batch` calls will be equal
  *     to `length(objects) / batchSize`.
- * @throws AlgoliaRetryException When the retry has failed on all hosts
- * @throws AlgoliaApiException When the API sends an http error code
- * @throws AlgoliaRuntimeException When an error occurred during the serialization
+ * @throws FlapjackRetryException When the retry has failed on all hosts
+ * @throws FlapjackApiException When the API sends an http error code
+ * @throws FlapjackRuntimeException When an error occurred during the serialization
  */
 public <T> ReplaceAllObjectsResponse replaceAllObjects(String indexName, Iterable<T> objects, int batchSize) {
   return replaceAllObjects(indexName, objects, batchSize, null, null);
@@ -1229,13 +1229,13 @@ public <T> ReplaceAllObjectsResponse replaceAllObjects(String indexName, Iterabl
  * details.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param batchSize The size of the chunk of `objects`. The number of `batch` calls will be equal
  *     to `length(objects) / batchSize`.
  * @param scopes The `scopes` to keep from the index. Defaults to ['settings', 'rules', 'synonyms'].
- * @throws AlgoliaRetryException When the retry has failed on all hosts
- * @throws AlgoliaApiException When the API sends an http error code
- * @throws AlgoliaRuntimeException When an error occurred during the serialization
+ * @throws FlapjackRetryException When the retry has failed on all hosts
+ * @throws FlapjackApiException When the API sends an http error code
+ * @throws FlapjackRuntimeException When an error occurred during the serialization
  */
 public <T> ReplaceAllObjectsResponse replaceAllObjects(String indexName, Iterable<T> objects, int batchSize, List<ScopeType> scopes) {
   return replaceAllObjects(indexName, objects, batchSize, scopes, null);
@@ -1248,15 +1248,15 @@ public <T> ReplaceAllObjectsResponse replaceAllObjects(String indexName, Iterabl
  * details.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param batchSize The size of the chunk of `objects`. The number of `batch` calls will be equal
  *     to `length(objects) / batchSize`.
  * @param scopes The `scopes` to keep from the index. Defaults to ['settings', 'rules', 'synonyms'].
  * @param requestOptions The requestOptions to send along with the query, they will be merged with
  *     the transporter requestOptions. (optional)
- * @throws AlgoliaRetryException When the retry has failed on all hosts
- * @throws AlgoliaApiException When the API sends an http error code
- * @throws AlgoliaRuntimeException When an error occurred during the serialization
+ * @throws FlapjackRetryException When the retry has failed on all hosts
+ * @throws FlapjackApiException When the API sends an http error code
+ * @throws FlapjackRuntimeException When an error occurred during the serialization
  */
 public <T> ReplaceAllObjectsResponse replaceAllObjects(
   String indexName,
@@ -1329,15 +1329,15 @@ public <T> ReplaceAllObjectsResponse replaceAllObjects(
 
 /**
  * Helper: Similar to the `saveObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
- * @throws AlgoliaRetryException When the retry has failed on all hosts
- * @throws AlgoliaApiException When the API sends an http error code
- * @throws AlgoliaRuntimeException When an error occurred during the serialization
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
+ * @throws FlapjackRetryException When the retry has failed on all hosts
+ * @throws FlapjackApiException When the API sends an http error code
+ * @throws FlapjackRuntimeException When an error occurred during the serialization
  */
 public <T> ReplaceAllObjectsWithTransformationResponse replaceAllObjectsWithTransformation(String indexName, Iterable<T> objects) {
   return replaceAllObjectsWithTransformation(indexName, objects, -1);
@@ -1345,17 +1345,17 @@ public <T> ReplaceAllObjectsWithTransformationResponse replaceAllObjectsWithTran
 
 /**
  * Helper: Similar to the `saveObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param batchSize The size of the chunk of `objects`. The number of `batch` calls will be equal
  *     to `length(objects) / batchSize`.
- * @throws AlgoliaRetryException When the retry has failed on all hosts
- * @throws AlgoliaApiException When the API sends an http error code
- * @throws AlgoliaRuntimeException When an error occurred during the serialization
+ * @throws FlapjackRetryException When the retry has failed on all hosts
+ * @throws FlapjackApiException When the API sends an http error code
+ * @throws FlapjackRuntimeException When an error occurred during the serialization
  */
 public <T> ReplaceAllObjectsWithTransformationResponse replaceAllObjectsWithTransformation(String indexName, Iterable<T> objects, int batchSize) {
   return replaceAllObjectsWithTransformation(indexName, objects, batchSize, null, null);
@@ -1363,19 +1363,19 @@ public <T> ReplaceAllObjectsWithTransformationResponse replaceAllObjectsWithTran
 
 /**
  * Helper: Similar to the `saveObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param batchSize The size of the chunk of `objects`. The number of `batch` calls will be equal
  *     to `length(objects) / batchSize`.
  * @param scopes The `scopes` to keep from the index. Defaults to ['settings', 'rules',
  *     'synonyms'].
- * @throws AlgoliaRetryException When the retry has failed on all hosts
- * @throws AlgoliaApiException When the API sends an http error code
- * @throws AlgoliaRuntimeException When an error occurred during the serialization
+ * @throws FlapjackRetryException When the retry has failed on all hosts
+ * @throws FlapjackApiException When the API sends an http error code
+ * @throws FlapjackRuntimeException When an error occurred during the serialization
  */
 public <T> ReplaceAllObjectsWithTransformationResponse replaceAllObjectsWithTransformation(String indexName, Iterable<T> objects, int batchSize, List<ScopeType> scopes) {
   return replaceAllObjectsWithTransformation(indexName, objects, batchSize, scopes, null);
@@ -1383,21 +1383,21 @@ public <T> ReplaceAllObjectsWithTransformationResponse replaceAllObjectsWithTran
 
 /**
  * Helper: Similar to the `saveObjects` method but requires a Push connector
- * (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
- * to be created first, in order to transform records before indexing them to Algolia. The
+ * (https://docs.flapjack.foo/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/)
+ * to be created first, in order to transform records before indexing them to Flapjack. The
  * `region` must have been passed to the client instantiation method.
  *
  * @param indexName The `indexName` to replace `objects` in.
- * @param objects The array of `objects` to store in the given Algolia `indexName`.
+ * @param objects The array of `objects` to store in the given Flapjack `indexName`.
  * @param batchSize The size of the chunk of `objects`. The number of `batch` calls will be equal
  *     to `length(objects) / batchSize`.
  * @param scopes The `scopes` to keep from the index. Defaults to ['settings', 'rules',
  *     'synonyms'].
  * @param requestOptions The requestOptions to send along with the query, they will be merged with
  *     the transporter requestOptions. (optional)
- * @throws AlgoliaRetryException When the retry has failed on all hosts
- * @throws AlgoliaApiException When the API sends an http error code
- * @throws AlgoliaRuntimeException When an error occurred during the serialization
+ * @throws FlapjackRetryException When the retry has failed on all hosts
+ * @throws FlapjackApiException When the API sends an http error code
+ * @throws FlapjackRuntimeException When an error occurred during the serialization
  */
 public <T> ReplaceAllObjectsWithTransformationResponse replaceAllObjectsWithTransformation(
   String indexName,
@@ -1407,7 +1407,7 @@ public <T> ReplaceAllObjectsWithTransformationResponse replaceAllObjectsWithTran
   RequestOptions requestOptions
 ) {
   if (this.ingestionTransporter == null) {
-    throw new AlgoliaRuntimeException("`setTransformationRegion` must have been called before calling this method.");
+    throw new FlapjackRuntimeException("`setTransformationRegion` must have been called before calling this method.");
   }
 
   Random rnd = new Random();
@@ -1440,7 +1440,7 @@ public <T> ReplaceAllObjectsWithTransformationResponse replaceAllObjectsWithTran
       this.ingestionTransporter.chunkedPush(
           tmpIndexName,
           objects,
-          com.algolia.model.ingestion.Action.ADD_OBJECT,
+          com.flapjackhq.model.ingestion.Action.ADD_OBJECT,
           true,
           batchSize,
           indexName,
@@ -1475,14 +1475,14 @@ public <T> ReplaceAllObjectsWithTransformationResponse replaceAllObjectsWithTran
   }
 }
 
-private List<com.algolia.model.search.WatchResponse> ingestionResponseToSearchResponse(List<com.algolia.model.ingestion.WatchResponse> responses) {
+private List<com.flapjackhq.model.search.WatchResponse> ingestionResponseToSearchResponse(List<com.flapjackhq.model.ingestion.WatchResponse> responses) {
   try {
     ObjectMapper mapper = new ObjectMapper();
     String json = mapper.writeValueAsString(responses);
 
-    return mapper.readValue(json, new TypeReference<List<com.algolia.model.search.WatchResponse>>() {});
+    return mapper.readValue(json, new TypeReference<List<com.flapjackhq.model.search.WatchResponse>>() {});
   } catch (Exception e) {
-    throw new AlgoliaRuntimeException("ingestion WatchResponse cannot be converted to a search WatchResponse");
+    throw new FlapjackRuntimeException("ingestion WatchResponse cannot be converted to a search WatchResponse");
   }
 }
 
@@ -1494,9 +1494,9 @@ private List<com.algolia.model.search.WatchResponse> ingestionResponseToSearchRe
  * @param parentApiKey API key to generate from.
  * @param restrictions Restrictions to add the key
  * @throws Exception if an error occurs during the encoding
- * @throws AlgoliaRetryException When the retry has failed on all hosts
- * @throws AlgoliaApiException When the API sends an http error code
- * @throws AlgoliaRuntimeException When an error occurred during the serialization
+ * @throws FlapjackRetryException When the retry has failed on all hosts
+ * @throws FlapjackApiException When the API sends an http error code
+ * @throws FlapjackRuntimeException When an error occurred during the serialization
  */
 public String generateSecuredApiKey(@Nonnull String parentApiKey, @Nonnull SecuredApiKeyRestrictions restrictions) throws Exception {
   Map<String, String> restrictionsMap = new HashMap<>();
@@ -1546,13 +1546,13 @@ private String hmac(String key, String msg) throws NoSuchAlgorithmException, Inv
  * `validUntil` parameter must have been provided.
  *
  * @param securedApiKey The secured API Key to check
- * @throws AlgoliaRuntimeException if <code>securedApiKey</code> is null, empty or whitespaces.
- * @throws AlgoliaRuntimeException if <code>securedApiKey</code> doesn't have a <code>validUntil
+ * @throws FlapjackRuntimeException if <code>securedApiKey</code> is null, empty or whitespaces.
+ * @throws FlapjackRuntimeException if <code>securedApiKey</code> doesn't have a <code>validUntil
  *     </code> parameter.
  */
 public Duration getSecuredApiKeyRemainingValidity(@Nonnull String securedApiKey) {
   if (securedApiKey == null || securedApiKey.trim().isEmpty()) {
-    throw new AlgoliaRuntimeException("securedAPIKey must not be empty, null or whitespaces");
+    throw new FlapjackRuntimeException("securedAPIKey must not be empty, null or whitespaces");
   }
 
   byte[] decodedBytes = Base64.getDecoder().decode(securedApiKey);
@@ -1562,7 +1562,7 @@ public Duration getSecuredApiKeyRemainingValidity(@Nonnull String securedApiKey)
   Matcher matcher = pattern.matcher(decodedString);
 
   if (!matcher.find()) {
-    throw new AlgoliaRuntimeException("The Secured API Key doesn't have a validUntil parameter.");
+    throw new FlapjackRuntimeException("The Secured API Key doesn't have a validUntil parameter.");
   }
 
   String validUntilMatch = matcher.group(0);
@@ -1574,7 +1574,7 @@ public Duration getSecuredApiKeyRemainingValidity(@Nonnull String securedApiKey)
 public boolean indexExists(String indexName) {
   try {
     getSettings(indexName);
-  } catch (AlgoliaApiException e) {
+  } catch (FlapjackApiException e) {
     if (e.getStatusCode() == 404) {
       return false;
     }

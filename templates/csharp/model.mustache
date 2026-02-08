@@ -8,17 +8,17 @@ using System.Text;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Collections.Generic;
-using Algolia.Search.Serializer;
+using Flapjack.Search.Serializer;
 using System.Text.Json;
 {{#oneOf}}
 {{#-first}}
 using System.IO;
 using System.Reflection;
-using Algolia.Search.Models.Common;
+using Flapjack.Search.Models.Common;
 {{/-first}}
 {{/oneOf}}
 
-namespace Algolia.Search.Models.{{apiPackageName}};
+namespace Flapjack.Search.Models.{{apiPackageName}};
 
 {{#isEnum}}{{> modelEnum}}{{/isEnum}}{{^isEnum}}{{#oneOf}}{{#-first}}{{> modelOneOf}}{{/-first}}{{/oneOf}}{{#anyOf}}{{#-first}}{{> modelAnyOf}}{{/-first}}{{/anyOf}}{{^oneOf}}{{^anyOf}}{{> modelGeneric}}{{/anyOf}}{{/oneOf}}{{/isEnum}}
 {{/model}}

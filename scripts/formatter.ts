@@ -48,7 +48,7 @@ export async function formatter(language: string, cwd: string): Promise<void> {
     case 'php':
       await runComposerInstall();
       await run(
-        `php clients/algoliasearch-client-php/vendor/bin/php-cs-fixer fix ${cwd} --config=clients/algoliasearch-client-php/.php-cs-fixer.dist.php`,
+        `php clients/flapjack-search-php/vendor/bin/php-cs-fixer fix ${cwd} --config=clients/flapjack-search-php/.php-cs-fixer.dist.php`,
         { language },
       );
       break;

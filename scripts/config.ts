@@ -77,6 +77,6 @@ export function getGitHubUrl(language: Language, options?: { token: string }): s
   // If we want to do something like pushing commits to other repositories,
   // we need to specify a token with more access.
   return options?.token
-    ? `https://${options.token}:${options.token}@github.com/algolia/${gitRepoId}`
-    : `https://github.com/algolia/${gitRepoId}`;
+    ? `https://${options.token}:${options.token}@github.com/flapjackhq/${gitRepoId}`
+    : `https://github.com/flapjackhq/${gitRepoId}`;
 }

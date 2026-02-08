@@ -64,7 +64,7 @@ public abstract class TestsGenerator {
     String clientName = client;
     // This special case allow us to read the `search` CTS to generated the tests for the
     // `lite` client, which is available in Javascript and Dart
-    if (client.equals("algoliasearch")) {
+    if (client.equals("flapjack-search")) {
       clientName = "search";
     }
 
@@ -72,7 +72,7 @@ public abstract class TestsGenerator {
 
     // The algoliasearch client bundles many client and therefore should provide tests for all the
     // subsequent specs
-    if (client.equals("algoliasearch")) {
+    if (client.equals("flapjack-search")) {
       Map<String, T[]> recommendCTS = loadCTS("requests", "recommend", jsonType);
       for (Map.Entry<String, T[]> entry : recommendCTS.entrySet()) {
         String operation = entry.getKey();

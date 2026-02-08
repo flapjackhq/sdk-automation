@@ -36,10 +36,10 @@ generateSecuredApiKey: ({
 },
 
 /**
- * Helper: Copies the given `sourceIndexName` records, rules and synonyms to an other Algolia application for the given `destinationIndexName`.
+ * Helper: Copies the given `sourceIndexName` records, rules and synonyms to another Flapjack application for the given `destinationIndexName`.
  * See https://api-clients-automation.netlify.app/docs/custom-helpers/#replaceallobjects for implementation details.
  *
- * @summary Helper: Copies the given `sourceIndexName` records, rules and synonyms to an other Algolia application for the given `destinationIndexName`.
+ * @summary Helper: Copies the given `sourceIndexName` records, rules and synonyms to another Flapjack application for the given `destinationIndexName`.
  * @param accountCopyIndex - The `accountCopyIndex` object.
  * @param accountCopyIndex.sourceIndexName - The name of the index to copy.
  * @param accountCopyIndex.destinationAppID - The application ID to write the index to.
@@ -72,7 +72,7 @@ async accountCopyIndex(
     },
     logger: createNullLogger(),
     requester: createHttpRequester(),
-    algoliaAgents: [{ segment: 'accountCopyIndex', version: process.versions.node }],
+    flapjackAgents: [{ segment: 'accountCopyIndex', version: process.versions.node }],
     responsesCache: createNullCache(),
     requestsCache: createNullCache(),
     hostsCache: createMemoryCache(),

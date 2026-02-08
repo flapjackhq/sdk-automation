@@ -53,7 +53,7 @@ async function runCtsOne(language: Language, suites: Record<CTSType, boolean>): 
   switch (language) {
     case 'csharp':
       await run(
-        `dotnet test src/Algolia.Search.Tests.csproj /clp:ErrorsOnly --filter 'Algolia.Search.Tests${folders.map((f) => `|Algolia.Search.${f}`).join('')}'`,
+        `dotnet test src/Flapjack.Search.Tests.csproj /clp:ErrorsOnly --filter 'Flapjack.Search.Tests${folders.map((f) => `|Flapjack.Search.${f}`).join('')}'`,
         { cwd, language },
       );
       break;
@@ -73,7 +73,7 @@ async function runCtsOne(language: Language, suites: Record<CTSType, boolean>): 
       );
       break;
     case 'java':
-      await run(`./gradle/gradlew -p tests/output/java test --rerun ${filter((f) => `--tests 'com.algolia.${f}*'`)}`, {
+      await run(`./gradle/gradlew -p tests/output/java test --rerun ${filter((f) => `--tests 'com.flapjackhq.${f}*'`)}`, {
         language,
       });
       break;
@@ -84,14 +84,14 @@ async function runCtsOne(language: Language, suites: Record<CTSType, boolean>): 
       });
       break;
     case 'kotlin':
-      await run(`./gradle/gradlew -p tests/output/kotlin jvmTest ${filter((f) => `--tests 'com.algolia.${f}*'`)}`, {
+      await run(`./gradle/gradlew -p tests/output/kotlin jvmTest ${filter((f) => `--tests 'com.flapjackhq.${f}*'`)}`, {
         language,
       });
       break;
     case 'php':
       await runComposerInstall();
       await run(
-        `php ./clients/algoliasearch-client-php/vendor/bin/phpunit --testdox --fail-on-warning ${filter((f) => `${cwd}/src/${f}`)}`,
+        `php ./clients/flapjack-search-php/vendor/bin/phpunit --testdox --fail-on-warning ${filter((f) => `${cwd}/src/${f}`)}`,
         {
           language,
         },
@@ -99,7 +99,7 @@ async function runCtsOne(language: Language, suites: Record<CTSType, boolean>): 
       // run manual timeout tests
       if (suites.client) {
         await run(
-          'php ./clients/algoliasearch-client-php/vendor/bin/phpunit --testdox --fail-on-warning ./clients/algoliasearch-client-php/tests/TimeoutIntegrationTest.php',
+          'php ./clients/flapjack-search-php/vendor/bin/phpunit --testdox --fail-on-warning ./clients/flapjack-search-php/tests/TimeoutIntegrationTest.php',
           {
             language,
           },
@@ -114,7 +114,7 @@ async function runCtsOne(language: Language, suites: Record<CTSType, boolean>): 
       // run manual timeout tests
       if (suites.client) {
         await run(
-          'poetry run pytest -vv ../../../clients/algoliasearch-client-python/algoliasearch/tests/test_timeout_integration.py',
+          'poetry run pytest -vv ../../../clients/flapjack-search-python/flapjacksearch/tests/test_timeout_integration.py',
           {
             cwd,
             language,
@@ -129,7 +129,7 @@ async function runCtsOne(language: Language, suites: Record<CTSType, boolean>): 
       });
       break;
     case 'scala':
-      await run(`sbt 'testOnly ${filter((f) => `algoliasearch.${f}.*`)}'`, {
+      await run(`sbt 'testOnly ${filter((f) => `flapjacksearch.${f}.*`)}'`, {
         cwd,
         language,
       });

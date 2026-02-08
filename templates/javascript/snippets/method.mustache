@@ -3,7 +3,7 @@
 // >IMPORT
 {{> snippets/import}}
 // IMPORT<
-import type { RequestOptions } from '@algolia/client-common';
+import type { RequestOptions } from '@flapjack/client-common';
 
 {{#blocksRequests}}
 {{#snippets}}
@@ -14,7 +14,7 @@ export {{#isAsyncMethod}}async{{/isAsyncMethod}} function snippetFor{{#lambda.pa
   // >SEPARATOR {{method}} {{{testName}}}
   // Initialize the client
   {{#hasRegionalHost}}
-  // Replace '{{defaultRegion}}' with your Algolia Application Region
+  // Replace '{{defaultRegion}}' with your Flapjack Application Region
   {{/hasRegionalHost}}
   {{> snippets/init}}
 

@@ -12,8 +12,8 @@ jobs:
       - name: Renovate Automatic Branch
         uses: bodinsamuel/renovate-automatic-branch@v1.0.13
         with:
-          github-token: ${{ secrets.ALGOLIA_BOT_TOKEN }}
-          repo-owner: algolia
+          github-token: ${{ secrets.FLAPJACK_BOT_TOKEN }}
+          repo-owner: flapjackhq
           repo-name: api-clients-automation
           pull-request-title: 'chore(deps): dependencies'
           pull-request-body: |

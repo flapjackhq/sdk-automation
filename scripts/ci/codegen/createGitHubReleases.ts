@@ -56,7 +56,7 @@ export async function createGitHubRelease(octokit: Octokit, lang: Language): Pro
     .replaceAll(/- \[/g, '* [')
     .replaceAll(/by \[(.*?)\]\(https:\/\/github\.com.*?\)/g, 'by $1');
 
-  const repository = `algoliasearch-client-${lang}`;
+  const repository = `flapjack-search-${lang}`;
   const repositoryLink = `https://github.com/${OWNER}/${repository}`;
   const content = `
 # New ${isMajor ? '**major** ' : ''}version released!
@@ -65,7 +65,7 @@ ${stripCommitMessage(changelog)}
 
 **Full Changelog**: ${repositoryLink}/compare/${previousVersion}...${newVersion}
 
-→ [Browse the Algolia documentation](https://www.algolia.com/doc/libraries/sdk/install#${lang === 'csharp' ? 'c%23' : lang})
+→ [Browse the Flapjack documentation](https://docs.flapjack.foo/sdk/install#${lang === 'csharp' ? 'c%23' : lang})
 `;
 
   try {

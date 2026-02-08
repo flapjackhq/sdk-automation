@@ -2,11 +2,11 @@
   "repositories": [
     {
       "type": "path",
-      "url": "../../../clients/algoliasearch-client-php"
+      "url": "../../../clients/flapjacksearch-client-php"
     }
   ],
   "require": {
-    "algolia/algoliasearch-client-php": "*",
+    "flapjack/flapjacksearch-client-php": "*",
     "ext-json": "*"
   },
   "require-dev": {

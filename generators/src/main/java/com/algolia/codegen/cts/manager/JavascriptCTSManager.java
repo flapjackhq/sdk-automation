@@ -55,9 +55,9 @@ public class JavascriptCTSManager implements CTSManager {
     boolean isStandaloneClient = (boolean) clientPkg.get().getOrDefault("isStandaloneClient", false);
     bundle.put("isStandaloneClient", isStandaloneClient || client.contains("search"));
 
-    if (client.equals("algoliasearch")) {
+    if (client.equals("flapjack-search")) {
       bundle.put("clientName", "liteClient");
-      bundle.put("importPackage", "algoliasearch/lite");
+      bundle.put("importPackage", "flapjack-search/lite");
     } else if (isStandaloneClient) {
       bundle.put("clientName", (String) clientPkg.get().getOrDefault("clientName", Helpers.camelize(client)) + Helpers.API_SUFFIX);
 
@@ -65,11 +65,11 @@ public class JavascriptCTSManager implements CTSManager {
       bundle.put("importPackage", packageJson.get("name").asText());
     } else {
       bundle.put("initMethod", "init" + Helpers.capitalize(Helpers.camelize(client)));
-      bundle.put("clientName", "algoliasearch");
-      bundle.put("importPackage", "algoliasearch");
+      bundle.put("clientName", "flapjacksearch");
+      bundle.put("importPackage", "flapjacksearch");
     }
 
     bundle.put("utilsPackageVersion", Helpers.getPackageJsonVersion("client-common"));
-    bundle.put("algoliasearchVersion", Helpers.getPackageJsonVersion("algoliasearch"));
+    bundle.put("flapjackSearchVersion", Helpers.getPackageJsonVersion("flapjacksearch"));
   }
 }

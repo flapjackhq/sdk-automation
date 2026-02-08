@@ -1,13 +1,13 @@
 // {{generationBanner}}
-package algoliasearch.benchmark
+package flapjacksearch.benchmark
 
-import algoliasearch.api.{{client}}
-import algoliasearch.config.*
-import algoliasearch.{EchoInterceptor, assertError}
-import algoliasearch.{{import}}.*
-import algoliasearch.exception.*
+import flapjacksearch.api.{{client}}
+import flapjacksearch.config.*
+import flapjacksearch.{EchoInterceptor, assertError}
+import flapjacksearch.{{import}}.*
+import flapjacksearch.exception.*
 {{#isSearchClient}}
-import algoliasearch.extension.SearchClientExtensions
+import flapjacksearch.extension.SearchClientExtensions
 {{/isSearchClient}}
 import org.json4s.*
 import org.json4s.native.JsonParser.*

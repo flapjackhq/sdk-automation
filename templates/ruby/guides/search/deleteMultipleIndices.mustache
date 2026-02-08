@@ -11,14 +11,14 @@ primary_indices, replica_indices = indices.items.partition { |index| index.prima
 
 # Delete primary indices first
 if primary_indices.any?
-  requests = primary_indices.map { |index| Algolia::Search::BatchRequest.new(action: Algolia::Search::Action::DELETE, indexName: index.name) }
+  requests = primary_indices.map { |index| Flapjack::Search::BatchRequest.new(action: Flapjack::Search::Action::DELETE, indexName: index.name) }
   {{#dynamicSnippet}}deleteMultipleIndicesPrimary{{/dynamicSnippet}}
   print("Deleted primary indices.")
 end
 
 # Now, delete replica indices
 if replica_indices.any?
-  requests = replica_indices.map { |index| Algolia::Search::BatchRequest.new(action: Algolia::Search::Action::DELETE, indexName: index.name) }
+  requests = replica_indices.map { |index| Flapjack::Search::BatchRequest.new(action: Flapjack::Search::Action::DELETE, indexName: index.name) }
   {{#dynamicSnippet}}deleteMultipleIndicesReplica{{/dynamicSnippet}}
   print("Deleted replica indices.\n")
 end

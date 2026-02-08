@@ -1,12 +1,12 @@
 # {{generationBanner}}
 from time import time
 from json import loads
-from algoliasearch.http.transporter import EchoTransporter
-from algoliasearch.http.transporter_sync import EchoTransporterSync
-from algoliasearch.{{{import}}}.client import {{#lambda.pascalcase}}{{{client}}}{{/lambda.pascalcase}}
-from algoliasearch.{{{import}}}.client import {{#lambda.pascalcase}}{{{client}}}Sync{{/lambda.pascalcase}}
-from algoliasearch.{{{import}}}.config import {{#lambda.pascalcase}}{{clientPrefix}}Config{{/lambda.pascalcase}}
-from algoliasearch.search.models import (
+from flapjacksearch.http.transporter import EchoTransporter
+from flapjacksearch.http.transporter_sync import EchoTransporterSync
+from flapjacksearch.{{{import}}}.client import {{#lambda.pascalcase}}{{{client}}}{{/lambda.pascalcase}}
+from flapjacksearch.{{{import}}}.client import {{#lambda.pascalcase}}{{{client}}}Sync{{/lambda.pascalcase}}
+from flapjacksearch.{{{import}}}.config import {{#lambda.pascalcase}}{{clientPrefix}}Config{{/lambda.pascalcase}}
+from flapjacksearch.search.models import (
   BatchResponse,
   UpdatedAtResponse,
   GetTaskResponse,

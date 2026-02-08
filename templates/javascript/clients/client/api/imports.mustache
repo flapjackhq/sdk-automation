@@ -2,7 +2,7 @@ import {
   createAuth,
   createTransporter,
   createNullLogger,
-  getAlgoliaAgent,
+  getFlapjackAgent,
   shuffle,
   {{#isSearchClient}}
   ApiError,
@@ -16,7 +16,7 @@ import {
   createIterablePromise,
   ApiError,
   {{/isIngestionClient}}
-} from '@algolia/client-common';
+} from '@flapjack/client-common';
 import type {
   CreateClientOptions,
   Headers,
@@ -27,7 +27,7 @@ import type {
   {{#isSearchClient}}
   IterableOptions,
   {{/isSearchClient}}
-} from '@algolia/client-common';
+} from '@flapjack/client-common';
 
 {{#imports}}
 import type { {{classname}} } from '{{filename}}';
@@ -72,10 +72,10 @@ import type {
   import type { BatchRequest } from '../model/batchRequest';
 {{/isSearchClient}}
 
-{{#isAlgoliasearchClient}}
+{{#isFlapjackSearchClient}}
   import type { SearchResponse } from '../model/searchResponse';
   import type { SearchForFacetValuesResponse } from '../model/searchForFacetValuesResponse';
-{{/isAlgoliasearchClient}}
+{{/isFlapjackSearchClient}}
 
 {{#isIngestionClient}}
   import type { OnDemandTrigger } from '../model/onDemandTrigger';

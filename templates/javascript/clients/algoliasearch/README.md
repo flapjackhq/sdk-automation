@@ -1,3 +1,3 @@
 ## Usage
 
-This folder contains template files used to generate the `algoliasearch` and `lite` clients.
+This folder contains template files used to generate the `flapjack-search` and `lite` clients.

@@ -1,10 +1,10 @@
 /**
- * Helper: Chunks the given `objects` list in subset of 1000 elements max in order to make it fit in `push` requests by leveraging the Transformation pipeline setup in the Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/).
+ * Helper: Chunks the given `objects` list in subset of 1000 elements max in order to make it fit in `push` requests by leveraging the Transformation pipeline setup in the Push connector (https://www.flapjack.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/).
  *
  * @summary Helper: Chunks the given `objects` list in subset of 1000 elements max in order to make it fit in `batch` requests.
  * @param chunkedPush - The `chunkedPush` object.
  * @param chunkedPush.indexName - The `indexName` to replace `objects` in.
- * @param chunkedPush.objects - The array of `objects` to store in the given Algolia `indexName`.
+ * @param chunkedPush.objects - The array of `objects` to store in the given Flapjack `indexName`.
  * @param chunkedPush.action - The `batch` `action` to perform on the given array of `objects`, defaults to `addObject`.
  * @param chunkedPush.waitForTasks - Whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable.
  * @param chunkedPush.batchSize - The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.

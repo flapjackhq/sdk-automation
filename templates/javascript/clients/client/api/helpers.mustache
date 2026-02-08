@@ -1,4 +1,4 @@
-{{^isAlgoliasearchClient}}
+{{^isFlapjackSearchClient}}
 /**
  * Helper: Wait for a task to be published (completed) for a given `indexName` and `taskID`.
  *
@@ -283,7 +283,7 @@ browseSynonyms(
  * @summary Helper: Chunks the given `objects` list in subset of 1000 elements max in order to make it fit in `batch` requests.
  * @param chunkedBatch - The `chunkedBatch` object.
  * @param chunkedBatch.indexName - The `indexName` to replace `objects` in.
- * @param chunkedBatch.objects - The array of `objects` to store in the given Algolia `indexName`.
+ * @param chunkedBatch.objects - The array of `objects` to store in the given Flapjack `indexName`.
  * @param chunkedBatch.action - The `batch` `action` to perform on the given array of `objects`, defaults to `addObject`.
  * @param chunkedBatch.waitForTasks - Whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable.
  * @param chunkedBatch.batchSize - The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
@@ -317,7 +317,7 @@ async chunkedBatch({ indexName, objects, action = 'addObject', waitForTasks, bat
  * @summary Helper: Saves the given array of objects in the given index. The `chunkedBatch` helper is used under the hood, which creates a `batch` requests with at most 1000 objects in it.
  * @param saveObjects - The `saveObjects` object.
  * @param saveObjects.indexName - The `indexName` to save `objects` in.
- * @param saveObjects.objects - The array of `objects` to store in the given Algolia `indexName`.
+ * @param saveObjects.objects - The array of `objects` to store in the given Flapjack `indexName`.
  * @param saveObjects.batchSize - The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
  * @param saveObjects.waitForTasks - Whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable.
  * @param requestOptions - The requestOptions to send along with the query, they will be forwarded to the `batch` method and merged with the transporter requestOptions.
@@ -365,7 +365,7 @@ async deleteObjects(
  * @summary Helper: Replaces object content of all the given objects according to their respective `objectID` field. The `chunkedBatch` helper is used under the hood, which creates a `batch` requests with at most 1000 objects in it.
  * @param partialUpdateObjects - The `partialUpdateObjects` object.
  * @param partialUpdateObjects.indexName - The `indexName` to update `objects` in.
- * @param partialUpdateObjects.objects - The array of `objects` to update in the given Algolia `indexName`.
+ * @param partialUpdateObjects.objects - The array of `objects` to update in the given Flapjack `indexName`.
  * @param partialUpdateObjects.createIfNotExists - To be provided if non-existing objects are passed, otherwise, the call will fail.
  * @param partialUpdateObjects.batchSize - The size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
  * @param partialUpdateObjects.waitForTasks - Whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable.
@@ -396,7 +396,7 @@ async partialUpdateObjects(
  * @summary Helper: Replaces all objects (records) in the given `index_name` with the given `objects`. A temporary index is created during this process in order to backup your data.
  * @param replaceAllObjects - The `replaceAllObjects` object.
  * @param replaceAllObjects.indexName - The `indexName` to replace `objects` in.
- * @param replaceAllObjects.objects - The array of `objects` to store in the given Algolia `indexName`.
+ * @param replaceAllObjects.objects - The array of `objects` to store in the given Flapjack `indexName`.
  * @param replaceAllObjects.batchSize - The size of the chunk of `objects`. The number of `batch` calls will be equal to `objects.length / batchSize`. Defaults to 1000.
  * @param replaceAllObjects.scopes - The `scopes` to keep from the index. Defaults to ['settings', 'rules', 'synonyms'].
  * @param requestOptions - The requestOptions to send along with the query, they will be forwarded to the `batch`, `operationIndex` and `getTask` method and merged with the transporter requestOptions.
@@ -483,10 +483,10 @@ async indexExists({ indexName }: GetSettingsProps): Promise<boolean> {
 
   return true;
 },
-{{/isAlgoliasearchClient}}
+{{/isFlapjackSearchClient}}
 
 /**
- * Helper: calls the `search` method but with certainty that we will only request Algolia records (hits) and not facets.
+ * Helper: calls the `search` method but with certainty that we will only request Flapjack records (hits) and not facets.
  * Disclaimer: We don't assert that the parameters you pass to this method only contains `hits` requests to prevent impacting search performances, this helper is purely for typing purposes.
  *
  * @summary Search multiple indices for `hits`.
@@ -501,7 +501,7 @@ searchForHits<T>(
 },
 
 /**
- * Helper: calls the `search` method but with certainty that we will only request Algolia facets and not records (hits).
+ * Helper: calls the `search` method but with certainty that we will only request Flapjack facets and not records (hits).
  * Disclaimer: We don't assert that the parameters you pass to this method only contains `facets` requests to prevent impacting search performances, this helper is purely for typing purposes.
  *
  * @summary Search multiple indices for `facets`.

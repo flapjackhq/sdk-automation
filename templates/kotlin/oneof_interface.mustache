@@ -1,4 +1,4 @@
-import {{packageName}}.exception.AlgoliaClientException
+import {{packageName}}.exception.FlapjackClientException
 import {{packageName}}.extensions.internal.*
 import kotlinx.serialization.*
 import kotlinx.serialization.builtins.*
@@ -116,7 +116,7 @@ internal class {{classname}}Serializer : JsonContentPolymorphicSerializer<{{clas
             element.isString -> {{{classname}}}.{{dataType}}Value.serializer()
             {{/isString}}
             {{/composedSchemas.oneOf}}
-            else -> throw AlgoliaClientException("Failed to deserialize json element: $element")
+            else -> throw FlapjackClientException("Failed to deserialize json element: $element")
         }
     }
 }

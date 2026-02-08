@@ -15,7 +15,7 @@ import type { {{classname}} } from '{{filename}}';
 {{! Imports for the helpers method of the search client }}
 {{#isSearchClient}}
 import type { createSearchClient } from '../src/searchClient';
-import type { CreateIterablePromise } from '@algolia/client-common';
+import type { CreateIterablePromise } from '@flapjack/client-common';
 {{/isSearchClient}}
 
 {{#operations}}
@@ -47,7 +47,7 @@ export type {{#lambda.titlecase}}{{nickname}}{{/lambda.titlecase}}Props{{#x-has-
 {{/operations}}
 
 {{#isSearchClient}}
-{{^isAlgoliasearchClient}}
+{{^isFlapjackSearchClient}}
 /**
  * The `browseObjects`, `browseRules`, `browseSynonyms` options.
  */
@@ -175,7 +175,7 @@ export type ReplaceAllObjectsOptions = {
   indexName: string;
 
   /**
-   * The array of `objects` to store in the given Algolia `indexName`.
+   * The array of `objects` to store in the given Flapjack `indexName`.
    */
   objects: Array<Record<string, unknown>>;
 
@@ -216,7 +216,7 @@ export type AccountCopyIndexOptions = {
    */
   batchSize?: number | undefined;
 };
-{{/isAlgoliasearchClient}}
+{{/isFlapjackSearchClient}}
 {{/isSearchClient}}
 {{#isCompositionClient}}
 export type WaitForCompositionTaskOptions = {
@@ -269,7 +269,7 @@ export type ChunkedPushOptions = {
   referenceIndexName?: string | undefined;
 
   /**
-   * The array of `objects` to store in the given Algolia `indexName`.
+   * The array of `objects` to store in the given Flapjack `indexName`.
    */
   objects: Array<Record<string, unknown>>;
 }

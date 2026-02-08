@@ -8,11 +8,11 @@ import (
 
 {{> snippets/import}}
 
-func globalAlgoliaUserID() {
+func globalFlapjackUserID() {
   client, err := search.NewClient("YourApplicationID", "YourAdminAPIKey")
   if err != nil {
     fmt.Println(err)
   }
 
-  client.AddDefaultHeader("X-Algolia-UserToken", "test-user-123")
+  client.AddDefaultHeader("X-Flapjack-UserToken", "test-user-123")
 }

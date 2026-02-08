@@ -71,7 +71,7 @@ runs:
       if: ${{ inputs.language == 'go' }}
       uses: actions/setup-go@v6
       with:
-        cache-dependency-path: clients/algoliasearch-client-go/go.sum
+        cache-dependency-path: clients/flapjack-search-go/go.sum
         go-version: ${{ inputs.version }}
 
     - name: Install golangci-lint
@@ -87,33 +87,33 @@ runs:
       uses: actions/cache@v5
       with:
         path: ~/.cache/golangci-lint
-        key: golangci-lint-${{ inputs.version }}-${{ hashFiles('clients/algoliasearch-client-go/go.sum') }}
+        key: golangci-lint-${{ inputs.version }}-${{ hashFiles('clients/flapjack-search-go/go.sum') }}
 
     # JavaScript client deps
     - name: Get yarn js-client cache directory path
       if: ${{ inputs.language == 'javascript' }}
       shell: bash
       id: yarn-cache-dir-client
-      run: echo "dir=$(cd clients/algoliasearch-client-javascript && yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+      run: echo "dir=$(cd clients/flapjack-search-javascript && yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
     - name: Restore Yarn js-client
       if: ${{ inputs.language == 'javascript' }}
       uses: actions/cache@v5
       with:
-        path: ${{ steps.yarn-cache-dir-client.outputs.dir || 'clients/algoliasearch-client-javascript/.yarn/cache' }}
-        key: yarn-cache-clients-${{ hashFiles('clients/algoliasearch-client-javascript/yarn.lock') }}
+        path: ${{ steps.yarn-cache-dir-client.outputs.dir || 'clients/flapjack-search-javascript/.yarn/cache' }}
+        key: yarn-cache-clients-${{ hashFiles('clients/flapjack-search-javascript/yarn.lock') }}
 
     - name: Cache js-client node modules
       if: ${{ inputs.language == 'javascript' }}
       uses: actions/cache@v5
       with:
-        path: clients/algoliasearch-client-javascript/node_modules
-        key: node-modules-clients-${{ hashFiles('clients/algoliasearch-client-javascript/yarn.lock') }}
+        path: clients/flapjack-search-javascript/node_modules
+        key: node-modules-clients-${{ hashFiles('clients/flapjack-search-javascript/yarn.lock') }}
 
     - name: Install JavaScript client dependencies
       if: ${{ inputs.language == 'javascript' }}
       shell: bash
-      run: cd clients/algoliasearch-client-javascript && YARN_ENABLE_HARDENED_MODE=0 YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
+      run: cd clients/flapjack-search-javascript && YARN_ENABLE_HARDENED_MODE=0 YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install
 
     # PHP
     - name: Install PHP
@@ -127,8 +127,8 @@ runs:
       if: ${{ inputs.language == 'php' }}
       shell: bash
       run: |
-        composer install --working-dir=clients/algoliasearch-client-php
-        composer dump-autoload --working-dir=clients/algoliasearch-client-php
+        composer install --working-dir=clients/flapjack-search-php
+        composer dump-autoload --working-dir=clients/flapjack-search-php
 
     # Python
     - name: Install poetry
@@ -144,7 +144,7 @@ runs:
 
     - run: poetry install
       if: ${{ inputs.language == 'python' }}
-      working-directory: clients/algoliasearch-client-python
+      working-directory: clients/flapjack-search-python
       shell: bash
 
     # Ruby
@@ -186,7 +186,7 @@ runs:
       uses: actions/cache@v5
       with:
         path: |
-          clients/algoliasearch-client-swift/.build
+          clients/flapjack-search-swift/.build
         key: swift-build-${{ inputs.version }}-${{ runner.os }}
 
     - name: Set swiftformat version

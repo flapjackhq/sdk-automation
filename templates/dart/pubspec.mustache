@@ -16,11 +16,11 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
-  algolia_client_core: ^{{{coreVersion}}}
-  {{#isAlgoliasearchClient}}
-  algolia_client_search: ^{{{searchVersion}}}
-  algolia_client_insights: ^{{{insightsVersion}}}
-  {{/isAlgoliasearchClient}}
+  flapjack_client_core: ^{{{coreVersion}}}
+  {{#isFlapjackSearchClient}}
+  flapjack_client_search: ^{{{searchVersion}}}
+  flapjack_client_insights: ^{{{insightsVersion}}}
+  {{/isFlapjackSearchClient}}
   json_annotation: ^4.8.1
   collection: ^1.17.1
 

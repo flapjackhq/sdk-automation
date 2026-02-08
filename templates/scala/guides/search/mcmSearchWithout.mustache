@@ -4,7 +4,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 {{> snippets/import}}
-import algoliasearch.search.{FacetFilters, SearchParamsObject}
+import flapjacksearch.search.{FacetFilters, SearchParamsObject}
 
 def mcmSearchWithout(): Future[Unit] = {
   val getAppIDFor: String => String = _ => {

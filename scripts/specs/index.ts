@@ -11,10 +11,10 @@ import { getSnippetFile } from '../config.ts';
 import { bundleSpecsForClient, bundleSpecsForDoc, lintCommon } from './format.ts';
 import type { BaseBuildSpecsOptions } from './types.ts';
 
-const ALGOLIASEARCH_LITE_OPERATIONS = ['search', 'customPost', 'getRecommendations'];
+const FLAPJACK_SEARCH_LITE_OPERATIONS = ['search', 'customPost', 'getRecommendations'];
 
 /**
- * Creates a lite search spec with the `ALGOLIASEARCH_LITE_OPERATIONS` methods
+ * Creates a lite search spec with the `FLAPJACK_SEARCH_LITE_OPERATIONS` methods
  * from the `search` spec.
  */
 async function buildLiteSpec({
@@ -31,7 +31,7 @@ async function buildLiteSpec({
 
   const base = yaml.load(await fsp.readFile(toAbsolutePath(bundledPath), 'utf8')) as Spec;
   const recommend = yaml.load(
-    await fsp.readFile(toAbsolutePath(bundledPath.replace('algoliasearch', 'recommend')), 'utf8'),
+    await fsp.readFile(toAbsolutePath(bundledPath.replace('flapjack-search', 'recommend')), 'utf8'),
   ) as Spec;
   base.paths = { ...base.paths, ...recommend.paths };
   base.components.schemas = { ...base.components.schemas, ...recommend.components.schemas };
@@ -40,7 +40,7 @@ async function buildLiteSpec({
 
   for (const [path, operations] of Object.entries(base.paths)) {
     for (const [, operation] of Object.entries(operations)) {
-      if (ALGOLIASEARCH_LITE_OPERATIONS.includes(operation.operationId)) {
+      if (FLAPJACK_SEARCH_LITE_OPERATIONS.includes(operation.operationId)) {
         lite.paths[path] = { post: operation };
 
         break;
@@ -65,7 +65,7 @@ async function buildSpec({
   docs,
   useCache,
 }: BaseBuildSpecsOptions & { spec: string }): Promise<void> {
-  const isLiteSpec = spec === 'algoliasearch';
+  const isLiteSpec = spec === 'flapjack-search';
 
   if (docs && isLiteSpec) {
     return;
@@ -160,7 +160,7 @@ export async function buildSpecs({
 
   // the `lite` spec will build the `recommend` spec, so we remove it from the list
   // to prevent concurrent builds
-  if (clients.includes('algoliasearch') && !docs) {
+  if (clients.includes('flapjack-search') && !docs) {
     clients = clients.filter((client) => client !== 'recommend');
   }
 

@@ -138,7 +138,7 @@ public class AlgoliaCTSGenerator extends DefaultCodegen {
       // This only exists for the `javascript-algoliasearch` combo, because the `lite` client is
       // nested inside `algoliasearch`.
       String importClientName = client;
-      if ((language.equals("javascript") || language.equals("dart")) && client.equals("algoliasearch")) {
+      if ((language.equals("javascript") || language.equals("dart")) && client.equals("flapjack-search")) {
         importClientName = "lite";
       }
 

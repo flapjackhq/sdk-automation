@@ -19,7 +19,7 @@ export async function playground({ language, client }: { language: AllLanguage; 
       break;
     case 'java':
       await run(
-        `./gradle/gradlew -p playground/java -PmainClass=com.algolia.playground.${createClientName(
+        `./gradle/gradlew -p playground/java -PmainClass=com.flapjackhq.playground.${createClientName(
           client,
           'java',
         )} run`,

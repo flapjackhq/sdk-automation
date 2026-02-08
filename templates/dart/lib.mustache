@@ -1,7 +1,7 @@
 // {{pubDescription}}
-library {{#isAlgoliasearchClient}}algoliasearch_lite{{/isAlgoliasearchClient}}{{^isAlgoliasearchClient}}{{pubName}}{{/isAlgoliasearchClient}};
+library {{#isFlapjackSearchClient}}flapjack_search_lite{{/isFlapjackSearchClient}}{{^isFlapjackSearchClient}}{{pubName}}{{/isFlapjackSearchClient}};
 
-export 'package:algolia_client_core/algolia_client_core.dart';
+export 'package:flapjack_client_core/flapjack_client_core.dart';
 
 {{#apiInfo}}{{#apis}}export '{{sourceFolder}}/{{apiPackage}}/{{classFilename}}.dart';
 {{/apis}}{{/apiInfo}}

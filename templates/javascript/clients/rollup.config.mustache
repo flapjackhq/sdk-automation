@@ -1,43 +1,43 @@
 export default [
   {
-    input: 'dist/{{#isAlgoliasearchClient}}lite/{{/isAlgoliasearchClient}}builds/browser.min.js',
+    input: 'dist/{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}builds/browser.min.js',
     external: ['dom'],
     cache: false,
     output: {
       esModule: false,
-      file: 'dist/{{#isAlgoliasearchClient}}lite/{{/isAlgoliasearchClient}}builds/browser.umd.js',
-      {{#isAlgoliasearchClient}}
-      name: 'algoliasearch/lite',
-      {{/isAlgoliasearchClient}}
-      {{^isAlgoliasearchClient}}
-      name: '@algolia/{{packageName}}',
-      {{/isAlgoliasearchClient}}
+      file: 'dist/{{#isFlapjackSearchClient}}lite/{{/isFlapjackSearchClient}}builds/browser.umd.js',
+      {{#isFlapjackSearchClient}}
+      name: 'flapjack-search/lite',
+      {{/isFlapjackSearchClient}}
+      {{^isFlapjackSearchClient}}
+      name: '@flapjack/{{packageName}}',
+      {{/isFlapjackSearchClient}}
       format: 'umd',
       sourcemap: false,
       globals: {
-        {{#isAlgoliasearchClient}}
+        {{#isFlapjackSearchClient}}
         ['lite']: 'lite',
-        {{/isAlgoliasearchClient}}
-        {{^isAlgoliasearchClient}}
+        {{/isFlapjackSearchClient}}
+        {{^isFlapjackSearchClient}}
         ['{{clientName}}']: '{{clientName}}',
-        {{/isAlgoliasearchClient}}
+        {{/isFlapjackSearchClient}}
       },
     },
   },
-  {{#isAlgoliasearchClient}}
+  {{#isFlapjackSearchClient}}
   {
     input: 'dist/browser.min.js',
     external: ['dom'],
     output: {
       esModule: false,
-      file: 'dist/algoliasearch.umd.js',
-      name: 'algoliasearch',
+      file: 'dist/flapjack-search.umd.js',
+      name: 'flapjackSearch',
       format: 'umd',
       sourcemap: false,
       globals: {
-        ['algoliasearch']: 'algoliasearch',
+        ['flapjackSearch']: 'flapjackSearch',
       },
     },
   }
-  {{/isAlgoliasearchClient}}
+  {{/isFlapjackSearchClient}}
 ]
