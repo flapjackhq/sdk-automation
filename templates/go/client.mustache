@@ -121,14 +121,14 @@ func getDefaultHosts(r Region) []transport.StatefulHost {
 {{#hostWithAppID}}
 func getDefaultHosts(appID string) []transport.StatefulHost {
 	hosts := []transport.StatefulHost{
-		transport.NewStatefulHost("https", appID + "-dsn.algolia.net", call.IsRead),
-		transport.NewStatefulHost("https", appID + ".algolia.net", call.IsWrite),
+		transport.NewStatefulHost("https", appID + "-dsn.flapjack.io", call.IsRead),
+		transport.NewStatefulHost("https", appID + ".flapjack.io", call.IsWrite),
 	}
 	hosts = append(hosts, transport.Shuffle(
 		[]transport.StatefulHost{
-			transport.NewStatefulHost("https", fmt.Sprintf("%s-1.algolianet.com", appID), call.IsReadWrite),
-			transport.NewStatefulHost("https", fmt.Sprintf("%s-2.algolianet.com", appID), call.IsReadWrite),
-			transport.NewStatefulHost("https", fmt.Sprintf("%s-3.algolianet.com", appID), call.IsReadWrite),
+			transport.NewStatefulHost("https", fmt.Sprintf("%s-1.flapjack.io", appID), call.IsReadWrite),
+			transport.NewStatefulHost("https", fmt.Sprintf("%s-2.flapjack.io", appID), call.IsReadWrite),
+			transport.NewStatefulHost("https", fmt.Sprintf("%s-3.flapjack.io", appID), call.IsReadWrite),
 		},
 	)...)
 	return hosts
@@ -145,7 +145,7 @@ func getDefaultHosts() []transport.StatefulHost {
 {{/hostsWithoutVariables.size}}
 
 func getUserAgent() string {
-  return fmt.Sprintf("Algolia for Go ({{{packageVersion}}}); Go (%s); {{#lambda.titlecase}}{{#lambda.camelcase}}{{client}}{{/lambda.camelcase}}{{/lambda.titlecase}} ({{{packageVersion}}})", runtime.Version())
+  return fmt.Sprintf("Flapjack for Go ({{{packageVersion}}}); Go (%s); {{#lambda.titlecase}}{{#lambda.camelcase}}{{client}}{{/lambda.camelcase}}{{/lambda.titlecase}} ({{{packageVersion}}})", runtime.Version())
 }
 
 // AddDefaultHeader adds a new HTTP header to the default header in the request.

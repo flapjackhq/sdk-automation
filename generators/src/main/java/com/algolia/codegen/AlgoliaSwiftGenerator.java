@@ -226,7 +226,7 @@ public class AlgoliaSwiftGenerator extends Swift5ClientCodegen {
     additionalProperties.put(CodegenConstants.EXCLUDE_TESTS, true);
 
     additionalProperties.put(RESPONSE_AS, new String[] { RESPONSE_LIBRARY_ASYNC_AWAIT });
-    additionalProperties.put(CodegenConstants.PROJECT_NAME, "AlgoliaSearchClient");
+    additionalProperties.put(CodegenConstants.PROJECT_NAME, "FlapjackSearchClient");
     additionalProperties.put(CodegenConstants.API_NAME_SUFFIX, Helpers.API_SUFFIX);
     additionalProperties.put(SWIFT_PACKAGE_PATH, "Sources" + File.separator + getClientName(CLIENT));
     additionalProperties.put(OBJC_COMPATIBLE, false);

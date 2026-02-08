@@ -81,14 +81,14 @@ object {{classname}} {
   private def hosts(appId: String): Seq[Host] = {
     val commonHosts = Random.shuffle(
       List(
-        Host(appId + "-1.algolianet.com", Set(CallType.Read, CallType.Write)),
-        Host(appId + "-2.algolianet.com", Set(CallType.Read, CallType.Write)),
-        Host(appId + "-3.algolianet.com", Set(CallType.Read, CallType.Write))
+        Host(appId + "-1.flapjack.io", Set(CallType.Read, CallType.Write)),
+        Host(appId + "-2.flapjack.io", Set(CallType.Read, CallType.Write)),
+        Host(appId + "-3.flapjack.io", Set(CallType.Read, CallType.Write))
       )
     )
     List(
-      Host(appId + "-dsn.algolia.net", Set(CallType.Read)),
-      Host(appId + ".algolia.net", Set(CallType.Write))
+      Host(appId + "-dsn.flapjack.io", Set(CallType.Read)),
+      Host(appId + ".flapjack.io", Set(CallType.Write))
     ) ++ commonHosts
   }
   {{/hostWithAppID}}

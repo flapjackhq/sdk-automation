@@ -2,23 +2,13 @@
   "$schema": "./clients.schema.json",
   "csharp": {
     "clients": [
-      "abtesting",
-      "abtesting-v3",
-      "analytics",
-      "composition",
-      "ingestion",
-      "insights",
-      "monitoring",
-      "personalization",
-      "query-suggestions",
-      "recommend",
       "search"
     ],
-    "folder": "clients/algoliasearch-client-csharp",
-    "gitRepoId": "algoliasearch-client-csharp",
-    "packageVersion": "7.37.1",
-    "modelFolder": "algoliasearch/Models",
-    "apiFolder": "algoliasearch/Clients",
+    "folder": "clients/flapjack-search-csharp",
+    "gitRepoId": "flapjack-search-csharp",
+    "packageVersion": "0.1.0",
+    "modelFolder": "flapjacksearch/Models",
+    "apiFolder": "flapjacksearch/Clients",
     "dockerImage": "apic_base",
     "tests": {
       "extension": ".test.cs",
@@ -37,33 +27,17 @@
   "dart": {
     "clients": [
       {
-        "name": "algoliasearch",
-        "output": "clients/algoliasearch-client-dart/packages/algoliasearch"
-      },
-      {
-        "name": "abtesting-v3",
-        "output": "clients/algoliasearch-client-dart/packages/client_abtesting_v3"
-      },
-      {
-        "name": "composition",
-        "output": "clients/algoliasearch-client-dart/packages/client_composition"
-      },
-      {
-        "name": "insights",
-        "output": "clients/algoliasearch-client-dart/packages/client_insights"
-      },
-      {
-        "name": "recommend",
-        "output": "clients/algoliasearch-client-dart/packages/client_recommend"
+        "name": "flapjack_search",
+        "output": "clients/flapjack-search-dart/packages/flapjack_search"
       },
       {
         "name": "search",
-        "output": "clients/algoliasearch-client-dart/packages/client_search"
+        "output": "clients/flapjack-search-dart/packages/client_search"
       }
     ],
-    "folder": "clients/algoliasearch-client-dart",
-    "gitRepoId": "algoliasearch-client-dart",
-    "packageVersion": "1.44.0",
+    "folder": "clients/flapjack-search-dart",
+    "gitRepoId": "flapjack-search-dart",
+    "packageVersion": "0.1.0",
     "modelFolder": "lib/src/model",
     "apiFolder": "lib/src/api",
     "dockerImage": "apic_base",
@@ -78,23 +52,13 @@
   },
   "go": {
     "clients": [
-      "abtesting",
-      "abtesting-v3",
-      "analytics",
-      "composition",
-      "ingestion",
-      "insights",
-      "monitoring",
-      "personalization",
-      "query-suggestions",
-      "recommend",
       "search"
     ],
-    "folder": "clients/algoliasearch-client-go",
-    "gitRepoId": "algoliasearch-client-go",
-    "packageVersion": "4.36.0",
-    "modelFolder": "algolia",
-    "apiFolder": "algolia",
+    "folder": "clients/flapjack-search-go",
+    "gitRepoId": "flapjack-search-go",
+    "packageVersion": "0.1.0",
+    "modelFolder": "flapjack",
+    "apiFolder": "flapjack",
     "dockerImage": "apic_base",
     "tests": {
       "extension": "_test.go",
@@ -112,31 +76,21 @@
   },
   "java": {
     "clients": [
-      "abtesting",
-      "abtesting-v3",
-      "analytics",
-      "composition",
-      "ingestion",
-      "insights",
-      "monitoring",
-      "personalization",
-      "query-suggestions",
-      "recommend",
       "search"
     ],
-    "folder": "clients/algoliasearch-client-java",
-    "gitRepoId": "algoliasearch-client-java",
-    "packageVersion": "4.35.0",
-    "modelFolder": "algoliasearch/src/main/java/com/algolia/model",
-    "apiFolder": "algoliasearch/src/main/java/com/algolia/api",
+    "folder": "clients/flapjack-search-java",
+    "gitRepoId": "flapjack-search-java",
+    "packageVersion": "0.1.0",
+    "modelFolder": "flapjacksearch/src/main/java/com/flapjackhq/model",
+    "apiFolder": "flapjacksearch/src/main/java/com/flapjackhq/api",
     "dockerImage": "apic_base",
     "tests": {
       "extension": ".test.java",
-      "outputFolder": "src/test/java/com/algolia"
+      "outputFolder": "src/test/java/com/flapjackhq"
     },
     "snippets": {
       "extension": ".java",
-      "outputFolder": "src/test/java/com/algolia"
+      "outputFolder": "src/test/java/com/flapjackhq"
     },
     "supportedVersions": [
       "8",
@@ -148,64 +102,17 @@
   "javascript": {
     "clients": [
       {
-        "name": "algoliasearch",
-        "output": "clients/algoliasearch-client-javascript/packages/algoliasearch"
-      },
-      {
-        "name": "abtesting",
-        "output": "clients/algoliasearch-client-javascript/packages/client-abtesting"
-      },
-      {
-        "name": "abtesting-v3",
-        "output": "clients/algoliasearch-client-javascript/packages/abtesting"
-      },
-      {
-        "name": "analytics",
-        "output": "clients/algoliasearch-client-javascript/packages/client-analytics"
-      },
-      {
-        "name": "composition",
-        "output": "clients/algoliasearch-client-javascript/packages/composition",
-        "isStandaloneClient": true,
-        "clientName": "composition"
-      },
-      {
-        "name": "ingestion",
-        "output": "clients/algoliasearch-client-javascript/packages/ingestion"
-      },
-      {
-        "name": "insights",
-        "output": "clients/algoliasearch-client-javascript/packages/client-insights"
-      },
-      {
-        "name": "monitoring",
-        "output": "clients/algoliasearch-client-javascript/packages/monitoring"
-      },
-      {
-        "name": "personalization",
-        "output": "clients/algoliasearch-client-javascript/packages/client-personalization"
-      },
-      {
-        "name": "advanced-personalization",
-        "output": "clients/algoliasearch-client-javascript/packages/advanced-personalization",
-        "isStandaloneClient": true
-      },
-      {
-        "name": "query-suggestions",
-        "output": "clients/algoliasearch-client-javascript/packages/client-query-suggestions"
-      },
-      {
-        "name": "recommend",
-        "output": "clients/algoliasearch-client-javascript/packages/recommend"
+        "name": "flapjack-search",
+        "output": "clients/flapjack-search-javascript/packages/flapjack-search"
       },
       {
         "name": "search",
-        "output": "clients/algoliasearch-client-javascript/packages/client-search"
+        "output": "clients/flapjack-search-javascript/packages/client-search"
       }
     ],
-    "folder": "clients/algoliasearch-client-javascript",
-    "gitRepoId": "algoliasearch-client-javascript",
-    "packageVersion": "5.48.0",
+    "folder": "clients/flapjack-search-javascript",
+    "gitRepoId": "flapjack-search-javascript",
+    "packageVersion": "0.1.0",
     "modelFolder": "model",
     "apiFolder": "src",
     "tests": {
@@ -219,50 +126,30 @@
   },
   "kotlin": {
     "clients": [
-      "abtesting",
-      "abtesting-v3",
-      "analytics",
-      "composition",
-      "ingestion",
-      "insights",
-      "monitoring",
-      "personalization",
-      "query-suggestions",
-      "recommend",
       "search"
     ],
-    "folder": "clients/algoliasearch-client-kotlin",
-    "gitRepoId": "algoliasearch-client-kotlin",
-    "packageVersion": "3.38.0",
-    "modelFolder": "client/src/commonMain/kotlin/com/algolia/client/model",
-    "apiFolder": "client/src/commonMain/kotlin/com/algolia/client/api",
+    "folder": "clients/flapjack-search-kotlin",
+    "gitRepoId": "flapjack-search-kotlin",
+    "packageVersion": "0.1.0",
+    "modelFolder": "client/src/commonMain/kotlin/com/flapjackhq/client/model",
+    "apiFolder": "client/src/commonMain/kotlin/com/flapjackhq/client/api",
     "dockerImage": "apic_base",
     "tests": {
       "extension": "Test.kt",
-      "outputFolder": "src/commonTest/kotlin/com/algolia"
+      "outputFolder": "src/commonTest/kotlin/com/flapjackhq"
     },
     "snippets": {
       "extension": ".kt",
-      "outputFolder": "src/main/kotlin/com/algolia/snippets"
+      "outputFolder": "src/main/kotlin/com/flapjackhq/snippets"
     }
   },
   "php": {
     "clients": [
-      "abtesting",
-      "abtesting-v3",
-      "analytics",
-      "composition",
-      "ingestion",
-      "insights",
-      "monitoring",
-      "personalization",
-      "query-suggestions",
-      "recommend",
       "search"
     ],
-    "folder": "clients/algoliasearch-client-php",
-    "gitRepoId": "algoliasearch-client-php",
-    "packageVersion": "4.38.0",
+    "folder": "clients/flapjack-search-php",
+    "gitRepoId": "flapjack-search-php",
+    "packageVersion": "0.1.0",
     "modelFolder": "lib/Model",
     "apiFolder": "lib/Api",
     "dockerImage": "apic_base",
@@ -282,23 +169,13 @@
   },
   "python": {
     "clients": [
-      "abtesting",
-      "abtesting-v3",
-      "analytics",
-      "composition",
-      "ingestion",
-      "insights",
-      "monitoring",
-      "personalization",
-      "query-suggestions",
-      "recommend",
       "search"
     ],
-    "folder": "clients/algoliasearch-client-python",
-    "gitRepoId": "algoliasearch-client-python",
-    "packageVersion": "4.36.0",
-    "modelFolder": "algoliasearch",
-    "apiFolder": "algoliasearch",
+    "folder": "clients/flapjack-search-python",
+    "gitRepoId": "flapjack-search-python",
+    "packageVersion": "0.1.0",
+    "modelFolder": "flapjacksearch",
+    "apiFolder": "flapjacksearch",
     "dockerImage": "apic_base",
     "tests": {
       "extension": "_test.py",
@@ -318,23 +195,13 @@
   },
   "ruby": {
     "clients": [
-      "abtesting",
-      "abtesting-v3",
-      "analytics",
-      "composition",
-      "ingestion",
-      "insights",
-      "monitoring",
-      "personalization",
-      "query-suggestions",
-      "recommend",
       "search"
     ],
-    "folder": "clients/algoliasearch-client-ruby",
-    "gitRepoId": "algoliasearch-client-ruby",
-    "packageVersion": "3.35.0",
-    "modelFolder": "lib/algolia/models",
-    "apiFolder": "lib/algolia/api",
+    "folder": "clients/flapjack-search-ruby",
+    "gitRepoId": "flapjack-search-ruby",
+    "packageVersion": "0.1.0",
+    "modelFolder": "lib/flapjack/models",
+    "apiFolder": "lib/flapjack/api",
     "dockerImage": "apic_ruby",
     "tests": {
       "extension": "_test.rb",
@@ -351,27 +218,17 @@
   },
   "scala": {
     "clients": [
-      "abtesting",
-      "abtesting-v3",
-      "analytics",
-      "composition",
-      "ingestion",
-      "insights",
-      "monitoring",
-      "personalization",
-      "query-suggestions",
-      "recommend",
       "search"
     ],
-    "folder": "clients/algoliasearch-client-scala",
-    "gitRepoId": "algoliasearch-client-scala",
-    "packageVersion": "2.37.0",
-    "modelFolder": "src/main/scala/algoliasearch",
-    "apiFolder": "src/main/scala/algoliasearch/api",
+    "folder": "clients/flapjack-search-scala",
+    "gitRepoId": "flapjack-search-scala",
+    "packageVersion": "0.1.0",
+    "modelFolder": "src/main/scala/flapjacksearch",
+    "apiFolder": "src/main/scala/flapjacksearch/api",
     "dockerImage": "apic_base",
     "tests": {
       "extension": "Test.scala",
-      "outputFolder": "src/test/scala/algoliasearch"
+      "outputFolder": "src/test/scala/flapjacksearch"
     },
     "snippets": {
       "extension": ".scala",
@@ -380,21 +237,11 @@
   },
   "swift": {
     "clients": [
-      "abtesting",
-      "abtesting-v3",
-      "analytics",
-      "composition",
-      "ingestion",
-      "insights",
-      "monitoring",
-      "personalization",
-      "query-suggestions",
-      "recommend",
       "search"
     ],
-    "folder": "clients/algoliasearch-client-swift",
-    "gitRepoId": "algoliasearch-client-swift",
-    "packageVersion": "9.38.0",
+    "folder": "clients/flapjack-search-swift",
+    "gitRepoId": "flapjack-search-swift",
+    "packageVersion": "0.1.0",
     "modelFolder": "Sources",
     "apiFolder": "Sources",
     "dockerImage": "apic_swift",

@@ -60,7 +60,7 @@ public class {{classname}} extends ApiClient {
     private IngestionClient ingestionTransporter;
 
     /**
-     * Sets the region of the current algolia application to the configuration, this is required to be called if you wish to leverage the transformation pipeline (via the *WithTransformation methods).
+     * Sets the region of the current Flapjack application to the configuration, this is required to be called if you wish to leverage the transformation pipeline (via the *WithTransformation methods).
      *
      * @param region (required)
      */
@@ -103,13 +103,13 @@ public class {{classname}} extends ApiClient {
     {{#hostWithAppID}}
     private static List<Host> getDefaultHosts(String appId) {
       List<Host> hosts = new ArrayList<>();
-      hosts.add(new Host(appId + "-dsn.algolia.net", EnumSet.of(CallType.READ)));
-      hosts.add(new Host(appId + ".algolia.net", EnumSet.of(CallType.WRITE)));
+      hosts.add(new Host(appId + "-dsn.flapjack.io", EnumSet.of(CallType.READ)));
+      hosts.add(new Host(appId + ".flapjack.io", EnumSet.of(CallType.WRITE)));
 
       List<Host> commonHosts = new ArrayList<>();
-      commonHosts.add(new Host(appId + "-1.algolianet.com", EnumSet.of(CallType.READ, CallType.WRITE)));
-      commonHosts.add(new Host(appId + "-2.algolianet.com", EnumSet.of(CallType.READ, CallType.WRITE)));
-      commonHosts.add(new Host(appId + "-3.algolianet.com", EnumSet.of(CallType.READ, CallType.WRITE)));
+      commonHosts.add(new Host(appId + "-1.flapjack.io", EnumSet.of(CallType.READ, CallType.WRITE)));
+      commonHosts.add(new Host(appId + "-2.flapjack.io", EnumSet.of(CallType.READ, CallType.WRITE)));
+      commonHosts.add(new Host(appId + "-3.flapjack.io", EnumSet.of(CallType.READ, CallType.WRITE)));
 
       Collections.shuffle(commonHosts, new Random());
 

@@ -1,14 +1,14 @@
 from os import environ
 from typing import Dict, Optional
 
-from algoliasearch.http.hosts import (
+from flapjacksearch.http.hosts import (
   CallType,
   Host,
   HostsCollection,
 )
-from algoliasearch.http.user_agent import UserAgent
-from algoliasearch.http.base_config import BaseConfig
-from algoliasearch import __version__
+from flapjacksearch.http.user_agent import UserAgent
+from flapjacksearch.http.base_config import BaseConfig
+from flapjacksearch import __version__
 
 
 class {{#lambda.pascalcase}}{{client}}{{/lambda.pascalcase}}Config(BaseConfig):
@@ -83,11 +83,11 @@ class {{#lambda.pascalcase}}{{client}}{{/lambda.pascalcase}}Config(BaseConfig):
             {{/hostsWithoutVariables.size}}
             {{#hostWithAppID}}
             [
-                Host(url="{}-dsn.algolia.net".format(self.app_id), priority=10, accept=CallType.READ),
-                Host(url="{}.algolia.net".format(self.app_id), priority=10, accept=CallType.WRITE),
-                Host("{}-1.algolianet.com".format(self.app_id)),
-                Host("{}-2.algolianet.com".format(self.app_id)),
-                Host("{}-3.algolianet.com".format(self.app_id)),
+                Host(url="{}-dsn.flapjack.io".format(self.app_id), priority=10, accept=CallType.READ),
+                Host(url="{}.flapjack.io".format(self.app_id), priority=10, accept=CallType.WRITE),
+                Host("{}-1.flapjack.io".format(self.app_id)),
+                Host("{}-2.flapjack.io".format(self.app_id)),
+                Host("{}-3.flapjack.io".format(self.app_id)),
             ],
             reorder_hosts=True,
             {{/hostWithAppID}}

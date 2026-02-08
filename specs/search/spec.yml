@@ -1,25 +1,17 @@
 openapi: 3.0.2
 info:
   title: Search API
-  summary: The Algolia Search API lets you search, configure, and manage your indices and records
+  summary: The Flapjack Search API lets you search, configure, and manage your indices and records
   description: |
     ## Client libraries
 
-    Use Algolia's API clients and libraries to reliably integrate Algolia's APIs with your apps.
-    The official API clients are covered by Algolia's [Service Level Agreement](https://www.algolia.com/policies/sla).
-
-    For more information, see [Algolia's ecosystem](https://www.algolia.com/doc/guides/getting-started/how-algolia-works/in-depth/ecosystem).
+    Use Flapjack's API clients and libraries to integrate Flapjack's APIs with your apps.
 
     ## Base URLs
 
     Base URLs for the Search API:
 
-    - `https://{APPLICATION_ID}.algolia.net`
-    - `https://{APPLICATION_ID}-dsn.algolia.net`.
-      If your subscription includes a [Distributed Search Network](https://dashboard.algolia.com/infra),
-      this ensures that requests are sent to servers closest to users.
-
-    Both URLs provide high availability by distributing requests with load balancing.
+    - `https://{APPLICATION_ID}.flapjack.io`
 
     **All requests must use HTTPS.**
 
@@ -27,24 +19,21 @@ info:
 
     To guarantee high availability, implement a retry strategy for all API requests using the URLs of your servers as fallbacks:
 
-    - `https://{APPLICATION_ID}-1.algolianet.com`
-    - `https://{APPLICATION_ID}-2.algolianet.com`
-    - `https://{APPLICATION_ID}-3.algolianet.com`
+    - `https://{APPLICATION_ID}-1.flapjack.io`
+    - `https://{APPLICATION_ID}-2.flapjack.io`
+    - `https://{APPLICATION_ID}-3.flapjack.io`
 
-    These URLs use a different DNS provider than the primary URLs.
     Randomize this list to ensure an even load across the three servers.
 
-    All Algolia API clients implement this retry strategy.
+    All Flapjack API clients implement this retry strategy.
 
     ## Authentication
 
     Add these headers to authenticate requests:
 
-    - `x-algolia-application-id`. Your Algolia application ID.
+    - `x-algolia-application-id`. Your Flapjack application ID.
     - `x-algolia-api-key`. An API key with the necessary permissions to make the request.
       The required access control list (ACL) to make a request is listed in each endpoint's reference.
-
-    You can find your application ID and API key in the [Algolia dashboard](https://dashboard.algolia.com/account/api-keys).
 
     ## Request format
 
@@ -85,26 +74,26 @@ components:
     attributeToUpdate:
       $ref: 'paths/objects/common/schemas.yml#/attributeToUpdate'
 servers:
-  - url: https://{appId}.algolia.net
+  - url: https://{appId}.flapjack.io
     variables:
       appId:
-        default: ALGOLIA_APPLICATION_ID
-  - url: https://{appId}-1.algolianet.com
+        default: FLAPJACK_APPLICATION_ID
+  - url: https://{appId}-1.flapjack.io
     variables:
       appId:
-        default: ALGOLIA_APPLICATION_ID
-  - url: https://{appId}-2.algolianet.com
+        default: FLAPJACK_APPLICATION_ID
+  - url: https://{appId}-2.flapjack.io
     variables:
       appId:
-        default: ALGOLIA_APPLICATION_ID
-  - url: https://{appId}-3.algolianet.com
+        default: FLAPJACK_APPLICATION_ID
+  - url: https://{appId}-3.flapjack.io
     variables:
       appId:
-        default: ALGOLIA_APPLICATION_ID
-  - url: https://{appId}-dsn.algolia.net
+        default: FLAPJACK_APPLICATION_ID
+  - url: https://{appId}-dsn.flapjack.io
     variables:
       appId:
-        default: ALGOLIA_APPLICATION_ID
+        default: FLAPJACK_APPLICATION_ID
 security:
   - appId: []
     apiKey: []
@@ -118,17 +107,10 @@ tags:
 
       API requests must be authenticated with an API key.
       API keys can have permissions (access control lists, ACL) and restrictions.
-    externalDocs:
-      url: https://www.algolia.com/doc/guides/security/api-keys
-      description: API keys.
 
   - name: Clusters
     description: |
       Multi-cluster operations.
-
-      Multi-cluster operations are **deprecated**.
-      If you have issues with your Algolia infrastructure
-      due to large volumes of data, contact the Algolia support team.
   - name: Dictionaries
     description: |
       Manage your dictionaries.
@@ -136,18 +118,12 @@ tags:
       Customize language-specific settings, such as stop words, plurals, or word segmentation.
 
       Dictionaries are application-wide.
-    externalDocs:
-      url: https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp
-      description: Natural languages.
   - name: Indices
     description: |
       Manage your indices and index settings.
 
-      Indices are copies of your data that are stored on Algolia's servers.
+      Indices are copies of your data that are stored on Flapjack's servers.
       They're optimal data structures for fast search and are made up of records and settings.
-    externalDocs:
-      url: https://www.algolia.com/doc/guides/sending-and-managing-data/manage-indices-and-apps/manage-indices
-      description: Manage your indices.
   - name: Records
     description: |
       Add, update, and delete records from your indices.
@@ -155,10 +131,6 @@ tags:
       Records are individual items in your index.
       When they match a search query, they're returned as search results, in the order determined by your ranking.
       Records are schemaless JSON objects.
-      When adding or updating many records, check the [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
-    externalDocs:
-      url: https://www.algolia.com/doc/guides/sending-and-managing-data/prepare-your-data
-      description: Prepare your records.
   - name: Rules
     description: |
       Create, update, delete, and search for rules.
@@ -167,9 +139,6 @@ tags:
       Rules have _conditions_ that can trigger _consequences_.
       Consequences are changes to the search results, such as changing the order of search results or boosting a facet.
       This can be useful for tuning specific queries or for merchandising.
-    externalDocs:
-      url: https://www.algolia.com/doc/guides/managing-results/rules/rules-overview
-      description: Index Rules.
   - name: Search
     description: Search one or more indices for matching records or facet values.
   - name: Synonyms
@@ -177,14 +146,8 @@ tags:
       Create, update, delete, and search for synonyms.
 
       Synonyms are terms that the search engine should consider equal.
-    externalDocs:
-      url: https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms
-      description: Synonyms.
   - name: Vaults
-    description: Algolia Vault lets you restrict access to your clusters to specific IP addresses and provides disk-level encryption at rest.
-    externalDocs:
-      url: https://www.algolia.com/doc/guides/security/algolia-vault
-      description: Algolia Vault.
+    description: Restrict access to your clusters to specific IP addresses and provides disk-level encryption at rest.
   - name: _model_index_settings
     x-displayName: Index settings
     description: |

@@ -143,7 +143,7 @@ baseSearchResponse:
     serverUsed:
       type: string
       description: Host name of the server that processed the request.
-      example: 'c2-uk-3.algolia.net'
+      example: 'c2-uk-3.flapjack.io'
     userData:
       $ref: './IndexSettings.yml#/userData'
     queryID:

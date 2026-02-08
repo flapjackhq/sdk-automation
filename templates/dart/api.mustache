@@ -36,14 +36,14 @@ final class {{classname}} implements ApiClient {
             options: options,
             {{#hostWithAppID}}
             defaultHosts: () => [
-              Host(url: '$appId-dsn.algolia.net', callType: CallType.read),
-              Host(url: '$appId.algolia.net', callType: CallType.write),
+              Host(url: '$appId-dsn.flapjack.io', callType: CallType.read),
+              Host(url: '$appId.flapjack.io', callType: CallType.write),
             ] +
             (
                 [
-                  Host(url: '$appId-1.algolianet.com'),
-                  Host(url: '$appId-2.algolianet.com'),
-                  Host(url: '$appId-3.algolianet.com'),
+                  Host(url: '$appId-1.flapjack.io'),
+                  Host(url: '$appId-2.flapjack.io'),
+                  Host(url: '$appId-3.flapjack.io'),
                 ]..shuffle()
             ),
             {{/hostWithAppID}}

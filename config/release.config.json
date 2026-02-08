@@ -1,8 +1,8 @@
 {
   "releasedTag": "released",
   "mainBranch": "main",
-  "owner": "algolia",
-  "repo": "api-clients-automation",
+  "owner": "flapjackhq",
+  "repo": "sdk-automation",
   "targetBranch": {
     "csharp": "main",
     "dart": "main",
@@ -18,7 +18,7 @@
   },
   "defaultTargetBranch": "next",
   "gitAuthor": {
-    "name": "algolia-bot",
-    "email": "accounts+algolia-api-client-bot@algolia.com"
+    "name": "flapjack-bot",
+    "email": "bot@flapjack.io"
   }
 }

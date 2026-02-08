@@ -32,12 +32,12 @@ public class {{classname}}(
   override val requester: Requester = requesterOf(clientName = "{{{baseName}}}", appId = appId, apiKey = apiKey, connectTimeout = {{x-timeouts.server.connect}}.milliseconds, readTimeout = {{x-timeouts.server.read}}.milliseconds, writeTimeout = {{x-timeouts.server.write}}.milliseconds, options = options) {
   {{#hostWithAppID}}
     listOf(
-      Host("$appId-dsn.algolia.net", CallType.Read),
-      Host("$appId.algolia.net", CallType.Write),
+      Host("$appId-dsn.flapjack.io", CallType.Read),
+      Host("$appId.flapjack.io", CallType.Write),
     ) + mutableListOf(
-      Host("$appId-1.algolianet.com"),
-      Host("$appId-2.algolianet.com"),
-      Host("$appId-3.algolianet.com")
+      Host("$appId-1.flapjack.io"),
+      Host("$appId-2.flapjack.io"),
+      Host("$appId-3.flapjack.io")
     ).apply { shuffle() }
   {{/hostWithAppID}}
   {{#hasRegionalHost}}

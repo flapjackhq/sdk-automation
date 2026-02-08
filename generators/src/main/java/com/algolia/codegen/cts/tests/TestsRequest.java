@@ -81,7 +81,7 @@ public class TestsRequest extends TestsGenerator {
 
     bundle.put(
       "e2eAppID",
-      client.startsWith("composition") || client.startsWith("advanced-personalization") ? "METIS_APPLICATION_ID" : "ALGOLIA_APPLICATION_ID"
+      client.startsWith("composition") || client.startsWith("advanced-personalization") ? "METIS_APPLICATION_ID" : "FLAPJACK_APPLICATION_ID"
     );
     bundle.put(
       "e2eApiKey",

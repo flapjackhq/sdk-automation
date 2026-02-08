@@ -37,25 +37,25 @@ public class AlgoliaDartGenerator extends DartDioClientCodegen {
     additionalProperties.put("is" + Helpers.capitalize(Helpers.camelize((String) additionalProperties.get("client"))) + "Client", true);
 
     // pubspec.yaml
-    setPubAuthor("Algolia");
-    setPubAuthorEmail("hey@algolia.com");
-    setPubHomepage("https://www.algolia.com/doc/");
+    setPubAuthor("Flapjack");
+    setPubAuthorEmail("support@flapjack.io");
+    setPubHomepage("https://flapjack.io/docs/");
     setPubVersion(version);
     String packageFolder;
     if (isAlgoliasearchClient) {
-      libName = "algoliasearch";
+      libName = "flapjack_search";
       packageFolder = libName;
       setPubDescription(
-        "A Dart package for Algolia. Enables seamless integration for instant search, typo" +
+        "A Dart package for Flapjack Search. Enables seamless integration for instant search, typo" +
           " tolerance & user insights, and more, in Dart/Flutter apps."
       );
     } else {
       String packageName = client.replace("-", "_");
-      libName = "algolia_client_" + packageName;
+      libName = "flapjack_client_" + packageName;
       packageFolder = "client_" + packageName;
       setApiNameSuffix(Helpers.API_SUFFIX);
       setPubDescription(
-        "A sub-package of the AlgoliaSearch library, offering " +
+        "A sub-package of the FlapjackSearch library, offering " +
           client.replace("-", " ") +
           "-specific functionalities for enhanced search and discovery in Dart/Flutter" +
           " apps."
@@ -63,7 +63,7 @@ public class AlgoliaDartGenerator extends DartDioClientCodegen {
     }
     setPubName(libName);
     setPubLibrary(libName);
-    setPubRepository("https://github.com/algolia/algoliasearch-client-dart/tree/main/packages/" + packageFolder);
+    setPubRepository("https://github.com/flapjackhq/flapjack-search-dart/tree/main/packages/" + packageFolder);
 
     // core package
     additionalProperties.put("coreVersion", version);

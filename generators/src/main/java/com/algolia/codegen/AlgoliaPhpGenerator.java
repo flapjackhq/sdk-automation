@@ -33,7 +33,7 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
     setApiNameSuffix(Helpers.API_SUFFIX);
     setParameterNamingConvention("camelCase");
     additionalProperties.put("modelPackage", "Model\\" + getClientName(client));
-    additionalProperties.put("invokerPackage", "Algolia\\AlgoliaSearch");
+    additionalProperties.put("invokerPackage", "Flapjack\\FlapjackSearch");
     additionalProperties.put("clientName", getClientName(client));
 
     super.processOpts();
@@ -52,7 +52,7 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
     supportingFiles.removeIf(file -> file.getTemplateFile().equals("ModelInterface.mustache"));
 
     supportingFiles.add(new SupportingFile("client_config.mustache", "lib/Configuration", getClientName(client) + "Config.php"));
-    supportingFiles.add(new SupportingFile("Algolia.mustache", "lib", "Algolia.php"));
+    supportingFiles.add(new SupportingFile("Algolia.mustache", "lib", "Flapjack.php"));
 
     Helpers.addCommonSupportingFiles(supportingFiles, "");
 
@@ -94,6 +94,6 @@ public class AlgoliaPhpGenerator extends PhpClientCodegen {
 
   @Override
   public String getComposerPackageName() {
-    return "algolia/algoliasearch-client-php";
+    return "flapjackhq/flapjack-search-php";
   }
 }
