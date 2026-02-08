@@ -7,10 +7,10 @@ type PKG = {
 };
 
 const requesters = {
-  fetch: '@algolia/requester-fetch',
-  worker: '@algolia/requester-fetch',
-  http: '@algolia/requester-node-http',
-  xhr: '@algolia/requester-browser-xhr',
+  fetch: '@flapjack-search/requester-fetch',
+  worker: '@flapjack-search/requester-fetch',
+  http: '@flapjack-search/requester-node-http',
+  xhr: '@flapjack-search/requester-browser-xhr',
 };
 
 type Requester = keyof typeof requesters;
@@ -27,7 +27,7 @@ export function getBaseConfig(cwd: string): Options {
 export function getDependencies(pkg: PKG, requester: Requester): string[] {
   const deps = Object.keys(pkg.dependencies || {}) || [];
 
-  if (pkg.name !== 'algoliasearch') {
+  if (pkg.name !== 'flapjack-search') {
     return deps;
   }
 

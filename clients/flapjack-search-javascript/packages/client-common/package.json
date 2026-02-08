@@ -1,14 +1,14 @@
 {
   "name": "@flapjack-search/client-common",
   "version": "0.0.1-alpha.0",
-  "description": "Common package for the Algolia JavaScript API client.",
+  "description": "Common package for the Flapjack Search JavaScript API client.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/flapjackhq/flapjack-search-javascript.git"
   },
   "homepage": "https://github.com/flapjackhq/flapjack-search-javascript#readme",
   "license": "MIT",
-  "author": "Algolia",
+  "author": "Flapjack",
   "type": "module",
   "files": [
     "dist",
