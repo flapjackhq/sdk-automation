@@ -308,7 +308,7 @@ describe("flapjack-search E2E (live server)", () => {
 
   // ----- Highlighting -----
 
-  it("returns highlight results for matching query", async () => {
+  it("returns highlight results with <em> markup for matching query", async () => {
     const res = await client.search({
       requests: [{ indexName: INDEX, query: "laptop" }],
     });
@@ -316,11 +316,17 @@ describe("flapjack-search E2E (live server)", () => {
     expect(hits.hits.length).toBeGreaterThan(0);
     const hit = hits.hits[0];
     expect(hit._highlightResult).toBeDefined();
+    // Verify actual highlight markup — not just that _highlightResult exists
+    const nameHighlight = hit._highlightResult.name;
+    expect(nameHighlight).toBeDefined();
+    expect(nameHighlight.value).toContain("<em>");
+    expect(nameHighlight.value).toContain("Laptop");
+    expect(nameHighlight.matchLevel).toBe("full");
   });
 
   // ----- Synonyms -----
 
-  it("saves and searches synonyms", async () => {
+  it("saves synonyms and verifies search expansion works", async () => {
     await client.saveSynonym({
       indexName: INDEX,
       objectID: "syn1",
@@ -331,13 +337,27 @@ describe("flapjack-search E2E (live server)", () => {
       },
     });
 
+    // Verify CRUD: synonym is stored and retrievable
     const synResult = await client.searchSynonyms({ indexName: INDEX });
     expect((synResult as any).nbHits).toBeGreaterThanOrEqual(1);
+
+    // Verify search expansion: "computer" doesn't appear in any document text,
+    // but the synonym [laptop, notebook, computer] should expand the query
+    // to also match docs containing "laptop"
+    const res = await client.search({
+      requests: [{ indexName: INDEX, query: "computer" }],
+    });
+    const hits = (res.results as any[])[0];
+    expect(hits.nbHits).toBeGreaterThanOrEqual(2);
+    const names = hits.hits.map((h: any) => h.name);
+    expect(names).toEqual(
+      expect.arrayContaining(["Gaming Laptop", "Office Laptop"]),
+    );
   });
 
   // ----- Rules -----
 
-  it("saves and searches rules", async () => {
+  it("saves rules and verifies retrieval with correct data", async () => {
     await client.saveRule({
       indexName: INDEX,
       objectID: "rule1",
@@ -348,8 +368,21 @@ describe("flapjack-search E2E (live server)", () => {
       },
     });
 
+    // Verify rule is stored: searchRules returns it with correct data
     const ruleResult = await client.searchRules({ indexName: INDEX });
-    expect((ruleResult as any).nbHits).toBeGreaterThanOrEqual(1);
+    const rules = (ruleResult as any).hits || [];
+    expect(rules.length).toBeGreaterThanOrEqual(1);
+    const savedRule = rules.find((r: any) => r.objectID === "rule1");
+    expect(savedRule).toBeDefined();
+    expect(savedRule.conditions[0].pattern).toBe("cheap");
+
+    // Verify GET individual rule returns correct data
+    const fetched = await client.getRule({
+      indexName: INDEX,
+      objectID: "rule1",
+    });
+    expect((fetched as any).objectID).toBe("rule1");
+    expect((fetched as any).conditions[0].anchoring).toBe("is");
   });
 
   // ----- ListIndices -----
@@ -416,10 +449,15 @@ describe("flapjack-search E2E (live server)", () => {
       ],
     });
     const hit = (res.results as any[])[0].hits[0];
+    // Requested fields should be present
     expect(hit.name).toBeDefined();
     expect(hit.price).toBeDefined();
     // objectID is always included by Algolia convention
     expect(hit.objectID).toBeDefined();
+    // Non-requested fields should NOT be returned
+    expect(hit.description).toBeUndefined();
+    expect(hit.category).toBeUndefined();
+    expect(hit.brand).toBeUndefined();
   });
 
   // ----- Delete object -----
@@ -460,5 +498,550 @@ describe("flapjack-search E2E (live server)", () => {
     const indices = await client.listIndices();
     const names = (indices.items || []).map((i: any) => i.name);
     expect(names).not.toContain(INDEX);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Additional SDK operations — each test uses its own isolated index
+// ---------------------------------------------------------------------------
+
+describe("flapjack-search E2E — additional SDK operations", () => {
+  const client = createClient();
+
+  beforeAll(async () => {
+    const res = await fetch(`http://${SERVER}/health`);
+    expect(res.ok).toBe(true);
+  });
+
+  // ----- Browse with cursor pagination -----
+
+  it("browses an index with cursor pagination", async () => {
+    const IDX = `e2e_browse_${Date.now()}`;
+    try {
+      await client.saveObjects({
+        indexName: IDX,
+        objects: Array.from({ length: 5 }, (_, i) => ({
+          objectID: `b${i}`,
+          name: `Item ${i}`,
+        })),
+      });
+      await waitForHits(client, IDX, 5);
+
+      const page1 = await client.browse({
+        indexName: IDX,
+        browseParams: { hitsPerPage: 2 },
+      });
+      expect((page1 as any).hits.length).toBe(2);
+      expect((page1 as any).cursor).toBeDefined();
+
+      // Browse next page with cursor
+      const page2 = await client.browse({
+        indexName: IDX,
+        browseParams: { cursor: (page1 as any).cursor },
+      });
+      expect((page2 as any).hits.length).toBeGreaterThan(0);
+
+      // Pages should have different IDs
+      const ids1 = (page1 as any).hits.map((h: any) => h.objectID);
+      const ids2 = (page2 as any).hits.map((h: any) => h.objectID);
+      for (const id of ids2) {
+        expect(ids1).not.toContain(id);
+      }
+    } finally {
+      try {
+        await client.deleteIndex({ indexName: IDX });
+      } catch {}
+    }
+  });
+
+  // ----- clearObjects -----
+
+  it("clears all objects from an index", async () => {
+    const IDX = `e2e_clear_${Date.now()}`;
+    try {
+      await client.saveObjects({
+        indexName: IDX,
+        objects: [
+          { objectID: "c1", name: "A" },
+          { objectID: "c2", name: "B" },
+        ],
+      });
+      await waitForHits(client, IDX, 2);
+
+      await client.clearObjects({ indexName: IDX });
+      await waitForEmpty(client, IDX);
+
+      const res = await client.search({
+        requests: [{ indexName: IDX, query: "" }],
+      });
+      expect((res.results as any[])[0].nbHits).toBe(0);
+    } finally {
+      try {
+        await client.deleteIndex({ indexName: IDX });
+      } catch {}
+    }
+  });
+
+  // ----- batch (direct) -----
+
+  it("executes direct batch operations (add + delete)", async () => {
+    const IDX = `e2e_batch_${Date.now()}`;
+    try {
+      // Add via batch
+      await client.batch({
+        indexName: IDX,
+        batchWriteParams: {
+          requests: [
+            {
+              action: "addObject",
+              body: { objectID: "x1", name: "Batch Item 1" },
+            },
+            {
+              action: "addObject",
+              body: { objectID: "x2", name: "Batch Item 2" },
+            },
+          ],
+        },
+      });
+      await waitForHits(client, IDX, 2);
+
+      // Verify objects exist
+      const obj = await client.getObject({
+        indexName: IDX,
+        objectID: "x1",
+      });
+      expect((obj as any).name).toBe("Batch Item 1");
+
+      // Delete via batch
+      await client.batch({
+        indexName: IDX,
+        batchWriteParams: {
+          requests: [
+            { action: "deleteObject", body: { objectID: "x1" } },
+          ],
+        },
+      });
+
+      // Poll until only 1 remains
+      const start = Date.now();
+      while (Date.now() - start < 5000) {
+        const res = await client.search({
+          requests: [{ indexName: IDX, query: "", hitsPerPage: 0 }],
+        });
+        if ((res.results as any[])[0].nbHits === 1) break;
+        await new Promise((r) => setTimeout(r, 50));
+      }
+
+      const res = await client.search({
+        requests: [{ indexName: IDX, query: "" }],
+      });
+      expect((res.results as any[])[0].nbHits).toBe(1);
+      expect((res.results as any[])[0].hits[0].objectID).toBe("x2");
+    } finally {
+      try {
+        await client.deleteIndex({ indexName: IDX });
+      } catch {}
+    }
+  });
+
+  // ----- deleteBy (filtered delete) -----
+
+  it("deletes objects matching a filter via deleteBy", async () => {
+    const IDX = `e2e_deleteby_${Date.now()}`;
+    try {
+      await client.setSettings({
+        indexName: IDX,
+        indexSettings: { attributesForFaceting: ["filterOnly(category)"] },
+      });
+
+      await client.saveObjects({
+        indexName: IDX,
+        objects: [
+          { objectID: "d1", name: "A", category: "keep" },
+          { objectID: "d2", name: "B", category: "remove" },
+          { objectID: "d3", name: "C", category: "remove" },
+        ],
+      });
+      await waitForHits(client, IDX, 3);
+
+      await client.deleteBy({
+        indexName: IDX,
+        deleteByParams: { filters: "category:remove" },
+      });
+
+      // Poll until only 1 hit remains
+      const start = Date.now();
+      while (Date.now() - start < 5000) {
+        const res = await client.search({
+          requests: [{ indexName: IDX, query: "", hitsPerPage: 0 }],
+        });
+        if ((res.results as any[])[0].nbHits === 1) break;
+        await new Promise((r) => setTimeout(r, 50));
+      }
+
+      const res = await client.search({
+        requests: [{ indexName: IDX, query: "" }],
+      });
+      expect((res.results as any[])[0].nbHits).toBe(1);
+      expect((res.results as any[])[0].hits[0].objectID).toBe("d1");
+    } finally {
+      try {
+        await client.deleteIndex({ indexName: IDX });
+      } catch {}
+    }
+  });
+
+  // ----- searchForFacetValues -----
+
+  it("searches for facet values matching a prefix", async () => {
+    const IDX = `e2e_facetval_${Date.now()}`;
+    try {
+      await client.setSettings({
+        indexName: IDX,
+        indexSettings: {
+          attributesForFaceting: ["searchable(brand)"],
+        },
+      });
+
+      await client.saveObjects({
+        indexName: IDX,
+        objects: [
+          { objectID: "f1", name: "Item1", brand: "Apple" },
+          { objectID: "f2", name: "Item2", brand: "Amazon" },
+          { objectID: "f3", name: "Item3", brand: "Google" },
+        ],
+      });
+      await waitForHits(client, IDX, 3);
+
+      const res = await client.searchForFacetValues({
+        indexName: IDX,
+        facetName: "brand",
+        searchForFacetValuesRequest: { facetQuery: "a" },
+      });
+
+      const values = (res as any).facetHits || [];
+      expect(values.length).toBeGreaterThanOrEqual(1);
+      // "a" prefix should match "Apple" and/or "Amazon"
+      const matched = values.map((v: any) => v.value);
+      expect(matched).toEqual(expect.arrayContaining(["Apple"]));
+    } finally {
+      try {
+        await client.deleteIndex({ indexName: IDX });
+      } catch {}
+    }
+  });
+
+  // ----- Full synonyms CRUD lifecycle -----
+
+  it("performs full synonyms CRUD (save, get, delete)", async () => {
+    const IDX = `e2e_syn_crud_${Date.now()}`;
+    try {
+      await client.saveObjects({
+        indexName: IDX,
+        objects: [{ objectID: "s1", name: "Test" }],
+      });
+      await waitForHits(client, IDX, 1);
+
+      // Save
+      await client.saveSynonym({
+        indexName: IDX,
+        objectID: "syn_crud",
+        synonymHit: {
+          objectID: "syn_crud",
+          type: "synonym",
+          synonyms: ["phone", "mobile", "cell"],
+        },
+      });
+
+      // Get
+      const fetched = await client.getSynonym({
+        indexName: IDX,
+        objectID: "syn_crud",
+      });
+      expect((fetched as any).objectID).toBe("syn_crud");
+      expect((fetched as any).synonyms).toEqual(
+        expect.arrayContaining(["phone", "mobile", "cell"]),
+      );
+
+      // Delete
+      await client.deleteSynonym({
+        indexName: IDX,
+        objectID: "syn_crud",
+      });
+
+      // Verify deleted — getSynonym should throw/fail
+      let deleted = false;
+      try {
+        await client.getSynonym({
+          indexName: IDX,
+          objectID: "syn_crud",
+        });
+      } catch {
+        deleted = true;
+      }
+      expect(deleted).toBe(true);
+    } finally {
+      try {
+        await client.deleteIndex({ indexName: IDX });
+      } catch {}
+    }
+  });
+
+  // ----- Full rules CRUD lifecycle -----
+
+  it("performs full rules CRUD (save, get, delete)", async () => {
+    const IDX = `e2e_rule_crud_${Date.now()}`;
+    try {
+      await client.saveObjects({
+        indexName: IDX,
+        objects: [{ objectID: "r1", name: "Test" }],
+      });
+      await waitForHits(client, IDX, 1);
+
+      // Save
+      await client.saveRule({
+        indexName: IDX,
+        objectID: "rule_crud",
+        rule: {
+          objectID: "rule_crud",
+          conditions: [{ anchoring: "contains", pattern: "test" }],
+          consequence: { params: { query: "modified" } },
+        },
+      });
+
+      // Get
+      const fetched = await client.getRule({
+        indexName: IDX,
+        objectID: "rule_crud",
+      });
+      expect((fetched as any).objectID).toBe("rule_crud");
+      expect((fetched as any).conditions[0].pattern).toBe("test");
+
+      // Delete
+      await client.deleteRule({
+        indexName: IDX,
+        objectID: "rule_crud",
+      });
+
+      // Verify deleted — getRule should throw/fail
+      let deleted = false;
+      try {
+        await client.getRule({
+          indexName: IDX,
+          objectID: "rule_crud",
+        });
+      } catch {
+        deleted = true;
+      }
+      expect(deleted).toBe(true);
+    } finally {
+      try {
+        await client.deleteIndex({ indexName: IDX });
+      } catch {}
+    }
+  });
+
+  // ----- Search response format compliance -----
+
+  it("returns all Algolia-compatible response fields", async () => {
+    const IDX = `e2e_format_${Date.now()}`;
+    try {
+      await client.saveObjects({
+        indexName: IDX,
+        objects: [{ objectID: "f1", name: "Test Widget" }],
+      });
+      await waitForHits(client, IDX, 1);
+
+      const res = await client.search({
+        requests: [{ indexName: IDX, query: "widget" }],
+      });
+      const result = (res.results as any[])[0];
+
+      // Algolia SDKs expect all these fields
+      expect(result.hits).toBeDefined();
+      expect(result.nbHits).toBeDefined();
+      expect(result.page).toBeDefined();
+      expect(result.nbPages).toBeDefined();
+      expect(result.hitsPerPage).toBeDefined();
+      expect(result.processingTimeMS).toBeDefined();
+      expect(result.query).toBe("widget");
+      expect(result.params).toBeDefined();
+
+      // Hits must contain objectID and _highlightResult
+      const hit = result.hits[0];
+      expect(hit.objectID).toBe("f1");
+      expect(hit._highlightResult).toBeDefined();
+      expect(hit._highlightResult.name).toBeDefined();
+      expect(hit._highlightResult.name.value).toContain("<em>");
+    } finally {
+      try {
+        await client.deleteIndex({ indexName: IDX });
+      } catch {}
+    }
+  });
+
+  // ----- operationIndex: copy -----
+
+  it("copies an index to a new destination", async () => {
+    const SRC = `e2e_copy_src_${Date.now()}`;
+    const DST = `e2e_copy_dst_${Date.now()}`;
+    try {
+      await client.setSettings({
+        indexName: SRC,
+        indexSettings: { searchableAttributes: ["name"] },
+      });
+      await client.saveObjects({
+        indexName: SRC,
+        objects: [
+          { objectID: "c1", name: "Copy Me" },
+          { objectID: "c2", name: "Copy Me Too" },
+        ],
+      });
+      await waitForHits(client, SRC, 2);
+
+      await client.operationIndex({
+        indexName: SRC,
+        operationIndexParams: { operation: "copy", destination: DST },
+      });
+
+      // Poll until destination has the docs
+      await waitForHits(client, DST, 2);
+
+      // Verify source still exists
+      const srcRes = await client.search({
+        requests: [{ indexName: SRC, query: "" }],
+      });
+      expect((srcRes.results as any[])[0].nbHits).toBe(2);
+
+      // Verify destination has the data
+      const dstObj = await client.getObject({
+        indexName: DST,
+        objectID: "c1",
+      });
+      expect((dstObj as any).name).toBe("Copy Me");
+    } finally {
+      try {
+        await client.deleteIndex({ indexName: SRC });
+      } catch {}
+      try {
+        await client.deleteIndex({ indexName: DST });
+      } catch {}
+    }
+  });
+
+  // ----- operationIndex: move -----
+
+  it("moves an index to a new name", async () => {
+    const SRC = `e2e_move_src_${Date.now()}`;
+    const DST = `e2e_move_dst_${Date.now()}`;
+    try {
+      await client.saveObjects({
+        indexName: SRC,
+        objects: [{ objectID: "m1", name: "Move Me" }],
+      });
+      await waitForHits(client, SRC, 1);
+
+      await client.operationIndex({
+        indexName: SRC,
+        operationIndexParams: { operation: "move", destination: DST },
+      });
+
+      // Poll until destination has the doc
+      await waitForHits(client, DST, 1);
+
+      const obj = await client.getObject({
+        indexName: DST,
+        objectID: "m1",
+      });
+      expect((obj as any).name).toBe("Move Me");
+
+      // Source should be gone from listIndices
+      const indices = await client.listIndices();
+      const names = (indices.items || []).map((i: any) => i.name);
+      expect(names).not.toContain(SRC);
+    } finally {
+      try {
+        await client.deleteIndex({ indexName: DST });
+      } catch {}
+    }
+  });
+
+  // ----- API key management -----
+
+  it("performs API key CRUD (add, get, list, delete)", async () => {
+    // Add a new API key
+    const createRes = await client.addApiKey({
+      acl: ["search"],
+      description: "E2E test key",
+      indexes: ["*"],
+    });
+    const newKey = (createRes as any).key;
+    expect(newKey).toBeDefined();
+    expect(typeof newKey).toBe("string");
+    expect(newKey.length).toBeGreaterThan(0);
+
+    try {
+      // Get the key
+      const fetched = await client.getApiKey({ key: newKey });
+      expect((fetched as any).description).toBe("E2E test key");
+
+      // List keys — should include our new key
+      const keys = await client.listApiKeys();
+      const keyValues = (keys.keys || []).map((k: any) => k.value || k.key);
+      expect(keyValues).toContain(newKey);
+    } finally {
+      // Delete the key
+      await client.deleteApiKey({ key: newKey });
+    }
+
+    // Verify deleted — getApiKey should fail
+    let deleted = false;
+    try {
+      await client.getApiKey({ key: newKey });
+    } catch {
+      deleted = true;
+    }
+    expect(deleted).toBe(true);
+  });
+
+  // ----- getTask -----
+  // NOTE: Flapjack returns synthetic timestamp-based taskIDs from write operations
+  // for Algolia wire compatibility, but getTask expects internal task UIDs.
+  // This is a known server compatibility gap — waitTask/getTask doesn't work
+  // with the taskID from batch/settings/delete responses.
+  // The test below verifies the SDK method exists and the endpoint responds.
+
+  it("verifies getTask endpoint exists (known gap: taskID mismatch)", async () => {
+    const IDX = `e2e_task_${Date.now()}`;
+    try {
+      const result = await client.batch({
+        indexName: IDX,
+        batchWriteParams: {
+          requests: [
+            {
+              action: "addObject",
+              body: { objectID: "t1", name: "Task Test" },
+            },
+          ],
+        },
+      });
+
+      const taskID = (result as any).taskID;
+      expect(taskID).toBeDefined();
+      expect(typeof taskID).toBe("number");
+
+      // getTask with the batch taskID currently returns 404 (known gap)
+      // When this gap is fixed, the following should succeed:
+      try {
+        await client.getTask({ indexName: IDX, taskID });
+      } catch (e: any) {
+        // Expected: task_not_found because batch returns synthetic IDs
+        expect(e.message || e.toString()).toContain("not found");
+      }
+    } finally {
+      try {
+        await client.deleteIndex({ indexName: IDX });
+      } catch {}
+    }
   });
 });
